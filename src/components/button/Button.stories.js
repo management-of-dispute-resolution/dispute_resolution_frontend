@@ -8,7 +8,7 @@ export default {
 		backgroundColor: { control: 'color' },
 	},
 };
-export const Small = {
+export const Large = {
 	args: {
 		// primary: true,
 		label: 'Button',

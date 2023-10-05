@@ -37,7 +37,7 @@ function Button({
 }
 Button.defaultProps = {
 	type: 'button',
-	size: 'small',
+	size: 'large',
 	url: undefined,
 	onClick: undefined,
 	disabled: false,
