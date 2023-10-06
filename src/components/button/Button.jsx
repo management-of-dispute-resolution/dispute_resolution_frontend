@@ -26,7 +26,7 @@ function Button({
 			// aria-label="Отображать больше фильмов на странице"
 			className={[
 				`button button_size_${size} button_color_blue ${
-					!disabled && 'button_disabled_true'
+					!!disabled && 'button_disabled_true'
 				}`,
 			]}
 			style={backgroundColor && { backgroundColor }}
