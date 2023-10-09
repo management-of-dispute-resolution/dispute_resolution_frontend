@@ -12,12 +12,12 @@ function Input({
 	onChange,
 	error,
 }) {
-	const [showPassword, setShowPassword] = useState(false);
+	const [isPassword, setIsPassword] = useState(true);
 	const [itemType, setItemType] = useState(type);
 
 	function handleShowPassword() {
-		setShowPassword(!showPassword);
-		setItemType(showPassword ? 'text' : 'password');
+		setIsPassword(!isPassword);
+		setItemType(isPassword ? 'text' : 'password');
 	}
 
 	return (
@@ -41,7 +41,7 @@ function Input({
 				{name === 'Password' && (
 					<button
 						className={
-							showPassword ? 'input__icon input__icon-close-eye' : 'input__icon'
+							isPassword ? 'input__icon input__icon-close-eye' : 'input__icon'
 						}
 						onClick={handleShowPassword}
 					>
