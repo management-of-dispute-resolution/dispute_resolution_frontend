@@ -1,33 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './Checkbox.css';
 
-function Checkbox({ label, checked: propChecked, onChange }) {
-	const [isChecked, setIsChecked] = useState(propChecked);
-
-	useEffect(() => {
-		setIsChecked(propChecked);
-	}, [propChecked]);
-
-	const handleCheckboxChange = () => {
-		const newChecked = !isChecked;
-		setIsChecked(newChecked);
-		if (onChange) {
-			onChange(newChecked);
-		}
-	};
-
+function Checkbox({ label, checked, onChange }) {
 	return (
 		<div className="checkbox-container">
 			<input
 				type="checkbox"
 				className="checkbox-input"
-				checked={isChecked}
-				onChange={handleCheckboxChange}
-				id={label} // Added id to associate label with input
+				checked={checked}
+				onChange={onChange}
+				id={label}
 			/>
 			<label htmlFor={label} className="checkbox-label">
-				<span className={`checkbox-custom ${isChecked ? 'checked' : ''}`} />
+				<span className={`checkbox-custom ${checked ? 'checked' : ''}`} />
 				{label}
 			</label>
 		</div>
