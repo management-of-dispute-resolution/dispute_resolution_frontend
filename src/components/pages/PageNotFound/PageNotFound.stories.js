@@ -1,3 +1,4 @@
+import { BrowserRouter } from 'react-router-dom';
 import PageNotFound from './PageNotFound';
 
 export default {
@@ -8,4 +9,8 @@ export default {
 	},
 };
 
-export const Default = () => <PageNotFound />;
+export const Default = () => (
+	<BrowserRouter>
+		<PageNotFound />
+	</BrowserRouter>
+);
