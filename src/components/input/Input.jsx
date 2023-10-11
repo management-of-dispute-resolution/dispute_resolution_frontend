@@ -11,6 +11,7 @@ function Input({
 	disabled,
 	onChange,
 	error,
+	pattern,
 }) {
 	const [isPassword, setIsPassword] = useState(true);
 	const [itemType, setItemType] = useState(type);
@@ -33,6 +34,7 @@ function Input({
 						value={value}
 						onChange={onChange}
 						disabled={disabled}
+						pattern={pattern}
 					/>
 					<label htmlFor="userPassword" className="input__label">
 						{label}
@@ -64,6 +66,7 @@ Input.propTypes = {
 	onChange: PropTypes.func,
 	disabled: PropTypes.bool,
 	error: PropTypes.string,
+	pattern: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -75,4 +78,5 @@ Input.defaultProps = {
 	onChange: undefined,
 	disabled: false,
 	error: '',
+	pattern: undefined,
 };
