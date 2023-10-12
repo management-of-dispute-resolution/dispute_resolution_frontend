@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './PopupWrapper.css';
 
-export const PopupWrapper = ({ isOpen, onClose, type, children }) => {
+export const PopupWrapper = ({ isOpen, onClose, children }) => {
 	useEffect(() => {
 		if (!isOpen) return undefined;
 
@@ -18,9 +18,6 @@ export const PopupWrapper = ({ isOpen, onClose, type, children }) => {
 	}, [isOpen, onClose]);
 
 	return (
-		// <div>
-		//   {isOpen
-		//     ? (
 		<div
 			className={`popup ${isOpen ? 'popup_opened' : ''}`}
 			role="button"
@@ -28,28 +25,24 @@ export const PopupWrapper = ({ isOpen, onClose, type, children }) => {
 			onMouseDown={(evt) => evt.target === evt.currentTarget && onClose()}
 		>
 			<div className="popup__container">
-				<button
+				{/* Пока оставим - может пригодся?? */}
+				{/* <button
 					className={`popup__close-btn ${
 						type === 'form' ? 'popup__close-btn_visible' : ''
 					}`}
 					type="button"
 					aria-label="Кнопка закрытия модального окна"
 					onClick={onClose}
-				/>
+				/> */}
 				{children}
 			</div>
 		</div>
-		//     )
-		//     : <div className='popup' />
-		//   }
-		// </div>
 	);
 };
 
 PopupWrapper.propTypes = {
 	isOpen: PropTypes.bool.isRequired,
 	onClose: PropTypes.func.isRequired,
-	type: PropTypes.oneOf(['info', 'form']).isRequired,
+	// type: PropTypes.oneOf(['info', 'form']).isRequired,
 	children: PropTypes.element.isRequired,
-	// children: PropTypes.oneOfType(PropTypes.node, PropTypes.element).isRequired,
 };
