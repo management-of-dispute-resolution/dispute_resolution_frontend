@@ -41,8 +41,9 @@
 	position: absolute;
 	opacity: 0;
 	visibility: hidden;
-	top: -40px;
-	right: -40px;
+	padding: 0;
+	top: 33px;
+	right: 33px;
 	width: 32px;
 	height: 32px;
 	border: none;

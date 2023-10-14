@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './PopupWrapper.css';
 
-export const PopupWrapper = ({ isOpen, onClose, children }) => {
+export const PopupWrapper = ({ isOpen, onClose, type, children }) => {
 	useEffect(() => {
 		if (!isOpen) return undefined;
 
@@ -25,15 +25,14 @@ export const PopupWrapper = ({ isOpen, onClose, children }) => {
 			onMouseDown={(evt) => evt.target === evt.currentTarget && onClose()}
 		>
 			<div className="popup__container">
-				{/* Пока оставим - может пригодся?? */}
-				{/* <button
+				<button
 					className={`popup__close-btn ${
 						type === 'form' ? 'popup__close-btn_visible' : ''
 					}`}
 					type="button"
 					aria-label="Кнопка закрытия модального окна"
 					onClick={onClose}
-				/> */}
+				/>
 				{children}
 			</div>
 		</div>
@@ -43,6 +42,6 @@ export const PopupWrapper = ({ isOpen, onClose, children }) => {
 PopupWrapper.propTypes = {
 	isOpen: PropTypes.bool.isRequired,
 	onClose: PropTypes.func.isRequired,
-	// type: PropTypes.oneOf(['info', 'form']).isRequired,
+	type: PropTypes.oneOf(['info', 'form']).isRequired,
 	children: PropTypes.element.isRequired,
 };
