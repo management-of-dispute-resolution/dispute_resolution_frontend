@@ -35,6 +35,10 @@
 	outline: none;
 }
 
+.input:not(:has(.input__error:empty)) .input__box {
+	border: 1px solid #ff4a4a;
+}
+
 .input__label {
 	opacity: 0;
 	margin: 0;
@@ -86,6 +90,7 @@
 .input__icon-close-eye {
 	background-image: url(../../Images/Open=No.svg);
 }
+
 .input__box-with-label {
 	margin: 0;
 	padding: 0;
