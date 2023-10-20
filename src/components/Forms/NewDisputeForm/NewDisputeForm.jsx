@@ -11,6 +11,7 @@ import FilePreview from './FilePreview/FilePreview';
 
 const NewDisputeForm = () => {
 	// Временные решения
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	const ourCommandYandex = [
 		'Бурнасова Анастасия',
 		'Погребнов Константин',
@@ -48,11 +49,12 @@ const NewDisputeForm = () => {
 	// Модалка выбора оппонента
 	const [chooseOpponentModal, setChooseOpponentModal] = useState(false);
 	// Массив возможных опонентов для выбора
-	const [possibleOpponents, setPossibleOpponents] = useState([]);
+	const [possibleOpponents, setPossibleOpponents] = useState(ourCommandYandex);
 	// Промежуточный стейт показа оппонентов
-	// const [searchOpponent, setSearchOpponent] = useState([]);
+	const [searchOpponent, setSearchOpponent] = useState([]);
 	// Стейт инпута оппонентов
 	const [opponentsInput, setOpponentsInput] = useState({});
+
 
 	const handleSetSelectedOpponents = () => {
 		setSelectedOpponents(['Сергей Евдокимов', 'Сергей Есенин']);
@@ -63,17 +65,22 @@ const NewDisputeForm = () => {
 		setChooseOpponentModal(true);
 		const { name, value } = evt.target;
 		setOpponentsInput((prev) => ({ ...prev, [name]: value }));
-		const findUser = ourCommandYandex.filter((item) =>
+		const findUser = possibleOpponents.filter((item) =>
 			item.toLowerCase().includes(value.toLowerCase())
 		);
-		setPossibleOpponents(findUser);
+		findUser.sort();
+		setSearchOpponent(findUser);
 	};
 	// Добавить оппонента
 	const handleAddOpponent = (item) => {
+		setPossibleOpponents(possibleOpponents)
 		const updateList = [...selectedOpponents, item];
 		setSelectedOpponents(updateList);
 		setOpponentsInput('');
 		setChooseOpponentModal(false);
+		const forPossible = [...possibleOpponents]
+		forPossible.splice(possibleOpponents.indexOf(item), 1);
+		setPossibleOpponents(forPossible)
 		document.getElementById('new-dispute-opponents__input').focus();
 	};
 	// Удалить оппонента из выбранных
@@ -81,6 +88,8 @@ const NewDisputeForm = () => {
 		const updatedList = [...selectedOpponents];
 		updatedList.splice(selectedOpponents.indexOf(item), 1);
 		setSelectedOpponents(updatedList);
+		// добавляем в список возможных
+		setPossibleOpponents([...possibleOpponents, item]);
 	};
 
 	// Сохранение значения поля "Суть конфликта" в отдельный стейт
@@ -153,23 +162,23 @@ const NewDisputeForm = () => {
 						{/* Выбранные опоненты */}
 						{selectedOpponents.length > 0
 							? // <div className="new-dispute-opponents__selected">
-							  // {
-							  selectedOpponents.map((item) => (
-									<div className="new-dispute-opponents__selected-item">
-										<div className="new-dispute-opponents__selected-name">
-											{item}
-										</div>
-										<button
-											className="new-dispute-opponents__selected-button"
-											type="button"
-											alt="Удалить оппонента"
-											onClick={() => handleDeleteOpponent(item)}
-										/>
+							// {
+							selectedOpponents.map((item) => (
+								<div className="new-dispute-opponents__selected-item">
+									<div className="new-dispute-opponents__selected-name">
+										{item}
 									</div>
-							  ))
+									<button
+										className="new-dispute-opponents__selected-button"
+										type="button"
+										alt="Удалить оппонента"
+										onClick={() => handleDeleteOpponent(item)}
+									/>
+								</div>
+							))
 							: // }
-							  // </div>
-							  null}
+							// </div>
+							null}
 						<div className="new-dispute-opponents__input-frame">
 							<div className="new-dispute-opponents__input-section">
 								<input
@@ -183,18 +192,17 @@ const NewDisputeForm = () => {
 								{/* Модалка выбор оппонента */}
 								<div
 									className={`new-dispute-opponents__input-modal 
-              ${
-								chooseOpponentModal &&
-								'new-dispute-opponents__input-modal_opened'
-							}`}
+              ${chooseOpponentModal &&
+										'new-dispute-opponents__input-modal_opened'
+										}`}
 									style={
-										possibleOpponents.length > 9
+										searchOpponent.length > 9
 											? { bottom: '-155px' }
-											: { bottom: `-${possibleOpponents.length * 20}px` }
+											: { bottom: `-${searchOpponent.length * 25}px` }
 									}
 								>
-									{possibleOpponents.length > 0 ? (
-										possibleOpponents.map((item) => (
+									{searchOpponent.length > 0 ? (
+										searchOpponent.map((item) => (
 											<button
 												className="new-dispute-opponents__modal-item"
 												onClick={() => handleAddOpponent(item)}
