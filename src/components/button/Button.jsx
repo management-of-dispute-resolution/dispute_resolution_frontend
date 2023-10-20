@@ -1,90 +1,57 @@
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
+import React from 'react';
 
-export function Button({
+import './Button.css';
+
+import PropTypes from 'prop-types';
+
+function Button({
 	label,
 	type,
 	url,
-	rounded,
-	outlined,
-	inverted,
-	light,
-	disabled,
 	onClick,
-	...options
+	size,
+	disabled,
+	backgroundColor,
 }) {
-	const style = [
-		...Object.values(options),
-		rounded ? 'rounded' : undefined,
-		inverted ? 'inverted' : undefined,
-		outlined ? 'outlined' : undefined,
-		light ? 'light' : undefined,
-	]
-		.map((value) => (value ? `is-${value}` : undefined))
-		.filter((v) => !!v);
-
 	const props = {
 		disabled,
 		onClick,
 	};
-	switch (type) {
-		case 'link':
-			return (
-				<a {...props} href={url} className={clsx('button', ...style)}>
-					{label}
-				</a>
-			);
-		case 'static':
-			return (
-				<span className={clsx('button is-static', ...style)}>{label}</span>
-			);
-		default:
-			return (
-				<button {...props} type={type} className={clsx('button', ...style)}>
-					{label}
-				</button>
-			);
-	}
+	return (
+		<button
+			// className="each-button more"
+			{...props}
+			type={type}
+			href={url}
+			// aria-label="Отображать больше фильмов на странице"
+			className={[
+				`button button_size_${size} button_color_blue ${
+					!!disabled && 'button_disabled_true'
+				}`,
+			]}
+			style={backgroundColor && { backgroundColor }}
+		>
+			{label}
+		</button>
+	);
 }
+Button.defaultProps = {
+	type: 'button',
+	size: 'large',
+	url: undefined,
+	onClick: undefined,
+	disabled: false,
+	backgroundColor: null,
+};
 
 Button.propTypes = {
 	label: PropTypes.string.isRequired,
+	type: PropTypes.oneOf(['button', 'link', 'reset', 'submit']),
+	size: PropTypes.oneOf(['small', 'medium', 'large']),
 	url: PropTypes.string,
-	type: PropTypes.oneOf(['link', 'static', 'button', 'submit']),
-	rounded: PropTypes.bool,
-	outlined: PropTypes.bool,
-	inverted: PropTypes.bool,
-	light: PropTypes.bool,
-	disabled: PropTypes.bool,
-	color: PropTypes.oneOf([
-		'white',
-		'light',
-		'dark',
-		'black',
-		'text',
-		'ghost',
-		'primary',
-		'link',
-		'info',
-		'success',
-		'warning',
-		'danger',
-	]),
-	size: PropTypes.oneOf(['small', 'normal', 'medium', 'large']),
-	display: PropTypes.oneOf(['responsive', 'fullwidth']),
 	onClick: PropTypes.func,
+	disabled: PropTypes.bool,
+	backgroundColor: PropTypes.string,
 };
 
-Button.defaultProps = {
-	type: 'button',
-	url: undefined,
-	rounded: false,
-	outlined: false,
-	inverted: false,
-	light: false,
-	disabled: false,
-	color: undefined,
-	size: 'normal',
-	display: undefined,
-	onClick: undefined,
-};
+export default Button;
