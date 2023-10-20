@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { PopupWrapper } from '../PopupWrapper/PopupWrapper';
 import './InfoToolTip.css';
 
-import successLogo from '../../Images/Done.svg';
-import unSuccessLogo from '../../Images/Error.svg';
+import successLogo from '../../../Images/Done.svg';
+import unSuccessLogo from '../../../Images/Error.svg';
 
 export const InfoToolTip = ({
 	isOpen,
