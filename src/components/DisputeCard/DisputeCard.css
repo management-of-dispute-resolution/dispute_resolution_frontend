@@ -1,0 +1,147 @@
+.dispute-card {
+	display: flex;
+	max-width: 1300px;
+	min-width: 1300px;
+	/* min-height: 284px; */
+}
+.dispute-card__container {
+	box-sizing: border-box;
+	/* padding: 70px 30px 0 30px; */
+	font-family: Inter;
+	background-color: white;
+	display: flex;
+	flex-direction: row;
+}
+.dispute-card__header {
+	display: flex;
+	flex-direction: row;
+}
+.dispute-card__title {
+	padding: 0;
+	margin: 0;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 22px;
+	letter-spacing: 0px;
+	text-align: left;
+}
+
+.dispute-card__resolved-time {
+	padding: 0;
+	margin: 0;
+	margin-left: 40px;
+	font-family: Inter;
+	font-size: 16px;
+	font-weight: 300;
+	line-height: 22px;
+	letter-spacing: 0px;
+	text-align: left;
+	color: #131713;
+}
+
+.dispute-card__content {
+	box-sizing: border-box;
+	padding: 0 60px 0 60px;
+	width: 900px;
+	min-height: 132px;
+}
+.dispute-card__text {
+	margin: 0;
+	padding: 0;
+	margin-top: 24px;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 22px;
+	letter-spacing: 0px;
+	text-align: left;
+
+	/* переполнение */
+	/* height: 154px; */
+	display: -webkit-box;
+	-webkit-line-clamp: 7;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.dispute-card__files {
+	display: flex;
+	margin-top: 14px;
+	flex-direction: row;
+}
+.dispute-card__file-link {
+	/* margin-right: 10px; */
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 17px;
+	letter-spacing: 0px;
+	text-align: left;
+	display: flex;
+	color: #003d3d;
+	width: 200px;
+}
+.dispute-card__filename {
+	display: flex;
+	align-items: center;
+	padding: 0;
+	margin: 0;
+	padding-left: 8px;
+	width: 158px;
+	text-decoration: none;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.dispute-card__status {
+	padding-left: 20px;
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	text-align: start;
+	font-family: Inter;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 22px;
+	letter-spacing: 0px;
+	text-align: left;
+	background-color: #edfff0;
+	width: 200px;
+	height: 42px;
+	border-radius: 10px;
+}
+.dispute-card__status::before {
+	content: '';
+	width: 14px;
+	height: 14px;
+	display: inline-block;
+	/* margin-top: 4px; */
+	border-radius: 50%;
+	margin-right: 12px;
+}
+.dispute-card__status_type_resolved {
+	background-color: #edfff0;
+}
+.dispute-card__status_type_inСonsideration {
+	background-color: #fef8ee;
+}
+.dispute-card__status_type_notConsidered {
+	background-color: #fff4f4;
+}
+
+.dispute-card__status_type_resolved::before {
+	background-color: #07a044;
+}
+.dispute-card__status_type_inСonsideration::before {
+	background-color: #f3a101;
+}
+.dispute-card__status_type_notConsidered::before {
+	background-color: #f06464;
+}
+
+.dispute-card__option {
+	width: 90px;
+	height: 40px;
+	padding: 0;
+	margin: 0;
+	background-image: url(./../../Images/Menu_Icon.svg);
+	border: 0;
+	background-color: transparent;
+	cursor: pointer;
+}

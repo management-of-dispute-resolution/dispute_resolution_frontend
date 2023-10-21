@@ -1,0 +1,4 @@
+.dispute-cardlist {
+	display: grid;
+	row-gap: 40px;
+}
