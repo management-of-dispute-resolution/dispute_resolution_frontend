@@ -1,4 +1,4 @@
-.forget-password__link {
+.link-reset {
 	color: var(--Accent, #3547e9);
 	font-variant-numeric: lining-nums tabular-nums;
 	text-decoration: none;
@@ -9,6 +9,6 @@
 	line-height: 140.023%;
 }
 
-.forget-password__link:hover {
+.link-reset:hover {
 	opacity: 0.7;
 }
