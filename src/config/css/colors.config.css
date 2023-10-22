@@ -3,6 +3,9 @@
 	--Accent: #77e6b6;
 	--Background: #ebeeee;
 	--Default-icon: #4d9697;
+	--Red-background: #fff4f4;
+	--Green-background: #edfff0;
+	--Orange-background: #fef8ee;
 
 	/* Component colors */
 	--secondary-button: #00696a;
@@ -19,4 +22,5 @@
 
 	--Error: #f06464;
 	--Success: #07a044;
+	--Status: #f3a101;
 }
