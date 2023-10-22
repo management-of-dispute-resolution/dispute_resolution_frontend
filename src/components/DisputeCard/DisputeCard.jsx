@@ -38,8 +38,9 @@ function DisputeCard({
 					<p className="dispute-card__text">{content}</p>
 					<div className="dispute-card__files">
 						{files.map((file) => {
-							const name = file.split('/').pop();
-							const format = name.split('.').pop();
+							const nameWithFormat = file.split('/').pop();
+							const format = nameWithFormat.split('.').pop();
+							const name = nameWithFormat.split('.')[0]; // Извлекаем только название файла
 							const downloadLink = files;
 							return (
 								<a
