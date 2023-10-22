@@ -13,3 +13,9 @@ export const IsLoggedHeader = {
 		isLogged: true,
 	},
 };
+
+export const UnLoggedHeader = {
+	args: {
+		isLogged: false,
+	},
+};

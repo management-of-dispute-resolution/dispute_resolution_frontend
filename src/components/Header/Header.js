@@ -1,9 +1,16 @@
 import './Header.css';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import React from 'react';
 import Button from '../button/Button';
+import Menu from '../Menu/Menu';
 
 function Header({ isLogged }) {
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	const toggleMenu = () => {
+		setIsMenuOpen(!isMenuOpen);
+	};
+
 	return (
 		<>
 			{isLogged ? (
@@ -14,7 +21,16 @@ function Header({ isLogged }) {
 						<div className="header__user-avatar">
 							<p className="header__user-name">И</p>
 						</div>
-						<div className="header__icon" />
+						<div className="header__icon">
+							<button
+								className="header__menu-button"
+								onClick={toggleMenu}
+								label="Открыть меню"
+							/>
+						</div>
+					</div>
+					<div className="header__menu-container">
+						<Menu isOpen={isMenuOpen} />
 					</div>
 				</header>
 			) : (

@@ -5,6 +5,7 @@
 	align-items: center;
 	justify-content: space-between;
 	background: var(--Green-header, #003d3d);
+	position: relative;
 }
 
 .header__color_white {
@@ -56,6 +57,9 @@
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .header__icon_up {
@@ -71,4 +75,19 @@
 
 .header__logo_color_green {
 	background-image: url('../../Images/logo-green.png');
+}
+
+.header__menu-container {
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	right: 80px;
+	top: 100px;
+	z-index: 5;
+}
+
+.header__menu-button {
+	margin: 0;
+	padding: 0;
+	border: none;
 }
