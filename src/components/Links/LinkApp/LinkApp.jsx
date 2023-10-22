@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './LinkReset.css';
+import './LinkApp.css';
 import PropTypes from 'prop-types';
 
-function LinkReset({ label, url }) {
+function LinkApp({ label, url }) {
 	return (
-		<Link to={url} className="link-reset">
+		<Link to={url} className="link-app">
 			{label}
 		</Link>
 	);
 }
 
-LinkReset.propTypes = {
+LinkApp.propTypes = {
 	label: PropTypes.string.isRequired,
 	url: PropTypes.string.isRequired,
 };
-export default LinkReset;
+export default LinkApp;

@@ -1,14 +1,14 @@
 import { BrowserRouter } from 'react-router-dom';
-import LinkReset from './LinkReset';
+import LinkApp from './LinkApp';
 
 export default {
-	title: 'Dispute_Resolution/Links/LinkReset',
-	component: LinkReset,
+	title: 'Dispute_Resolution/Links/LinkApp',
+	component: LinkApp,
 };
 
 const LinkFunction = (args) => (
 	<BrowserRouter>
-		<LinkReset {...args} />
+		<LinkApp {...args} />
 	</BrowserRouter>
 );
 

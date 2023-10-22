@@ -1,4 +1,4 @@
-.link-reset {
+.link-app {
 	color: var(--Accent, #3547e9);
 	font-variant-numeric: lining-nums tabular-nums;
 	text-decoration: none;
@@ -9,6 +9,6 @@
 	line-height: 140.023%;
 }
 
-.link-reset:hover {
+.link-app:hover {
 	opacity: 0.7;
 }
