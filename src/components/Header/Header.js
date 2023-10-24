@@ -6,21 +6,6 @@ import Menu from '../ui-kit/Menu/Menu';
 
 function Header({ isLogged }) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const firstButton = {
-		size: 'small',
-		label: 'Выйти',
-		color: 'transperent',
-		type: 'button',
-		before: 'exit',
-	};
-
-	const secondButton = {
-		size: 'small',
-		label: 'Cменить пароль',
-		color: 'transperent',
-		type: 'button',
-		before: 'password',
-	};
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
@@ -38,23 +23,43 @@ function Header({ isLogged }) {
 							color="downy"
 							type="button"
 						/>
-						<div className="header__user-avatar">
+						<button className="header__user-avatar" onClick={toggleMenu}>
 							<p className="header__user-name">И</p>
-						</div>
+						</button>
 
 						<button
 							className="header__menu-button"
 							onClick={toggleMenu}
 							label="Открыть меню"
 						>
-							<div className="header__icon" />
+							<div
+								className={
+									isMenuOpen ? 'header__icon header__icon_up' : 'header__icon'
+								}
+							/>
 						</button>
 					</div>
 					<div className="header__menu-container">
 						<Menu
 							isOpen={isMenuOpen}
-							firstButton={firstButton}
-							secondButton={secondButton}
+							firstButton={
+								<Button
+									size="small"
+									label="Сменить пароль"
+									color="transperent"
+									type="button"
+									before="changePassword"
+								/>
+							}
+							secondButton={
+								<Button
+									size="small"
+									label="Выйти"
+									color="transperent"
+									type="button"
+									before="exit"
+								/>
+							}
 						/>
 					</div>
 				</header>

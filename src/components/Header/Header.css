@@ -9,7 +9,7 @@
 }
 
 .header__color_white {
-	background: #fff;
+	background: transparent;
 }
 
 .header__logo {
@@ -30,16 +30,18 @@
 	height: 55px;
 	width: 55px;
 	border-radius: 44px;
-	background: #00696a;
+	background: var(--secondary-button, #00696a);
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	border: none;
+	cursor: pointer;
 }
 
 .header__user-name {
 	margin: 0;
 	padding: 0;
-	color: #f2f4ff;
+	color: var(--Background, #ebeeee);
 	text-align: center;
 	font-family: Inter;
 	font-size: 30px;

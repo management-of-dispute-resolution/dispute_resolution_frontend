@@ -1,4 +1,5 @@
 import Menu from './Menu';
+import Button from '../Button/Button';
 
 export default {
 	title: 'Dispute_Resolution/Menu',
@@ -10,20 +11,24 @@ export default {
 };
 export const OpenedMenu = {
 	args: {
-		isOpen: false,
-		firstButton: {
-			size: 'small',
-			label: 'Выйти',
-			color: 'transperent',
-			type: 'button',
-			before: 'exit',
-		},
-		secondButton: {
-			size: 'small',
-			label: 'Cменить пароль',
-			color: 'transperent',
-			type: 'button',
-			before: 'password',
-		},
+		isOpen: true,
+		firstButton: (
+			<Button
+				size="small"
+				label="Сменить пароль"
+				color="transperent"
+				type="button"
+				before="changePassword"
+			/>
+		),
+		secondButton: (
+			<Button
+				size="small"
+				label="Выйти"
+				color="transperent"
+				type="button"
+				before="exit"
+			/>
+		),
 	},
 };
