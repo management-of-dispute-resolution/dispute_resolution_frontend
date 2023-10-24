@@ -5,20 +5,20 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	max-width: 380px;
+	max-width: 420px;
 }
 
 .input__box {
 	margin: 0;
 	padding: 16px;
-	max-width: 380px;
+	max-width: 420px;
 	width: 100%;
 	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	border-radius: 10px;
-	border: 1px solid #858ba9;
+	border: 1px solid #809595;
 	box-sizing: border-box;
 }
 
@@ -47,7 +47,7 @@
 	top: -6px;
 	left: 12px;
 	font-family: Inter;
-	color: #858ba9;
+	color: #809595;
 	background-color: #fff;
 	font-size: 10px;
 	font-style: normal;
@@ -96,4 +96,5 @@
 	padding: 0;
 	display: flex;
 	align-items: center;
+	width: 100%;
 }

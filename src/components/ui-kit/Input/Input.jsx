@@ -46,6 +46,7 @@ function Input({
 							isPassword ? 'input__icon input__icon-close-eye' : 'input__icon'
 						}
 						onClick={handleShowPassword}
+						type="button"
 					>
 						{' '}
 					</button>
