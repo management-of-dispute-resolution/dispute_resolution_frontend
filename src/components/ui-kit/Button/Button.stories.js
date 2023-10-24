@@ -32,7 +32,7 @@ export function Type(args) {
 				{...args}
 			/>
 			<Button
-				size="large"
+				size="mlarge"
 				label="Добавить оппонентов"
 				color="blueLagoon-inverted"
 				type="button"
