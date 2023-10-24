@@ -6,6 +6,20 @@ export default {
 	parameters: {
 		layout: 'fullscreen',
 	},
+	argTypes: {
+		initialOpponents: {
+			type: '[string]',
+			description: 'Стейт всех возможных значений для выбора',
+		},
+		selectedOpponents: {
+			type: '[string]',
+			description: 'Стейт выбранных значений',
+		},
+		handleSetSelectedOpponents: {
+			type: 'func',
+			description: 'Функция принимает новый стейт выбранных значений',
+		},
+	},
 };
 
 export const Default = () => <NewDisputeForm />;

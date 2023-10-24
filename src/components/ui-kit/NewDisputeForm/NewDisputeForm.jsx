@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import './css/FormStyle.css';
+import './NewDisputeForm.css';
 
 import { FilePreview } from '../FilePreview/FilePreview';
 import { NewDisputeOpponents } from '../NewDisputeOpponents/NewDisputeOpponents';
@@ -8,14 +8,13 @@ import { NewDisputeExplanation } from '../NewDisputeExplanation/NewDisputeExplan
 import { NewDisputeFileUpload } from '../NewDisputeFileUpload/NewDisputeFileUpload';
 
 const NewDisputeForm = () => {
-
 	const [fileList, setFileList] = useState([]); // Массив файлов для загрузки
 
 	const [disputeText, setDisputeText] = useState({}); // Суть конфликта
-	const [selectedOpponents, setSelectedOpponents] = useState([]);	// Массив выбранных опонентов
+	const [selectedOpponents, setSelectedOpponents] = useState([]); // Массив выбранных опонентов
 	const handleSetSelectedOpponents = (updateOpponentsList) => {
 		setSelectedOpponents(updateOpponentsList);
-	}
+	};
 
 	// Сохранение значения поля "Суть конфликта" в отдельный стейт
 	const handleNewDisputeTextChange = (evt) => {
@@ -25,7 +24,7 @@ const NewDisputeForm = () => {
 
 	const updateFileList = (updatedList) => {
 		setFileList(updatedList);
-	}
+	};
 
 	// Удаление файла из массива для загрузки
 	const handleDeleteFile = (item) => {
@@ -39,7 +38,7 @@ const NewDisputeForm = () => {
 			<div className="new-dispute-form__container">
 				{/* Блок выбора оппонентов */}
 				<div className="new-dispute-opponents new-dispute-form__item-wrapper">
-					<div className='new-dispute-form__item-title-wrapper'>
+					<div className="new-dispute-form__item-title-wrapper">
 						<div className="new-dispute-form__item-title">Оппоненты*</div>
 						<p className="new-dispute-form__item-title new-dispute-form__item-title_subtext">
 							Один или несколько
@@ -53,7 +52,7 @@ const NewDisputeForm = () => {
 
 				{/* Блок с объяснением сути конфликта */}
 				<div className="new-dispute-explanation new-dispute-form__item-wrapper">
-					<div className='new-dispute-form__item-title-wrapper_large'>
+					<div className="new-dispute-form__item-title-wrapper_large">
 						<div className="new-dispute-form__item-title">Суть конфликта*</div>
 					</div>
 					<NewDisputeExplanation
@@ -64,7 +63,7 @@ const NewDisputeForm = () => {
 
 				{/* Блок рабооты с файлами */}
 				<div className="new-dispute-file new-dispute-form__item-wrapper">
-					<div className='new-dispute-form__item-title-wrapper_large'>
+					<div className="new-dispute-form__item-title-wrapper_large">
 						<h3 className="new-dispute-form__item-title">Прикрепите файлы</h3>
 						<p className="new-dispute-form__item-title new-dispute-form__item-title_subtext">
 							Допустимый формат: JPG, PDF
@@ -79,10 +78,7 @@ const NewDisputeForm = () => {
 				<div className="new-dispute-footer new-dispute-form__item-wrapper">
 					<span />
 					<div className="new-dispute-footer__used-zone">
-						<button
-							className='new-dispute-footer___button'
-							type='button'
-						>
+						<button className="new-dispute-footer___button" type="button">
 							Отправить
 						</button>
 						{/* Отображение загруженных файлов */}
