@@ -21,13 +21,14 @@ function Header({ isLogged }) {
 						<div className="header__user-avatar">
 							<p className="header__user-name">И</p>
 						</div>
-						<div className="header__icon">
-							<button
-								className="header__menu-button"
-								onClick={toggleMenu}
-								label="Открыть меню"
-							/>
-						</div>
+
+						<button
+							className="header__menu-button"
+							onClick={toggleMenu}
+							label="Открыть меню"
+						>
+							<div className="header__icon" />
+						</button>
 					</div>
 					<div className="header__menu-container">
 						<Menu isOpen={isMenuOpen} />
