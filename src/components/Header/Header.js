@@ -1,11 +1,26 @@
 import './Header.css';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import Button from '../button/Button';
-import Menu from '../Menu/Menu';
+import Button from '../ui-kit/Button/Button';
+import Menu from '../ui-kit/Menu/Menu';
 
 function Header({ isLogged }) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const firstButton = {
+		size: 'small',
+		label: 'Выйти',
+		color: 'transperent',
+		type: 'button',
+		before: 'exit',
+	};
+
+	const secondButton = {
+		size: 'small',
+		label: 'Cменить пароль',
+		color: 'transperent',
+		type: 'button',
+		before: 'password',
+	};
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
@@ -17,7 +32,12 @@ function Header({ isLogged }) {
 				<header className="header">
 					<div className="header__logo" />
 					<div className="header__container">
-						<Button label="Создать обращение" type="button" />
+						<Button
+							size="medium"
+							label="Создать обращение"
+							color="downy"
+							type="button"
+						/>
 						<div className="header__user-avatar">
 							<p className="header__user-name">И</p>
 						</div>
@@ -31,7 +51,11 @@ function Header({ isLogged }) {
 						</button>
 					</div>
 					<div className="header__menu-container">
-						<Menu isOpen={isMenuOpen} />
+						<Menu
+							isOpen={isMenuOpen}
+							firstButton={firstButton}
+							secondButton={secondButton}
+						/>
 					</div>
 				</header>
 			) : (
