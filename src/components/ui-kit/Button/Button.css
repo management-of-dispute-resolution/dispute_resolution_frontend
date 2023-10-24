@@ -2,7 +2,6 @@
 	border: 0;
 	margin: 0;
 	padding: 0;
-	color: #f9faff;
 	text-align: center;
 	display: flex;
 	justify-content: center;
@@ -14,14 +13,147 @@
 	font-weight: 700;
 	line-height: 19px;
 	letter-spacing: 0em;
+	cursor: pointer;
+}
+/* Отключаем cursor при disabled */
+
+.button_disabled_true {
+	cursor: default;
+}
+
+/* Позиционирование */
+
+.button_content_start {
+	justify-content: start;
+}
+
+/* Размеры */
+
+.button_size_mlarge {
+	min-width: 420px;
+	min-height: 60px;
 }
 .button_size_large {
 	padding: 20px 0 20px 0;
-	min-width: 381px;
+	min-width: 380px;
 }
-.button_disabled_true {
+.button_size_medium {
+	min-width: 310px;
+	min-height: 60px;
+}
+.button_size_small {
+	min-width: 244px;
+	min-height: 50px;
+}
+
+/* Прозрачная кнопка transperent  */
+
+.button_color_transperent {
+	background-color: transparent;
+	color: var(--Body-text);
+	border-radius: 6px;
+}
+.button_color_transperent:hover {
+	background-color: #f3f5f5;
+}
+/* Типы before */
+
+.button_color_transperent:before {
+	content: '';
+	width: 30px;
+	height: 30px;
+	margin: 0;
+	padding: 0;
+	margin-right: 8px;
+	margin-left: 16px;
+	background-image: url('../../../Images/key-icon.svg');
+	background-position: center;
+	background-repeat: no-repeat;
+	box-sizing: border-box;
+}
+/* Типы before */
+.button_before_type_edit::before {
+	background-image: url('../../../Images/edit-icon.svg');
+}
+.button_before_type_exit::before {
+	background-image: url('../../../Images/exit-icon.svg');
+}
+.button_before_type_cancel::before {
+	background-image: url('../../../Images/cancel-icon.svg');
+}
+.button_before_changePassword::before {
+	background-image: url('../../../Images/key-icon.svg');
+}
+
+/* downy */
+
+.button_color_downy {
+	background-color: var(--Accent);
+	color: var(--Green-text);
+}
+.button_color_downy:hover {
+	background-color: #56f2af;
+}
+.button_color_downy:focus {
+	outline: 3px solid #002a2a;
+}
+
+.button_color_downy:active:not([disabled]) {
+	box-shadow: 0px 4px 4px 0px #00000040 inset;
+}
+
+.button_color_downy:disabled {
 	opacity: 0.2;
 }
-.button_color_blue {
-	background-color: #3547e9;
+
+/* blueLagoon */
+
+.button_color_blueLagoon {
+	background-color: var(--secondary-button);
+	color: var(--Background);
+}
+.button_color_blueLagoon:hover {
+	background-color: #098d8f;
+}
+.button_color_blueLagoon:focus {
+	outline: 3px solid #002a2a;
+}
+.button_color_blueLagoon:active:not([disabled]) {
+	box-shadow: 0px 4px 4px 0px #00000040 inset;
+}
+.button_color_blueLagoon:disabled {
+	background-color: #a6b5b5;
+	color: #ebeeee;
+}
+
+/* blueLagoon-inverted */
+
+.button_color_blueLagoon-inverted {
+	background-color: transparent;
+	color: #00696a;
+	outline: 1px solid #00696a;
+}
+.button_color_blueLagoon-inverted:hover {
+	background-color: #f3f5f5;
+}
+.button_color_blueLagoon-inverted:focus {
+	outline: 2px solid #002a2a;
+}
+.button_color_blueLagoon-inverted:active:not([disabled]) {
+	outline: 1px solid #00696a;
+	box-shadow: 0px 4px 4px 0px #39675c40 inset;
+	background-color: #ebeeee;
+}
+.button_color_blueLagoon-inverted:disabled {
+	outline: 1px solid #a6b5b5;
+	background-color: transparent;
+	color: #a6b5b5;
+}
+/* button box for storybook */
+
+.button-box {
+	display: flex;
+	gap: 15px;
+	flex-wrap: wrap;
+	align-items: flex-start;
 }
