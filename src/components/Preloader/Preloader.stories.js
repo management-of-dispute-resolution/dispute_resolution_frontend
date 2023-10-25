@@ -1,7 +1,7 @@
 import Preloader from './Preloader';
 
 export default {
-	title: 'Example/Preloader',
+	title: 'Dispute_Resolution/Preloader',
 	component: Preloader,
 };
 
