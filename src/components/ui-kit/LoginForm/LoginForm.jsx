@@ -5,12 +5,17 @@ import Button from '../Button/Button';
 import Input from '../Input/Input';
 import './LoginForm.css';
 
-export const LoginForm = ({ onLogin, onLoading }) => {
+export const LoginForm = ({ onLogin }) => {
+	// const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 	const [values, setValues] = useState({});
+	const [isDisable, setIsDisable] = useState(true);
 
 	function handleChange(evt) {
 		const { name, value } = evt.target;
 		setValues((prev) => ({ ...prev, [name]: value }));
+		// eslint-disable-next-line no-unused-expressions
+		values.Email ? setIsDisable(false) : setIsDisable(true);
+		console.log(isDisable);
 	}
 
 	const handleSubmit = (evt) => {
@@ -29,9 +34,9 @@ export const LoginForm = ({ onLogin, onLoading }) => {
 						onChange={(evt) => {
 							handleChange(evt);
 						}}
-						pattern="[a-zA-Z0-9]+@[a-z]+\.{1,1}[a-z]{2,}"
 						placeholder="Электронная почта"
 						type="email"
+						autocomplete="off"
 					/>
 					<Input
 						label="Пароль"
@@ -42,30 +47,12 @@ export const LoginForm = ({ onLogin, onLoading }) => {
 						placeholder="Пароль"
 						type="password"
 					/>
-					{/* <input
-            value={values.email || ''}
-            onChange={handleChange}
-            className="auth__form-input"
-            type="email"
-            placeholder="Email"
-            name="email"
-            required
-          />
-          <input
-            value={values.password || ''}
-            onChange={handleChange}
-            className="auth__form-input"
-            type="password"
-            placeholder="Пароль"
-            name="password"
-            required
-          /> */}
 				</div>
 				<Button
 					backgroundColor="#00696a"
 					label="Продолжить"
 					type="submit"
-					disabled={onLoading}
+					disabled={isDisable}
 				/>
 			</form>
 		</section>
@@ -74,5 +61,4 @@ export const LoginForm = ({ onLogin, onLoading }) => {
 
 LoginForm.propTypes = {
 	onLogin: PropTypes.func.isRequired,
-	onLoading: PropTypes.bool.isRequired,
 };

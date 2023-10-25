@@ -35,6 +35,7 @@ function Input({
 						onChange={onChange}
 						disabled={disabled}
 						pattern={pattern}
+						autoComplete="off"
 					/>
 					<label htmlFor="userPassword" className="input__label">
 						{label}
