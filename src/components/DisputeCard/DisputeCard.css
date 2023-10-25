@@ -15,7 +15,7 @@
 	flex-direction: row;
 }
 .dispute-card__container:hover {
-	outline: 1px solid #809595;
+	outline: 1px solid var(--Stroke);
 	cursor: pointer;
 }
 .dispute-card__header {
@@ -81,7 +81,7 @@
 	letter-spacing: 0px;
 	text-align: left;
 	display: flex;
-	color: #003d3d;
+	color: var(--Green-heade);
 	max-width: 200px;
 	text-decoration: none;
 }
@@ -110,7 +110,7 @@
 	line-height: 22px;
 	letter-spacing: 0px;
 	text-align: left;
-	background-color: #edfff0;
+	background-color: var(--Green-background);
 	width: 200px;
 	height: 42px;
 	border-radius: 10px;
@@ -125,23 +125,23 @@
 	margin-right: 12px;
 }
 .dispute-card__status_type_closed {
-	background-color: #edfff0;
+	background-color: var(--Green-background);
 }
 .dispute-card__status_type_started {
-	background-color: #fef8ee;
+	background-color: var(--Orange-background);
 }
 .dispute-card__status_type_not_started {
-	background-color: #fff4f4;
+	background-color: var(--Red-background);
 }
 
 .dispute-card__status_type_closed::before {
-	background-color: #07a044;
+	background-color: var(--Success);
 }
 .dispute-card__status_type_started::before {
-	background-color: #f3a101;
+	background-color: var(--Status);
 }
 .dispute-card__status_type_not_started::before {
-	background-color: #f06464;
+	background-color: var(--Error);
 }
 
 .dispute-card__option {
