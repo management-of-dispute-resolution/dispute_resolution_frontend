@@ -31,7 +31,7 @@
 .checkbox-custom.checked {
 	border: 4px solid var(--Accent, #3547e9);
 	background: var(--Accent, #3547e9);
-	background-image: url(../../Images/Checkmark.svg);
+	background-image: url(../../../Images/Checkmark.svg);
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: 100%;

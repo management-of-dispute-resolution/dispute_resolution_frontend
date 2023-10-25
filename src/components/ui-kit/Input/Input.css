@@ -78,7 +78,7 @@
 .input__icon {
 	margin: 0;
 	padding: 0;
-	background-image: url(../../Images/Open=Yes.svg);
+	background-image: url(../../../Images/Open=Yes.svg);
 	background-position: center;
 	background-color: transparent;
 	width: 17.65px;
@@ -88,7 +88,7 @@
 }
 
 .input__icon-close-eye {
-	background-image: url(../../Images/Open=No.svg);
+	background-image: url(../../../Images/Open=No.svg);
 }
 
 .input__box-with-label {
