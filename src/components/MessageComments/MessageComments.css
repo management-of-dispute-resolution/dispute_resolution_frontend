@@ -8,7 +8,7 @@
 	display: flex;
 	width: 40px;
 	height: 40px;
-	background: #00696a;
+	background: var(--secondary-button);
 	justify-content: center;
 	align-items: center;
 	border-radius: 39px;
@@ -16,7 +16,7 @@
 
 .message__icon_letter {
 	background: none;
-	color: #ebeeee;
+	color: var(--Background);
 	font-family: Inter;
 	font-size: 25px;
 	font-style: normal;
@@ -34,7 +34,7 @@
 }
 
 .message__heading_name {
-	color: #131713;
+	color: var(--Body-text);
 	font-variant-numeric: lining-nums tabular-nums;
 	font-family: Inter;
 	font-size: 16px;
@@ -45,7 +45,7 @@
 
 .message__heading_date {
 	margin-left: 12px;
-	color: #809595;
+	color: var(--Stroke);
 	font-variant-numeric: lining-nums tabular-nums;
 	font-family: Inter;
 	font-size: 16px;
@@ -57,7 +57,7 @@
 .message__text {
 	margin: 0;
 	margin-top: 8px;
-	color: #131713;
+	color: var(--Body-text);
 	font-variant-numeric: lining-nums tabular-nums;
 	font-family: Inter;
 	font-size: 16px;
@@ -70,9 +70,11 @@
 	display: flex;
 	margin-right: 12px;
 }
+
 .message__list-documents:last-child {
 	margin-right: 0px;
 }
+
 .message__document {
 	text-decoration: none;
 	display: flex;
@@ -80,14 +82,16 @@
 	margin-top: 8px;
 	width: 203px;
 }
+
 .message__document:hover {
 	opacity: 0.7;
 	cursor: pointer;
 }
+
 .message__document_title {
 	margin: 0;
 	display: inline-block;
-	color: var(--Green-header, #003d3d);
+	color: var(--Green-header);
 	font-variant-numeric: lining-nums tabular-nums;
 	font-family: Inter;
 	font-size: 14px;
