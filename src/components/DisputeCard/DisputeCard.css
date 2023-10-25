@@ -1,18 +1,18 @@
 .dispute-card {
 	display: flex;
-	max-width: 1300px;
-	min-width: 1300px;
-	/* min-height: 284px; */
+	max-width: 1370px;
+	min-width: 1370px;
 }
 .dispute-card__container {
 	box-sizing: border-box;
-	padding: 30px 70px 30px 70px;
+	padding: 30px 0 30px 70px;
 	font-family: Inter;
 	background-color: white;
 	display: flex;
 	box-shadow: 0px 4px 24px 0px #003d3d26;
 	border-radius: 10px;
 	flex-direction: row;
+	position: relative;
 }
 .dispute-card__container:hover {
 	outline: 1px solid var(--Stroke);
@@ -47,8 +47,9 @@
 
 .dispute-card__content {
 	box-sizing: border-box;
-	padding: 0 60px 0 60px;
-	width: 970px;
+	/* padding: 0 60px 0 60px; */
+	margin: 0 60px 0 60px;
+	width: 850px;
 	min-height: 132px;
 }
 .dispute-card__text {
@@ -100,6 +101,7 @@
 }
 .dispute-card__status {
 	padding-left: 20px;
+	margin-right: 20px;
 	box-sizing: border-box;
 	display: flex;
 	align-items: center;
@@ -145,12 +147,22 @@
 }
 
 .dispute-card__option {
-	width: 90px;
-	height: 40px;
 	padding: 0;
 	margin: 0;
-	background-image: url(./../../Images/Menu_Icon.svg);
 	border: 0;
+	margin-left: 20px;
+	width: 90px;
+	height: 40px;
+	background-image: url(./../../Images/Menu_Icon.svg);
+
 	background-color: transparent;
 	cursor: pointer;
+}
+.dispute-card__option-container {
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	right: 16px;
+	top: 20px;
+	z-index: 5;
 }
