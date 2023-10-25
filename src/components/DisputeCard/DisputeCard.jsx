@@ -19,8 +19,11 @@ function DisputeCard({
 		started: 'В рассмотрении',
 	};
 
-	function handleClick() {
-		alert(id);
+	function handleClick(evt) {
+		// пока так
+		if (evt.target === evt.currentTarget) {
+			alert(id);
+		}
 	}
 
 	function handleKeyDown(evt) {
@@ -30,14 +33,14 @@ function DisputeCard({
 	}
 
 	return (
-		<div
-			className="dispute-card"
-			onClick={handleClick}
-			onKeyDown={handleKeyDown}
-			role="button"
-			tabIndex="0"
-		>
-			<div className="dispute-card__container">
+		<div className="dispute-card">
+			<div
+				className="dispute-card__container"
+				onClick={handleClick}
+				onKeyDown={handleKeyDown}
+				role="button"
+				tabIndex="0"
+			>
 				<div
 					className={[
 						`dispute-card__status dispute-card__status_type_${status}`,
@@ -57,6 +60,7 @@ function DisputeCard({
 					<p className="dispute-card__text">{description}</p>
 					<FileList files={files} />
 				</div>
+				{/* попап добавлю, когда пройдёт ревью менюшки от Кати */}
 				<button className="dispute-card__option">{}</button>
 			</div>
 		</div>
