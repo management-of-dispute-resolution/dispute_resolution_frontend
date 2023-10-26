@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import './NewDisputeForm.css';
+import Button from '../Button/Button';
 
 import { FilePreview } from '../FilePreview/FilePreview';
 import { NewDisputeOpponents } from '../NewDisputeOpponents/NewDisputeOpponents';
@@ -8,10 +9,10 @@ import { NewDisputeExplanation } from '../NewDisputeExplanation/NewDisputeExplan
 import { NewDisputeFileUpload } from '../NewDisputeFileUpload/NewDisputeFileUpload';
 
 const NewDisputeForm = () => {
+	const [selectedOpponents, setSelectedOpponents] = useState([]); // Массив выбранных опонентов
+	const [disputeText, setDisputeText] = useState({}); // Суть конфликта
 	const [fileList, setFileList] = useState([]); // Массив файлов для загрузки
 
-	const [disputeText, setDisputeText] = useState({}); // Суть конфликта
-	const [selectedOpponents, setSelectedOpponents] = useState([]); // Массив выбранных опонентов
 	const handleSetSelectedOpponents = (updateOpponentsList) => {
 		setSelectedOpponents(updateOpponentsList);
 	};
@@ -31,6 +32,24 @@ const NewDisputeForm = () => {
 		const updatedList = [...fileList];
 		updatedList.splice(fileList.indexOf(item), 1);
 		setFileList(updatedList);
+	};
+
+	const handleSubmit = () => {
+		const newDisputeData = new FormData();
+		// Добавляем оппонентов
+		for (let i = 0; i < selectedOpponents.length; i += 1) {
+			newDisputeData.append(`opponent_${i}`, selectedOpponents[i]);
+		}
+		// Добавляем описание
+		newDisputeData.append('description', disputeText.newDisputeText);
+		// Добавляем файлы
+		for (let i = 0; i < fileList.length; i += 1) {
+			newDisputeData.append(`file_${i}`, fileList[i]);
+		}
+		// eslint-disable-next-line no-restricted-syntax
+		for (const pair of newDisputeData.entries()) {
+			console.log(`${pair[0]}, ${pair[1]}`);
+		}
 	};
 
 	return (
@@ -78,9 +97,7 @@ const NewDisputeForm = () => {
 				<div className="new-dispute-footer new-dispute-form__item-wrapper">
 					<span />
 					<div className="new-dispute-footer__used-zone">
-						<button className="new-dispute-footer___button" type="button">
-							Отправить
-						</button>
+						<Button label="Продолжить" onClick={handleSubmit} size="mlarge" />
 						{/* Отображение загруженных файлов */}
 						{fileList.length > 0 ? (
 							<div className="file-preview">
