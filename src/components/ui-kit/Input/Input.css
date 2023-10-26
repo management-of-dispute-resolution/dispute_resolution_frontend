@@ -73,6 +73,7 @@
 	font-weight: 400;
 	line-height: normal;
 	text-align: right;
+	min-height: 15px;
 }
 
 .input__icon {
