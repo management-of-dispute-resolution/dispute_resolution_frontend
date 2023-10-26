@@ -5,20 +5,20 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	max-width: 380px;
+	max-width: 420px;
 }
 
 .input__box {
 	margin: 0;
-	padding: 16px;
-	max-width: 380px;
+	padding: 17px;
+	max-width: 420px;
 	width: 100%;
 	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	border-radius: 10px;
-	border: 1px solid #858ba9;
+	border: 1px solid var(--Stroke);
 	box-sizing: border-box;
 }
 
@@ -31,12 +31,13 @@
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 19px;
+	color: var(--Green-text);
 	text-align: left;
 	outline: none;
 }
 
 .input:not(:has(.input__error:empty)) .input__box {
-	border: 1px solid #ff4a4a;
+	border: 1px solid var(--Error);
 }
 
 .input__label {
@@ -47,7 +48,7 @@
 	top: -6px;
 	left: 12px;
 	font-family: Inter;
-	color: #858ba9;
+	color: var(--Stroke);
 	background-color: #fff;
 	font-size: 10px;
 	font-style: normal;
@@ -65,8 +66,9 @@
 	margin: 6px 0 0;
 	max-width: 380px;
 	width: 100%;
+	min-height: 12px;
 	padding: 0;
-	color: #ff4a4a;
+	color: var(--Error);
 	font-family: Inter;
 	font-size: 10px;
 	font-style: normal;
@@ -96,4 +98,5 @@
 	padding: 0;
 	display: flex;
 	align-items: center;
+	width: 100%;
 }
