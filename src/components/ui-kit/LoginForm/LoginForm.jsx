@@ -5,7 +5,7 @@ import Button from '../Button/Button';
 import Input from '../Input/Input';
 import './LoginForm.css';
 
-export const LoginForm = ({ onLogin }) => {
+const LoginForm = ({ onLogin }) => {
 	// const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 	const [values, setValues] = useState({});
 	const [isDisable, setIsDisable] = useState(true);
@@ -62,3 +62,5 @@ export const LoginForm = ({ onLogin }) => {
 LoginForm.propTypes = {
 	onLogin: PropTypes.func.isRequired,
 };
+
+export default LoginForm;
