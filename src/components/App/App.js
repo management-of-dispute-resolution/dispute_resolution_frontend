@@ -5,6 +5,7 @@ import React from 'react';
 // import { Route, Navigate, Routes, useNavigate, useLocation } from 'react-router-dom';
 
 import * as fullApi from '../../utils/api/MainApi';
+// import * as formDataApi from '../../utils/api/apiFormData';
 
 function App() {
 	const dataLogin = {
@@ -90,12 +91,8 @@ function App() {
 		}
 	};
 
-	// Карточки
-	const dataCard = {
-		description: 'Описание конфликта',
-		file: 'Какие-то файлы',
-		opponent: ['Андрей', 'Сергей'],
-	};
+	// ФормДата
+
 	// Получить карточки
 	const getDisputes = async () => {
 		try {
@@ -108,20 +105,16 @@ function App() {
 		}
 	};
 	// Получить карточки
-	const createDisputes = async ({ description, file, opponent }) => {
-		try {
-			const reqData = await fullApi.createDisputesId({
-				description,
-				file,
-				opponent,
-			});
-			if (reqData) {
-				console.log('reqData ', reqData);
-			}
-		} catch (err) {
-			console.error('error api', err);
-		}
-	};
+	// const createDisputes = async (data) => {
+	// 	try {
+	// 		const reqData = await formDataApi.createDisputesId(data);
+	// 		if (reqData) {
+	// 			console.log('reqData ', reqData);
+	// 		}
+	// 	} catch (err) {
+	// 		console.error('error api', err);
+	// 	}
+	// };
 
 	return (
 		<div className="App">
@@ -152,9 +145,9 @@ function App() {
 				<button type="button" onClick={() => getDisputes()}>
 					Все карточки
 				</button>
-				<button type="button" onClick={() => createDisputes(dataCard)}>
+				{/* <button type="button" onClick={() => createDisputes(dataCard)}>
 					Создать карточку
-				</button>
+				</button> */}
 			</div>
 			{/* <p>{resp}</p> */}
 		</div>
