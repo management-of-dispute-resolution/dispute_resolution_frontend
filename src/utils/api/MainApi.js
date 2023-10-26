@@ -1,22 +1,22 @@
 /* eslint-disable camelcase */
 import { makeRequest, makeFormDataReq } from './apiPattern';
 
-// Авторизация
-export function authorize({ email, password }) {
+// Авторизация - РАБОТАЕТ
+export function login({ email, password }) {
 	return makeRequest('/api/auth/token/login/', 'POST', { email, password });
 }
-// Logout
+// Logout - ЧТО В BODY - пустая строка? Ответ сервера Unexpected end of JSON input
 export function logout() {
 	return makeRequest('/api/auth/token/logout/', 'POST', undefined);
 }
-// Изменить пароль
+// Изменить пароль - Ответ сервера Unexpected end of JSON input
 export function changePassword({ new_password, current_password }) {
 	return makeRequest('/api/users/set_password/', 'POST', {
 		new_password,
 		current_password,
 	});
 }
-// Регистрация - временно доступно
+// Регистрация - временно доступно - РАБОТАЕТ
 export function register({
 	first_name,
 	last_name,
@@ -32,14 +32,19 @@ export function register({
 		password,
 	});
 }
-// Получение пользователя
+// Получение пользователя - РАБОТАЕТ
 export function getUserInfo() {
 	return makeRequest('/api/users/me/', 'GET', undefined);
 }
 
-// Получение пользователя по id
+// Получение пользователя по id - ОШИБКА  http://80.87.109.81/api/users/me/8/ 404 (Not Found)
 export function getUserIdInfo(id) {
-	return makeRequest(`/api/users/me/${id}`, 'GET', undefined);
+	return makeRequest(`/api/users/me/${id}/`, 'GET', undefined);
+}
+
+// Получение пользователя по id - ОШИБКА  http://80.87.109.81/api/users/me/8/ 404 (Not Found)
+export function getUsers() {
+	return makeRequest(`/api/users/`, 'GET', undefined);
 }
 
 // Получение диспута
@@ -47,9 +52,10 @@ export function getDisputes() {
 	return makeRequest(`/api/disputes/`, 'GET', undefined);
 }
 
-// Создание дтспута
+// Создание дтспута - ПОКА ПРОБЛЕМА
 export function createDisputesId(data) {
-	return makeFormDataReq(`/api/disputes/`, 'PUT', data);
+	return makeRequest(`/api/disputes/`, 'POST', data);
+	// return makeFormDataReq(`/api/disputes/`, 'PUT', data);
 }
 
 // Получение диспута по id
