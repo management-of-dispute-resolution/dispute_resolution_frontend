@@ -35,6 +35,7 @@ function Input({
 						onChange={onChange}
 						disabled={disabled}
 						pattern={pattern}
+						autoComplete="off"
 					/>
 					<label htmlFor="userPassword" className="input__label">
 						{label}
@@ -46,6 +47,7 @@ function Input({
 							isPassword ? 'input__icon input__icon-close-eye' : 'input__icon'
 						}
 						onClick={handleShowPassword}
+						type="button"
 					>
 						{' '}
 					</button>
