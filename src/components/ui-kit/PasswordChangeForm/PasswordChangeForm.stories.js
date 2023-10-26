@@ -5,4 +5,9 @@ export default {
 	component: PasswordChangeForm,
 };
 
-export const PasswordForm = {};
+export const PasswordForm = {
+	args: {
+		statusMessage: '',
+		disabled: false,
+	},
+};
