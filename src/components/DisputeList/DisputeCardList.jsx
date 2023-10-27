@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import DisputeCard from '../DisputeCard/DisputeCard';
 import './DisputeCardList.css';
 
-function DisputeCardList({ array }) {
+function DisputeCardList({ array, onClick }) {
 	return (
 		<div className="dispute-cardlist">
 			{array.map((card) => (
@@ -16,6 +16,7 @@ function DisputeCardList({ array }) {
 					created_at={card.created_at}
 					files={card.files}
 					id={card.id}
+					onClick={onClick}
 				/>
 			))}
 		</div>
@@ -32,6 +33,7 @@ DisputeCardList.propTypes = {
 			files: PropTypes.arrayOf(PropTypes.string), // Если files также является массивом
 		})
 	),
+	onClick: PropTypes.func.isRequired,
 };
 
 DisputeCardList.defaultProps = {

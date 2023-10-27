@@ -16,6 +16,7 @@ function DisputeCard({
 	created_at: CreatedAt,
 	files,
 	id,
+	onClick,
 }) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -30,9 +31,9 @@ function DisputeCard({
 	};
 
 	function handleClick(evt) {
-		// пока так
 		if (evt.target === evt.currentTarget) {
-			alert(id);
+			// alert(id);
+			onClick(id);
 		}
 	}
 
@@ -115,6 +116,7 @@ DisputeCard.propTypes = {
 	handleChangeDispute: PropTypes.func,
 	closed_at: PropTypes.string,
 	files: PropTypes.arrayOf(PropTypes.string),
+	onClick: PropTypes.func.isRequired,
 };
 DisputeCard.defaultProps = {
 	closed_at: '',
