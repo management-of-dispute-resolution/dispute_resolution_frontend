@@ -9,7 +9,7 @@ import zip from '../../Images/FileType-ZIP.svg';
 function MessageComments({ name, date, text, files }) {
 	const iconFile = { pdf, jpg, png, zip };
 	return (
-		<div className="message" key={name}>
+		<div className="message">
 			<div className="message__icon">
 				<p className="message__icon message__icon_letter">{name[0]}</p>
 			</div>
