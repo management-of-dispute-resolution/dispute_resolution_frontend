@@ -4,6 +4,7 @@ import './App.css';
 import { React, useState, useEffect } from 'react';
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import PageNotFound from '../pages/PageNotFound/PageNotFound';
+import { InfoToolTip } from '../ui-kit/InfoToolTip/InfoToolTip';
 import Header from '../Header/Header';
 import LoginForm from '../ui-kit/LoginForm/LoginForm';
 import DisputeList from '../DisputeList/DisputeCardList';
@@ -23,6 +24,12 @@ import {
 
 function App() {
 	const navigate = useNavigate();
+	const [popupInfo, setPopupInfo] = useState({
+		isOpen: false,
+		isSuccess: false,
+		doneText: '',
+		errorText: '',
+	});
 	const [isLoading, setIsLoading] = useState(false);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [currentUser, setCurrentUser] = useState(null);
@@ -124,6 +131,14 @@ function App() {
 
 				<Route path="*" element={<PageNotFound />} />
 			</Routes>
+
+			<InfoToolTip
+				isOpen={popupInfo.isOpen}
+				onClose={() => setPopupInfo({ ...popupInfo, isOpen: false })}
+				isSuccess={popupInfo.isSuccess}
+				doneText={popupInfo.doneText}
+				errorText={popupInfo.errorText}
+			/>
 		</div>
 	);
 }
