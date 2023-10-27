@@ -1,7 +1,7 @@
 import ListMessageComments from './ListMessageComments';
 
 export default {
-	title: 'Example/ListMessageComments',
+	title: 'Dispute_Resolution/ListMessageComments',
 	component: ListMessageComments,
 	tags: ['autodocs'],
 };

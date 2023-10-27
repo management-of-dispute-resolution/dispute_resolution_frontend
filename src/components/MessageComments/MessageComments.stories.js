@@ -1,7 +1,7 @@
 import MessageComments from './MessageComments';
 
 export default {
-	title: 'Example/MessageComments',
+	title: 'Dispute_Resolution/MessageComments',
 	component: MessageComments,
 	tags: ['autodocs'],
 };
