@@ -6,24 +6,33 @@ import Header from '../Header/Header';
 import LoginForm from '../ui-kit/LoginForm/LoginForm';
 import DisputeList from '../DisputeList/DisputeCardList';
 import DisputeCard from '../DisputeCard/DisputeCard';
+import NewDisputeForm from '../ui-kit/NewDisputeForm/NewDisputeForm';
 import mockDisputeData from './mockDisputeData';
 
 function App() {
 	const navigate = useNavigate();
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [currentDisputeId, setCurrentDisputeId] = useState(111);
+	const [currentDisputeId, setCurrentDisputeId] = useState(null);
 
 	const handleLogin = () => {
 		setIsLoggedIn(true);
+		navigate(`disputes`);
 	};
 	const handleCardClick = (id) => {
 		setCurrentDisputeId(id);
 		navigate(`disputes/${id}`);
 	};
 
+	const handleNewDisputeClick = () => {
+		navigate(`new-dispute`);
+	};
+
 	return (
 		<div className="App">
-			<Header isLogged={isLoggedIn} />
+			<Header
+				isLogged={isLoggedIn}
+				handleCreateDispute={handleNewDisputeClick}
+			/>
 
 			<Routes>
 				<Route path="/" element={<Navigate to="/login" />} />
@@ -40,6 +49,8 @@ function App() {
 					path={`disputes/${currentDisputeId}`}
 					element={<DisputeCard id={currentDisputeId} />}
 				/>
+
+				<Route path="/new-dispute" element={<NewDisputeForm />} />
 
 				<Route path="*" element={<PageNotFound />} />
 			</Routes>
