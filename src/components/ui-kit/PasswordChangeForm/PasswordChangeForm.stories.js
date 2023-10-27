@@ -1,4 +1,4 @@
-import { PasswordChangeForm } from './PasswordChangeForm';
+import PasswordChangeForm from './PasswordChangeForm';
 
 export default {
 	title: 'Dispute_Resolution/Forms/ChangePassword',
