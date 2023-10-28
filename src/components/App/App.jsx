@@ -4,7 +4,7 @@ import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import PageNotFound from '../pages/PageNotFound/PageNotFound';
 import Header from '../Header/Header';
 import LoginForm from '../ui-kit/LoginForm/LoginForm';
-import DisputeList from '../DisputeList/DisputeCardList';
+import MainPage from '../pages/MainPage/MainPage';
 import DisputeCard from '../DisputeCard/DisputeCard';
 import NewDisputeForm from '../ui-kit/NewDisputeForm/NewDisputeForm';
 import mockDisputeData from './mockDisputeData';
@@ -41,7 +41,7 @@ function App() {
 				<Route
 					path="/disputes"
 					element={
-						<DisputeList array={mockDisputeData} onClick={handleCardClick} />
+						<MainPage array={mockDisputeData} onClick={handleCardClick} />
 					}
 				/>
 
