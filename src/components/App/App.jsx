@@ -1,13 +1,14 @@
 import './App.css';
 import { React, useState } from 'react';
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
-import PageNotFound from '../pages/PageNotFound/PageNotFound';
+import PageNotFound from '../Pages/PageNotFound/PageNotFound';
 import Header from '../Header/Header';
 import LoginForm from '../ui-kit/LoginForm/LoginForm';
 import DisputeList from '../DisputeList/DisputeCardList';
-import DisputeCard from '../DisputeCard/DisputeCard';
+
 import NewDisputeForm from '../ui-kit/NewDisputeForm/NewDisputeForm';
 import mockDisputeData from './mockDisputeData';
+import DisputePage from '../Pages/DisputePage/DisputePage';
 
 function App() {
 	const navigate = useNavigate();
@@ -47,7 +48,7 @@ function App() {
 
 				<Route
 					path={`disputes/${currentDisputeId}`}
-					element={<DisputeCard id={currentDisputeId} />}
+					element={<DisputePage id={currentDisputeId} />}
 				/>
 
 				<Route path="/new-dispute" element={<NewDisputeForm />} />
