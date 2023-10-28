@@ -36,62 +36,57 @@ function App() {
 	const [currentDisputeId, setCurrentDisputeId] = useState(null);
 
 	useEffect(() => {
-		(async () => {
-			const token = localStorage.getItem('token');
+		const token = localStorage.getItem('token');
+		if (!token) {
+			setIsLoggedIn(false);
+			setIsLoading(false);
+			return;
+		}
 
-			if (!token) {
-				setIsLoggedIn(false);
-				setIsLoading(false);
-				return;
-			}
+		setIsLoading(true);
 
-			setIsLoading(true);
-
-			try {
-				const response = await getUserInfo();
+		getUserInfo()
+			.then((res) => {
 				setIsLoggedIn(true);
-				console.log(response.data, 'response');
-				setCurrentUser(response.data);
-			} catch (error) {
+				console.log(res.data, 'response');
+				setCurrentUser(res.data);
+			})
+			.catch((error) => {
 				console.log(error);
-			} finally {
+			})
+			.finally(() => {
 				setIsLoading(false);
-			}
-		})();
+			});
 	}, []);
 
-	const handleLogin = async (value) => {
-		try {
-			setIsLoading(true);
-
-			const response = await login({
-				email: value.Email,
-				password: value.Password,
+	const handleLogin = (value) => {
+		setIsLoading(true);
+		login({ email: value.Email, password: value.Password })
+			.then((res) => {
+				localStorage.setItem('token', res.auth_token);
+				setIsLoggedIn(true);
+				navigate(`disputes`);
+			})
+			.catch((err) => console.log(err))
+			.finally(() => {
+				setIsLoading(false);
 			});
-			// if (response.status != 201) return;
-			localStorage.setItem('token', response.auth_token);
-			setIsLoggedIn(true);
-			navigate(`disputes`);
-		} catch (error) {
-			console.error(error);
-		} finally {
-			setIsLoading(false);
-		}
 	};
 
-	const handleLogout = async () => {
-		try {
-			setIsLoading(true);
-			const response = await logout();
-			// if (response.status != 201) return;
-			localStorage.removeItem('token');
-			setIsLoggedIn(false);
-			navigate('/');
-		} catch (error) {
-			console.error(error);
-		} finally {
-			setIsLoading(false);
-		}
+	const handleLogout = () => {
+		setIsLoading(true);
+		logout()
+			.then(() => {
+				localStorage.removeItem('token');
+				setIsLoggedIn(false);
+				navigate('/');
+			})
+			.catch((error) => {
+				console.error(error);
+			})
+			.finally(() => {
+				setIsLoading(false);
+			});
 	};
 
 	const handleCardClick = (id) => {
