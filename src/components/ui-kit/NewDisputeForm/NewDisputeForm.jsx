@@ -20,6 +20,20 @@ const NewDisputeForm = ({
 	const [disputeText, setDisputeText] = useState({}); // Суть конфликта
 	const [fileList, setFileList] = useState([]); // Массив файлов для загрузки
 
+	const [isDisable, setIsDisable] = useState(true); // Стейт диза кнопки
+
+	useEffect(() => {
+		if (
+			disputeText.newDisputeText === undefined ||
+			disputeText.newDisputeText.length === 0 ||
+			selectedOpponents.length === 0
+		) {
+			setIsDisable(true);
+		} else {
+			setIsDisable(false);
+		}
+	}, [disputeText, selectedOpponents]);
+
 	useEffect(() => {
 		if (initialSelectedOpponents && initialSelectedOpponents.length > 0) {
 			setSelectedOpponents(initialSelectedOpponents);
@@ -121,12 +135,18 @@ const NewDisputeForm = ({
 					<span />
 					<div className="new-dispute-footer__used-zone">
 						{!isEditDispute ? (
-							<Button label="Продолжить" onClick={handleSubmit} size="mlarge" />
+							<Button
+								label="Продолжить"
+								onClick={handleSubmit}
+								size="mlarge"
+								disabled={isDisable}
+							/>
 						) : (
 							<Button
 								label="Сохранить изменения"
 								onClick={handleSubmit}
 								size="mlarge"
+								disabled={isDisable}
 							/>
 						)}
 

@@ -86,9 +86,7 @@ export const NewDisputeOpponents = ({
 	const handleDeleteOpponent = (user) => {
 		const updatedList = selectedOpponents.filter((item) => item.id !== user.id); // фильтруем стейт выбранных
 		handleSetSelectedOpponents(updatedList); // Обновляем стейт
-		setPossibleOpponents(
-			(possibleOpponents[`${user.first_name} ${user.last_name}`] = user)
-		); // Возвращаем оппонента в стейт "возможных"
+		setPossibleOpponents([...possibleOpponents, user]); // Возвращаем оппонента в стейт "возможных"
 	};
 
 	return (
