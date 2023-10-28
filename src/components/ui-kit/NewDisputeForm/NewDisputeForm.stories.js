@@ -23,4 +23,14 @@ export default {
 	},
 };
 
-export const Default = () => <NewDisputeForm />;
+// export const Default = () => <NewDisputeForm />;
+export const Create = {
+	args: {
+		isEditDispute: false,
+	},
+};
+export const Edit = {
+	args: {
+		isEditDispute: true,
+	},
+};

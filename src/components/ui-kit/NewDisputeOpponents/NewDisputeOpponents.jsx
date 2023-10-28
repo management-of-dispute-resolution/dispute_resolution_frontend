@@ -137,12 +137,14 @@ export const NewDisputeOpponents = ({
 				/>
 			</div>
 			{/* Модалка выбор оппонента */}
-			<NewDisputeOpponentsModal
-				searchOpponent={searchOpponent}
-				chooseOpponentModal={chooseOpponentModal}
-				handleAddOpponent={handleAddOpponent}
-				handleCloseOpponentsModal={handleCloseOpponentsModal}
-			/>
+			<div className="new-dipute-opponents__choice-glue-modal">
+				<NewDisputeOpponentsModal
+					searchOpponent={searchOpponent}
+					chooseOpponentModal={chooseOpponentModal}
+					handleAddOpponent={handleAddOpponent}
+					handleCloseOpponentsModal={handleCloseOpponentsModal}
+				/>
+			</div>
 		</div>
 	);
 };

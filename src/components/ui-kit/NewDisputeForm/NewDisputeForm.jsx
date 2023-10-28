@@ -101,7 +101,7 @@ const NewDisputeForm = ({
 				</div>
 
 				{/* Блок рабооты с файлами */}
-				{isEditDispute && (
+				{!isEditDispute && (
 					<div className="new-dispute-file new-dispute-form__item-wrapper">
 						<div className="new-dispute-form__item-title-wrapper_large">
 							<h3 className="new-dispute-form__item-title">Прикрепите файлы</h3>
@@ -120,7 +120,15 @@ const NewDisputeForm = ({
 				<div className="new-dispute-footer new-dispute-form__item-wrapper">
 					<span />
 					<div className="new-dispute-footer__used-zone">
-						<Button label="Продолжить" onClick={handleSubmit} size="mlarge" />
+						{!isEditDispute ? (
+							<Button label="Продолжить" onClick={handleSubmit} size="mlarge" />
+						) : (
+							<Button
+								label="Сохранить изменения"
+								onClick={handleSubmit}
+								size="mlarge"
+							/>
+						)}
 
 						{/* Отображение загруженных файлов */}
 						{!isEditDispute && fileList.length > 0 ? (
