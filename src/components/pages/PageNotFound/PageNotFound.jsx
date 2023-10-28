@@ -11,7 +11,7 @@ const PageNotFound = () => {
 	const navigate = useNavigate();
 
 	const goHome = () => {
-		navigate('/home');
+		navigate(-1);
 	};
 
 	return (
@@ -28,7 +28,7 @@ const PageNotFound = () => {
 						То, что находится в поиске не существует или пока не открыто
 					</p>
 				</div>
-				<Button label="Перейти на главную" type="button" onClick={goHome} />
+				<Button label="Вернуться назад" type="button" onClick={goHome} />
 			</section>
 		</article>
 	);

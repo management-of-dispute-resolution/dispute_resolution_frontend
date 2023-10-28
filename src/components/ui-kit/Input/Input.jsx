@@ -23,11 +23,16 @@ function Input({
 
 	return (
 		<div className="input">
-			<div className="input__box">
+			<div
+				className={
+					disabled
+						? 'input__box input__box_disabled'
+						: 'input__box input__box_active'
+				}
+			>
 				<div className="input__box-with-label">
 					<input
 						className="input__input"
-						name={name}
 						id="userPassword"
 						placeholder={placeholder}
 						type={itemType}
