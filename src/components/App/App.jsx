@@ -79,7 +79,7 @@ function App() {
 			.then(() => {
 				localStorage.removeItem('token');
 				setIsLoggedIn(false);
-				navigate('/');
+				navigate('/', { replace: true });
 			})
 			.catch((error) => {
 				console.error(error);
