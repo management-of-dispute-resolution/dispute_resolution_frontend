@@ -1,5 +1,5 @@
 import './Header.css';
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../ui-kit/Button/Button';
 import Menu from '../ui-kit/Menu/Menu';
@@ -17,6 +17,36 @@ function Header({
 		setIsMenuOpen(!isMenuOpen);
 	};
 
+	const menuRef = useRef(null);
+
+	useEffect(() => {
+		if (!isMenuOpen) {
+			return;
+		}
+
+		const handler = (e) => {
+			if (
+				menuRef.current &&
+				!menuRef.current.contains(e.target) &&
+				!e.target.classList.contains('header__user-avatar') &&
+				!e.target.classList.contains('header__user-name') &&
+				!e.target.classList.contains('header__icon')
+			) {
+				setIsMenuOpen(false);
+				// console.log(e.target.classList);
+				// console.log(e);
+				// console.log(e.target.classList.contains('header__user-avatar'));
+			}
+		};
+
+		document.addEventListener('mousedown', handler);
+
+		// eslint-disable-next-line consistent-return
+		return () => {
+			document.removeEventListener('mousedown', handler);
+		};
+	}, [isMenuOpen]);
+
 	return (
 		<>
 			{isLogged ? (
@@ -31,7 +61,6 @@ function Header({
 							onClick={handleCreateDispute}
 						/>
 						<button className="header__user-avatar" onClick={toggleMenu}>
-							{console.log(user.lastName)}
 							<p className="header__user-name">{user?.lastName[0] ?? ''}</p>
 						</button>
 
@@ -47,7 +76,7 @@ function Header({
 							/>
 						</button>
 					</div>
-					<div className="header__menu-container">
+					<div ref={menuRef} className="header__menu-container">
 						<Menu
 							isOpen={isMenuOpen}
 							firstButton={
