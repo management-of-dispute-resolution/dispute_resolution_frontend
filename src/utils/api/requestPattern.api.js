@@ -31,7 +31,14 @@ export const makeRequest = async (url, method, body) => {
 
 // Запрос с FormData
 export const makeFormDataReq = async (url, method, body) => {
-	const config = { method, body };
+	const headers = {};
+	const token = localStorage.getItem('token'); // Проверяем токен в LS
+	if (token !== undefined && token !== null) {
+		// если токен есть
+		headers.authorization = `Token ${token}`; // добавляем заголовок авторизации по токену
+	}
+	const config = { headers, method, body };
+
 	const res = await fetch(`${BASE_URL_AUTH}${url}`, config);
 	return responceProcessing(res);
 };
