@@ -15,6 +15,7 @@ export default function App() {
 				<Route path="/" element={<Layout />}>
 					<Route path="/login" element={<LoginPage />} />
 					<Route path="/disputes" element={<DisputesPage />} />
+					<Route path="/disputes/:id" element={<LoginPage />} />
 					<Route path="/notfound" element={<PageNotFound />} />
 				</Route>
 			</Routes>
