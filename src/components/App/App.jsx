@@ -13,7 +13,7 @@ import DisputeList from '../DisputeList/DisputeCardList';
 import NewDisputeForm from '../ui-kit/NewDisputeForm/NewDisputeForm';
 import mockDisputeData from './mockDisputeData';
 
-
+// eslint-disable-next-line no-unused-vars
 import {
 	//getUsers,
 	//register,
