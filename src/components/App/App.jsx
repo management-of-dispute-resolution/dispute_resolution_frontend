@@ -1,62 +1,23 @@
-import './App.css';
-import { React, useState } from 'react';
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
+import * as React from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+import { AuthProvider } from '../../hok/AuthProvider';
+
+import { Layout } from '../Layout/Layout';
+import { LoginPage } from '../Pages/LoginPage/LoginPage';
 import PageNotFound from '../Pages/PageNotFound/PageNotFound';
-import Header from '../Header/Header';
-import LoginForm from '../ui-kit/LoginForm/LoginForm';
-import DisputeList from '../DisputeList/DisputeCardList';
+import DisputesPage from '../Pages/DisputesPage/DisputesPage';
 
-import NewDisputeForm from '../ui-kit/NewDisputeForm/NewDisputeForm';
-import mockDisputeData from './mockDisputeData';
-import DisputePage from '../Pages/DisputePage/DisputePage';
-
-function App() {
-	const navigate = useNavigate();
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [currentDisputeId, setCurrentDisputeId] = useState(null);
-
-	const handleLogin = () => {
-		setIsLoggedIn(true);
-		navigate(`disputes`);
-	};
-	const handleCardClick = (id) => {
-		setCurrentDisputeId(id);
-		navigate(`disputes/${id}`);
-	};
-
-	const handleNewDisputeClick = () => {
-		navigate(`new-dispute`);
-	};
-
+export default function App() {
 	return (
-		<div className="App">
-			<Header
-				isLogged={isLoggedIn}
-				handleCreateDispute={handleNewDisputeClick}
-			/>
-
+		<AuthProvider>
 			<Routes>
-				<Route path="/" element={<Navigate to="/login" />} />
-				<Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
-
-				<Route
-					path="/disputes"
-					element={
-						<DisputeList array={mockDisputeData} onClick={handleCardClick} />
-					}
-				/>
-
-				<Route
-					path={`disputes/${currentDisputeId}`}
-					element={<DisputePage id={currentDisputeId} />}
-				/>
-
-				<Route path="/new-dispute" element={<NewDisputeForm />} />
-
-				<Route path="*" element={<PageNotFound />} />
+				<Route path="/" element={<Layout />}>
+					<Route path="/login" element={<LoginPage />} />
+					<Route path="/disputes" element={<DisputesPage />} />
+					<Route path="/notfound" element={<PageNotFound />} />
+				</Route>
 			</Routes>
-		</div>
+		</AuthProvider>
 	);
 }
-
-export default App;

@@ -1,0 +1,28 @@
+.layout__container {
+	position: relative;
+	width: 100vw;
+	height: calc(100vh - 108px);
+	/* max-height: calc(100vh - 108px); */
+	overflow-y: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	scrollbar-color: var(--Desabled-input) rgba(228, 228, 228, 0);
+	scrollbar-width: thin;
+}
+
+.layout__container::-webkit-scrollbar {
+	width: 17px;
+}
+
+.layout__container::-webkit-scrollbar-track {
+	background-color: rgba(228, 228, 228, 0.1);
+	border-radius: 100px;
+}
+
+.layout__container::-webkit-scrollbar-thumb {
+	border-radius: 13px;
+	border: 6px solid transparent;
+	background-clip: content-box;
+	background-color: var(--Desabled-input);
+}

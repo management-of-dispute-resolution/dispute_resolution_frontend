@@ -33,7 +33,8 @@ function Input({
 				<div className="input__box-with-label">
 					<input
 						className="input__input"
-						id="userPassword"
+						id="userInput"
+						name={name}
 						placeholder={placeholder}
 						type={itemType}
 						value={value}

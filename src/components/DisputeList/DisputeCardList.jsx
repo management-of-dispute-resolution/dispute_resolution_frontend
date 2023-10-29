@@ -16,7 +16,7 @@ function DisputeCardList({ array, onClick }) {
 					created_at={card.created_at}
 					files={card.files}
 					id={card.id}
-					onClick={onClick}
+					onClick={() => onClick(card.id)}
 				/>
 			))}
 		</div>
