@@ -11,7 +11,7 @@ import DisputeList from '../DisputeList/DisputeCardList';
 
 import NewDisputeForm from '../ui-kit/NewDisputeForm/NewDisputeForm';
 import mockDisputeData from './mockDisputeData';
-import DisputePage from '../Pages/DisputePage/DisputePage';
+import DisputePage from '../pages/DisputePage/DisputePage';
 
 import {
 	//getUsers,
