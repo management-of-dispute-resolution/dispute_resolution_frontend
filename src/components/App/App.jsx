@@ -4,6 +4,7 @@ import './App.css';
 import { React, useState, useEffect } from 'react';
 import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
 import PageNotFound from '../pages/PageNotFound/PageNotFound';
+import DisputePage from '../pages/DisputePage/DisputePage';
 import { InfoToolTip } from '../ui-kit/InfoToolTip/InfoToolTip';
 import Header from '../Header/Header';
 import LoginForm from '../ui-kit/LoginForm/LoginForm';
@@ -11,7 +12,7 @@ import DisputeList from '../DisputeList/DisputeCardList';
 
 import NewDisputeForm from '../ui-kit/NewDisputeForm/NewDisputeForm';
 import mockDisputeData from './mockDisputeData';
-import DisputePage from '../pages/DisputePage/DisputePage';
+
 
 import {
 	//getUsers,
