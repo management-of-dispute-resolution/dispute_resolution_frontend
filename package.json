@@ -24,7 +24,6 @@
 		"lint": "eslint . --ext .js,.jsx .",
 		"lint:fix": "npm run lint -- --fix",
 		"format": "prettier . --write",
-		"prepare": "husky install",
 		"commit": "cz",
 		"deploy-storybook": "storybook build -o storybook-static && npx gh-pages -d storybook-static"
 	},
@@ -94,7 +93,6 @@
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-prettier": "^8.8.0",
 		"gh-pages": "^6.0.0",
-		"husky": "^8.0.3",
 		"lint-staged": "^13.2.1",
 		"prettier": "^2.8.8",
 		"storybook": "7.0.7",
