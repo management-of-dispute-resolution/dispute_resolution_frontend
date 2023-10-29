@@ -8,9 +8,10 @@ import { InfoToolTip } from '../ui-kit/InfoToolTip/InfoToolTip';
 import Header from '../Header/Header';
 import LoginForm from '../ui-kit/LoginForm/LoginForm';
 import DisputeList from '../DisputeList/DisputeCardList';
-import DisputeCard from '../DisputeCard/DisputeCard';
+
 import NewDisputeForm from '../ui-kit/NewDisputeForm/NewDisputeForm';
 import mockDisputeData from './mockDisputeData';
+import DisputePage from '../Pages/DisputePage/DisputePage';
 
 import {
 	//getUsers,
@@ -119,7 +120,7 @@ function App() {
 
 				<Route
 					path={`disputes/${currentDisputeId}`}
-					element={<DisputeCard id={currentDisputeId} />}
+					element={<DisputePage id={currentDisputeId} />}
 				/>
 
 				<Route path="/new-dispute" element={<NewDisputeForm />} />
