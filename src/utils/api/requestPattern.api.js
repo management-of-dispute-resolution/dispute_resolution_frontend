@@ -38,16 +38,38 @@ export const makeRequest = async (url, method, body) => {
 	return responceProcessing(res);
 };
 
-// Запрос с FormData
+// Запрос с FormData - не работает
 export const makeFormDataReq = async (url, method, body) => {
 	const headers = {};
+
 	const token = localStorage.getItem('token'); // Проверяем токен в LS
 	if (token !== undefined && token !== null) {
 		// если токен есть
 		headers.authorization = `Token ${token}`; // добавляем заголовок авторизации по токену
 	}
-	const config = { headers, method, body };
+
+	const config = { method, headers };
+	if (body !== undefined) {
+		// Проверяем наличие тела запроса
+		config.body = body; // если есть добавляем в запрос
+	}
 
 	const res = await fetch(`${BASE_URL_AUTH}${url}`, config);
 	return responceFormData(res);
 };
+// export const makeFormDataReq = async (url, method, body) => {
+// 	const headers = {};
+// 	const token = localStorage.getItem('token'); // Проверяем токен в LS
+// 	if (token !== undefined && token !== null) {
+// 		// если токен есть
+// 		headers.authorization = `Token ${token}`; // добавляем заголовок авторизации по токену
+// 	}
+// 	const config = { headers, method, body };
+// 	console.log('URL ', `${BASE_URL_AUTH}${url}`)
+// 	console.log(config)
+// 	const responce = await fetch(`${BASE_URL_AUTH}${url}`, config)
+// 	// .then((res) => res.json())
+
+// 	// return responceProcessing(res);
+// 	return responce
+// };
