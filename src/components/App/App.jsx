@@ -7,7 +7,7 @@ import PageNotFound from '../Pages/PageNotFound/PageNotFound';
 import { RequireAuth } from '../../hok/RequireAuth';
 import { DisputesPage } from '../Pages/DisputesPage/DisputesPage';
 import CreateDisputePage from '../Pages/CreateDisputePage/CreateDisputePage';
-import CheckLogin from '../Pages/CheckLogin/CheckLogin';
+// import CheckLogin from '../Pages/CheckLogin/CheckLogin';
 import { EditDisputePage } from '../Pages/EditDisputePage/EditDisputePage';
 import DisputePage from '../Pages/DisputePage/DisputePage';
 // import { useAuth } from '../../hook/useAuth';
@@ -25,7 +25,7 @@ export default function App() {
 				path="/"
 				element={<Layout handleCreateDispute={handleCreateDispute} />}
 			>
-				<Route index element={<CheckLogin />} />
+				{/* <Route index element={<CheckLogin />} /> */}
 				<Route path="/login" element={<LoginPage />} />
 				<Route
 					path="/disputes"

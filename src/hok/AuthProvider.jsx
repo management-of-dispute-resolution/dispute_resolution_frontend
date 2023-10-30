@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(false);
+	const [isBooted, setIsBooted] = useState(false);
 
 	const checkAuth = async () => {
 		// setIsLoading(true)
@@ -30,11 +31,16 @@ export const AuthProvider = ({ children }) => {
 					if (currentUserById) {
 						setUser(currentUserById);
 						setIsLoggedIn(true);
+						setIsBooted(true);
 					}
 				} catch (err) {
 					console.log(err);
 				}
 			}
+		}
+		else
+		{
+			setIsBooted(true);
 		}
 		setIsLoading(false);
 	};
@@ -93,6 +99,7 @@ export const AuthProvider = ({ children }) => {
 		setIsLoading,
 		isError,
 		setIsError,
+		isBooted
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
