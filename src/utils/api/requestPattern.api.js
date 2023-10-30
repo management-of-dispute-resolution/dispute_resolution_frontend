@@ -8,6 +8,15 @@ export const responceProcessing = (res) =>
 		: res.status === 204
 		? Promise.resolve(res.status)
 		: res.json();
+// Обработка ответа от сервера
+export const responceFormData = (res) =>
+	res.ok ? Promise.resolve(res) : res.json().then((err) => Promise.reject(err));
+// eslint-disable-next-line no-nested-ternary
+// !res.ok
+// 	? res.json().then((err) => Promise.reject(err))
+// 	: res.status === 204
+// 		? Promise.resolve(res.status)
+// 		: res;
 
 // Формирование модели запроса
 export const makeRequest = async (url, method, body) => {
@@ -40,5 +49,5 @@ export const makeFormDataReq = async (url, method, body) => {
 	const config = { headers, method, body };
 
 	const res = await fetch(`${BASE_URL_AUTH}${url}`, config);
-	return responceProcessing(res);
+	return responceFormData(res);
 };

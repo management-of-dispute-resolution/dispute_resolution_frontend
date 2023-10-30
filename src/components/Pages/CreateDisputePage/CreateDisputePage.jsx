@@ -25,14 +25,15 @@ const CreateDisputePage = () => {
 
 	// Создать диспут
 	const handleCreateDispute = async (data) => {
-		try {
-			const reqData = await createDispute(data);
-			if (reqData) {
-				console.log('res Data ', reqData);
-			}
-		} catch (err) {
-			console.error('res Error ', err);
-		}
+		console.log('Создать');
+		// try {
+		const reqData = await createDispute(data);
+		// if (reqData) {
+		console.log('res Data ', reqData);
+		// }
+		// }
+
+		// }
 	};
 
 	return (
