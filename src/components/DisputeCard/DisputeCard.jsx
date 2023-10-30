@@ -7,7 +7,7 @@ import Menu from '../ui-kit/Menu/Menu';
 import Button from '../ui-kit/Button/Button';
 
 function DisputeCard({
-	handleCancelDispute,
+	handleDeleteDispute,
 	handleChangeDispute,
 	creator,
 	description,
@@ -31,8 +31,7 @@ function DisputeCard({
 	};
 
 	function handleClick(evt) {
-		if (evt.target === evt.currentTarget) {
-			// alert(id);
+		if (evt.target) {
 			onClick(id);
 		}
 	}
@@ -47,10 +46,10 @@ function DisputeCard({
 		<div className="dispute-card">
 			<div
 				className="dispute-card__container"
-				onClick={handleClick}
-				onKeyDown={handleKeyDown}
-				role="link"
-				tabIndex="0"
+				// onClick={handleClick}
+				// onKeyDown={handleKeyDown}
+				// role="link"
+				// tabIndex="0"
 			>
 				<div
 					className={[
@@ -59,7 +58,13 @@ function DisputeCard({
 				>
 					{statusInterface[status]}
 				</div>
-				<div className="dispute-card__content">
+				<div
+					className="dispute-card__content"
+					onClick={handleClick}
+					onKeyDown={handleKeyDown}
+					role="link"
+					tabIndex="0"
+				>
 					<div className="dispute-card__header">
 						<h2 className="dispute-card__title">{`${creator} ${CreatedAt}`}</h2>
 						{status === 'closed' ? (
@@ -83,7 +88,7 @@ function DisputeCard({
 									color="transperent"
 									type="button"
 									before="edit"
-									onClick={handleChangeDispute}
+									onClick={() => handleChangeDispute(id)}
 								/>
 							}
 							secondButton={
@@ -93,7 +98,7 @@ function DisputeCard({
 									color="transperent"
 									type="button"
 									before="cancel"
-									onClick={handleCancelDispute}
+									onClick={() => handleDeleteDispute(id)}
 								/>
 							}
 						/>
@@ -109,10 +114,10 @@ function DisputeCard({
 DisputeCard.propTypes = {
 	id: PropTypes.number.isRequired,
 	status: PropTypes.oneOf(['closed', 'started', 'not_started']).isRequired,
-	creator: PropTypes.string.isRequired,
+	creator: PropTypes.number.isRequired,
 	description: PropTypes.string.isRequired,
 	created_at: PropTypes.string.isRequired,
-	handleCancelDispute: PropTypes.func,
+	handleDeleteDispute: PropTypes.func,
 	handleChangeDispute: PropTypes.func,
 	closed_at: PropTypes.string,
 	files: PropTypes.arrayOf(PropTypes.string),
@@ -121,7 +126,7 @@ DisputeCard.propTypes = {
 DisputeCard.defaultProps = {
 	closed_at: '',
 	files: [],
-	handleCancelDispute: undefined,
+	handleDeleteDispute: undefined,
 	handleChangeDispute: undefined,
 };
 

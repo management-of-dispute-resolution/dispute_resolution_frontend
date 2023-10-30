@@ -8,6 +8,8 @@ import { RequireAuth } from '../../hok/RequireAuth';
 import { DisputesPage } from '../Pages/DisputesPage/DisputesPage';
 import CreateDisputePage from '../Pages/CreateDisputePage/CreateDisputePage';
 import CheckLogin from '../Pages/CheckLogin/CheckLogin';
+import { EditDisputePage } from '../Pages/EditDisputePage/EditDisputePage';
+import DisputePage from '../Pages/DisputePage/DisputePage';
 // import { useAuth } from '../../hook/useAuth';
 
 export default function App() {
@@ -37,7 +39,7 @@ export default function App() {
 					path="/disputes/:id"
 					element={
 						<RequireAuth>
-							<DisputesPage />
+							<DisputePage />
 						</RequireAuth>
 					}
 				/>
@@ -46,6 +48,14 @@ export default function App() {
 					element={
 						<RequireAuth>
 							<CreateDisputePage />
+						</RequireAuth>
+					}
+				/>
+				<Route
+					path="/edit-dispute"
+					element={
+						<RequireAuth>
+							<EditDisputePage />
 						</RequireAuth>
 					}
 				/>

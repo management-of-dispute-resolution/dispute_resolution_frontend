@@ -1,6 +1,10 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/jsx-no-comment-textnodes */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import './Header.css';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import Button from '../ui-kit/Button/Button';
 import Menu from '../ui-kit/Menu/Menu';
 
@@ -11,7 +15,10 @@ function Header({
 	handleChangePassword,
 	onSignOut,
 }) {
+	const navigate = useNavigate();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	const handleGoHome = () => navigate('/', { replace: true });
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
@@ -26,7 +33,12 @@ function Header({
 		<>
 			{isLogged ? (
 				<header className="header">
-					<div className="header__logo" />
+					<div
+						className="header__logo"
+						role="button"
+						tabIndex={0}
+						onClick={handleGoHome}
+					/>
 					<div className="header__container">
 						<Button
 							size="medium"

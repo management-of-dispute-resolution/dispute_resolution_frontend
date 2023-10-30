@@ -1,12 +1,8 @@
 .layout__container {
 	position: relative;
 	width: 100vw;
-	/* height: calc(100vh - 108px); */
-	/* max-height: calc(100vh - 108px); */
+	max-height: calc(100vh - 108px);
 	overflow-y: auto;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	scrollbar-color: var(--Desabled-input) rgba(228, 228, 228, 0);
 	scrollbar-width: thin;
 }
