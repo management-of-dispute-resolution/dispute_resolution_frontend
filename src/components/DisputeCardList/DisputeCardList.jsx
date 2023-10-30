@@ -33,10 +33,11 @@ DisputeCardList.propTypes = {
 			files: PropTypes.arrayOf(PropTypes.string), // Если files также является массивом
 		})
 	),
-	onClick: PropTypes.func.isRequired,
+	onClick: PropTypes.func,
 };
 
 DisputeCardList.defaultProps = {
 	array: [],
+	onClick: () => {},
 };
 export default DisputeCardList;

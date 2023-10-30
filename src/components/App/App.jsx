@@ -8,8 +8,7 @@ import DisputePage from '../pages/DisputePage/DisputePage';
 import { InfoToolTip } from '../ui-kit/InfoToolTip/InfoToolTip';
 import Header from '../Header/Header';
 import LoginForm from '../ui-kit/LoginForm/LoginForm';
-import DisputeList from '../DisputeList/DisputeCardList';
-
+import MainPage from '../pages/MainPage/MainPage';
 import NewDisputeForm from '../ui-kit/NewDisputeForm/NewDisputeForm';
 import mockDisputeData from './mockDisputeData';
 
@@ -115,7 +114,7 @@ function App() {
 				<Route
 					path="/disputes"
 					element={
-						<DisputeList array={mockDisputeData} onClick={handleCardClick} />
+						<MainPage array={mockDisputeData} onClick={handleCardClick} />
 					}
 				/>
 
