@@ -11,13 +11,10 @@ const LoginForm = ({ onLogin }) => {
 	// const [isDisable, setIsDisable] = useState(true);
 
 	function handleChange(evt) {
-		console.log('event ', evt.target);
 		const { name, value } = evt.target;
 		setValues((prev) => ({ ...prev, [name]: value }));
 		// eslint-disable-next-line no-unused-expressions
 		// values.Email ? setIsDisable(false) : setIsDisable(true);
-
-		console.log('form', values);
 	}
 
 	const handleSubmit = (evt) => {

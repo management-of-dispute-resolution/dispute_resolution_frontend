@@ -1,25 +1,31 @@
-import React, { useEffect, useState } from 'react';
+// import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom';
 // import DisputeCardList from '../../DisputeList/DisputeCardList';
 
 import { getDisputes } from '../../../utils/api/disputes.api';
+import { useAuth } from '../../../hook/useAuth';
+import Preloader from '../../Preloader/Preloader';
 
 const DisputesPage = () => {
 	// const navigate = useNavigate();
+	const { isLoading, setIsLoading, isError, setIsError } = useAuth();
 
-	const [allDisputes, setAllDisputes] = useState({});
+	// const [allDisputes, setAllDisputes] = useState({});
 
 	// Получить все диспуты
 	const getAllDisputes = async () => {
+		setIsLoading(true);
+		setIsError(false);
 		try {
 			const reqData = await getDisputes();
 			if (reqData) {
-				console.log(reqData);
-				setAllDisputes(reqData);
+				console.log('Запрос всех карточек', reqData);
+				setIsLoading(false);
+				// setAllDisputes(reqData);
 			}
 		} catch (err) {
-			console.log('all', allDisputes);
-			console.error('res Error ', err);
+			setIsError(true);
 		}
 	};
 
@@ -29,13 +35,16 @@ const DisputesPage = () => {
 	}, []);
 
 	// const handleCardClick = (id) => {
-	//   navigate(`/disputes/${id}`)
+	// 	navigate(`/disputes/${id}`)
 	// };
 
 	return (
-		<p>njhbfvjhzfbv</p>
-		// <DisputeCardList array={allDisputes} onClick={handleCardClick} />
+		<>
+			{isLoading && <Preloader />}
+			{!isLoading && isError && <h2>Ошибка сервера</h2>}
+			{/* {!isLoading && !isError && <DisputeCardList array={allDisputes} onClick={handleCardClick} />} */}
+		</>
 	);
 };
 
-export default DisputesPage;
+export { DisputesPage };

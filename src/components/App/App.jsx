@@ -1,13 +1,14 @@
 import * as React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import { AuthProvider } from '../../hok/AuthProvider';
-
 import { Layout } from '../Layout/Layout';
 import { LoginPage } from '../Pages/LoginPage/LoginPage';
 import PageNotFound from '../Pages/PageNotFound/PageNotFound';
-import DisputesPage from '../Pages/DisputesPage/DisputesPage';
+import { RequireAuth } from '../../hok/RequireAuth';
+import { DisputesPage } from '../Pages/DisputesPage/DisputesPage';
 import CreateDisputePage from '../Pages/CreateDisputePage/CreateDisputePage';
+import CheckLogin from '../Pages/CheckLogin/CheckLogin';
+// import { useAuth } from '../../hook/useAuth';
 
 export default function App() {
 	const navigate = useNavigate();
@@ -17,19 +18,39 @@ export default function App() {
 	};
 
 	return (
-		<AuthProvider>
-			<Routes>
+		<Routes>
+			<Route
+				path="/"
+				element={<Layout handleCreateDispute={handleCreateDispute} />}
+			>
+				<Route index element={<CheckLogin />} />
+				<Route path="/login" element={<LoginPage />} />
 				<Route
-					path="/"
-					element={<Layout handleCreateDispute={handleCreateDispute} />}
-				>
-					<Route path="/login" element={<LoginPage />} />
-					<Route path="/disputes" element={<DisputesPage />} />
-					<Route path="/disputes/:id" element={<LoginPage />} />
-					<Route path="/create-dispute" element={<CreateDisputePage />} />
-					<Route path="/notfound" element={<PageNotFound />} />
-				</Route>
-			</Routes>
-		</AuthProvider>
+					path="/disputes"
+					element={
+						<RequireAuth>
+							<DisputesPage />
+						</RequireAuth>
+					}
+				/>
+				<Route
+					path="/disputes/:id"
+					element={
+						<RequireAuth>
+							<DisputesPage />
+						</RequireAuth>
+					}
+				/>
+				<Route
+					path="/create-dispute"
+					element={
+						<RequireAuth>
+							<CreateDisputePage />
+						</RequireAuth>
+					}
+				/>
+				<Route path="/notfound" element={<PageNotFound />} />
+			</Route>
+		</Routes>
 	);
 }

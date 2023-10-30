@@ -9,12 +9,17 @@ function Header({
 	user,
 	handleCreateDispute,
 	handleChangePassword,
-	handleSignOut,
+	onSignOut,
 }) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
+	};
+
+	const handleSignOut = () => {
+		toggleMenu();
+		onSignOut();
 	};
 
 	return (
@@ -31,7 +36,6 @@ function Header({
 							onClick={handleCreateDispute}
 						/>
 						<button className="header__user-avatar" onClick={toggleMenu}>
-							{console.log(user.last_name)}
 							<p className="header__user-name">{user?.last_name[0] ?? ''}</p>
 						</button>
 
@@ -91,7 +95,7 @@ Header.propTypes = {
 	}),
 	handleCreateDispute: PropTypes.func,
 	handleChangePassword: PropTypes.func,
-	handleSignOut: PropTypes.func,
+	onSignOut: PropTypes.func,
 };
 
 Header.defaultProps = {
@@ -102,5 +106,5 @@ Header.defaultProps = {
 	},
 	handleCreateDispute: undefined,
 	handleChangePassword: undefined,
-	handleSignOut: undefined,
+	onSignOut: undefined,
 };
