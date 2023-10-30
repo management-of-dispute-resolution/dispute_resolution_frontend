@@ -70,6 +70,14 @@ export function Type(args) {
 				before="cancel"
 				{...args}
 			/>
+			<Button
+				size="micro"
+				label=""
+				color="transperent"
+				type="button"
+				before="send"
+				{...args}
+			/>
 		</div>
 	);
 }

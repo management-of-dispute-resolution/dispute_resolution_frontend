@@ -4,6 +4,7 @@
 	display: flex;
 	max-width: 1061px;
 	gap: 20px;
+	flex:1;
 }
 
 .textarea__box {
@@ -36,6 +37,7 @@
 	box-sizing: border-box;
 	overflow-y: hidden;
 	width: 100%;
+	height: 62px;
 }
 
 .input:not(:has(.input__error:empty)) .input__box {

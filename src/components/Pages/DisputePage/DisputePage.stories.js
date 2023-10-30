@@ -42,5 +42,9 @@ export const DefaltDisputePage = {
 				],
 			},
 		],
+		user: {
+			firstName: 'Иван',
+			lastName: 'Иванов',
+		}
 	},
 };
