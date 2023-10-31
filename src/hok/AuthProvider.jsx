@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
 
 	// роверка авторизации
 	const checkAuth = async () => {
-		setIsLoading(true);
+		// setIsLoading(true);
 		if (localStorage.getItem('token')) {
 			const userData = await getUserInfo();
 			if (userData) {
