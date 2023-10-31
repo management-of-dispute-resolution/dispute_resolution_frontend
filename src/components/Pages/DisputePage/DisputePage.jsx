@@ -22,7 +22,6 @@ const DisputePage = () => {
 		try {
 			const reqData = await getDisputeId(cardId);
 			if (reqData) {
-				console.log(reqData);
 				setCard(reqData);
 			}
 		} catch (err) {

@@ -43,7 +43,7 @@ const NewDisputeForm = ({
 			setSelectedOpponents(initialSelectedOpponents);
 		}
 		if (initialDisputeText) {
-			setDisputeText(initialDisputeText);
+			setDisputeText({ newDisputeText: initialDisputeText });
 		}
 	}, [initialDisputeText, initialSelectedOpponents]);
 

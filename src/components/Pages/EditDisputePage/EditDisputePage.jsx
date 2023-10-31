@@ -14,9 +14,10 @@ const EditDisputePage = () => {
 	const { state } = useLocation();
 	const { disputeId } = state;
 
+	// const [editDisput, setEditDisput] = useState({})
 	const [initialArrayUsers, setInitialArrayUsers] = useState([]);
-	// const [initialSelectedOpponents, setInitialSelectedOpponents] = useState();
-	// const [initialDisputeText, setInitialDisputeText] = useState()
+	const [initialSelectedOpponents, setInitialSelectedOpponents] = useState();
+	const [initialDisputeText, setInitialDisputeText] = useState();
 
 	// Получить всех пользователей
 	const getAllUsers = async () => {
@@ -35,7 +36,8 @@ const EditDisputePage = () => {
 		try {
 			const reqData = await getDisputeId(id);
 			if (reqData) {
-				console.log('res Data ', reqData);
+				setInitialDisputeText(reqData.description);
+				setInitialSelectedOpponents(reqData.opponent);
 			}
 		} catch (err) {
 			console.error('res Error ', err);
@@ -51,18 +53,19 @@ const EditDisputePage = () => {
 	const handleEditDispute = async (data) => {
 		try {
 			const reqData = await editPatchDisputeId(data);
-			if (reqData) {
-				navigate('disputes');
-			}
+			console.log(reqData);
 		} catch (err) {
 			console.error('res Error ', err);
 		}
+		navigate('/disputes');
 	};
 
 	return (
 		<NewDisputeForm
 			initialArrayUsers={initialArrayUsers}
 			handleRequestNewDispute={handleEditDispute}
+			initialSelectedOpponents={initialSelectedOpponents}
+			initialDisputeText={initialDisputeText}
 			isEditDispute
 		/>
 	);

@@ -33,7 +33,7 @@ const DisputesPage = () => {
 	}, []);
 
 	const handleCardClick = (id) => {
-		navigate(`${id}`);
+		navigate(`/disputes/${id}`);
 	};
 
 	const handleChangeDispute = (id) => {
