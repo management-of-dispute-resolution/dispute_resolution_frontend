@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 
 function Input({
+	id,
 	name,
 	label,
 	placeholder,
@@ -33,7 +34,7 @@ function Input({
 				<div className="input__box-with-label">
 					<input
 						className="input__input"
-						id="userInput"
+						id={id}
 						name={name}
 						placeholder={placeholder}
 						type={itemType}
@@ -43,7 +44,7 @@ function Input({
 						pattern={pattern}
 						autoComplete="off"
 					/>
-					<label htmlFor="userPassword" className="input__label">
+					<label htmlFor={id} className="input__label">
 						{label}
 					</label>
 				</div>
@@ -66,6 +67,7 @@ function Input({
 
 export default Input;
 Input.propTypes = {
+	id: PropTypes.string,
 	name: PropTypes.string,
 	label: PropTypes.string,
 	placeholder: PropTypes.string,
@@ -78,6 +80,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
+	id: '',
 	name: '',
 	label: '',
 	placeholder: '',

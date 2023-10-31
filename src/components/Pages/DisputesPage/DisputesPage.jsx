@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DisputeCardList from '../../DisputeList/DisputeCardList';
 
@@ -20,7 +19,6 @@ const DisputesPage = () => {
 		try {
 			const reqData = await getDisputes();
 			if (reqData) {
-				console.log('Все диспуты ', reqData);
 				setIsLoading(false);
 				setAllDisputes(reqData);
 			}
@@ -35,12 +33,10 @@ const DisputesPage = () => {
 	}, []);
 
 	const handleCardClick = (id) => {
-		console.log('на карточку', id);
 		navigate(`${id}`);
 	};
 
 	const handleChangeDispute = (id) => {
-		console.log('Редактировать на карточку', id);
 		navigate('/edit-dispute', { state: { disputeId: id } });
 	};
 

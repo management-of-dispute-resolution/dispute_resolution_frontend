@@ -1,14 +1,14 @@
 /* eslint-disable camelcase */
-import { makeFormDataReq, makeRequest } from './requestPattern.api';
+import { makeRequest } from './requestPattern.api';
 
 // Получение всех диспутов - РАБОТАЕТ
 export const getDisputes = () =>
 	makeRequest(`/api/disputes/`, 'GET', undefined);
 
 // Создание дтспута - ПОКА ПРОБЛЕМА
-export const createDispute = (data) => {
-	makeFormDataReq(`/api/disputes/`, 'POST', data);
-};
+// export const createDispute = (data) => {
+// 	makeFormDataReq('/api/disputes/', 'POST', data);
+// };
 
 // Получение диспута по id - РАБОТАЕТ
 export const getDisputeId = (id) =>
@@ -31,8 +31,8 @@ export const getComments = (dispute_id) =>
 	makeRequest(`/api/disputes/${dispute_id}/comments/`, 'GET', undefined);
 
 // Добавление комментариев к диспуту по id
-export const createComments = ({ dispute_id, content, file }) =>
-	makeFormDataReq(`/api/disputes/${dispute_id}/comments/`, 'POST', {
-		content,
-		file,
-	});
+// export const createComments = ({ dispute_id, content, file }) =>
+// 	makeFormDataReq(`/api/disputes/${dispute_id}/comments/`, 'POST', {
+// 		content,
+// 		file,
+// 	});

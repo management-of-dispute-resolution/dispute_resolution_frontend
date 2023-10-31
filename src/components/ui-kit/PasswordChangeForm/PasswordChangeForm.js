@@ -21,6 +21,7 @@ const PasswordChangeForm = ({
 				<h1 className="password-edit-form__title"> Смена пароля</h1>
 				<div className="password-edit-form__inputs">
 					<Input
+						id="Password"
 						name="Password"
 						label="Текущий пароль"
 						placeholder="Текущий пароль"
@@ -28,6 +29,7 @@ const PasswordChangeForm = ({
 						disabled={disabled}
 					/>
 					<Input
+						id="newPassword"
 						name="Password"
 						label="Новый пароль"
 						placeholder="Новый пароль"
@@ -35,6 +37,7 @@ const PasswordChangeForm = ({
 						disabled={disabled}
 					/>
 					<Input
+						id="confirmNewPassword"
 						name="Password"
 						label="Подтвержите новый пароль"
 						placeholder="Подтвердите новый пароль"

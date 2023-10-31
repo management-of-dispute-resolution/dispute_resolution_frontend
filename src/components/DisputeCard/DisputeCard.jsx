@@ -44,13 +44,7 @@ function DisputeCard({
 
 	return (
 		<div className="dispute-card">
-			<div
-				className="dispute-card__container"
-				// onClick={handleClick}
-				// onKeyDown={handleKeyDown}
-				// role="link"
-				// tabIndex="0"
-			>
+			<div className="dispute-card__container">
 				<div
 					className={[
 						`dispute-card__status dispute-card__status_type_${status}`,
@@ -114,7 +108,14 @@ function DisputeCard({
 DisputeCard.propTypes = {
 	id: PropTypes.number.isRequired,
 	status: PropTypes.oneOf(['closed', 'started', 'not_started']).isRequired,
-	creator: PropTypes.number.isRequired,
+	creator: PropTypes.shape({
+		email: PropTypes.string,
+		id: PropTypes.number,
+		first_name: PropTypes.string,
+		last_name: PropTypes.string,
+		phone_number: PropTypes.string,
+		role: PropTypes.string,
+	}).isRequired,
 	description: PropTypes.string.isRequired,
 	created_at: PropTypes.string.isRequired,
 	handleDeleteDispute: PropTypes.func,

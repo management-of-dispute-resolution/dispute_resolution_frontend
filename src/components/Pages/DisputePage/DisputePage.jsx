@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './DisputePage.css';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import DisputeCard from '../../DisputeCard/DisputeCard';
 import ListMessageComment from '../../ListMessageComments/ListMessageComments';
 import { getDisputeId, getComments } from '../../../utils/api/disputes.api';
@@ -9,13 +9,15 @@ const DisputePage = () => {
 	const [card, setCard] = useState();
 	const [comments, setComments] = useState();
 
+	const { state } = useLocation();
+
 	const { id } = useParams();
-	console.log('Карточка с комментариями', id);
 	// Получение диспута по id
 	const getDisputeById = async (cardId) => {
 		try {
 			const reqData = await getDisputeId(cardId);
 			if (reqData) {
+				console.log(reqData);
 				setCard(reqData);
 			}
 		} catch (err) {
@@ -44,6 +46,9 @@ const DisputePage = () => {
 			<section className="dispute-page__card-section">
 				{' '}
 				<DisputeCard {...card} />
+				{state?.createMessage && state.createMessage === 'ok' && (
+					<h2 className="createdDispute">Обращение создано</h2>
+				)}
 			</section>
 			<ListMessageComment comments={comments} />
 

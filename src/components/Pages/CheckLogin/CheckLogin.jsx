@@ -12,7 +12,7 @@ const CheckLogin = () => {
 		if (isLoggedIn) {
 			navigate('/disputes');
 		} else {
-			navigate('login');
+			navigate('/login');
 		}
 	}, [checkAuth, isLoggedIn, navigate]);
 

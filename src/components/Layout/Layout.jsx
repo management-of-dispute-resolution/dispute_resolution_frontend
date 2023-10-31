@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Header from '../Header/Header';
 import './Layout.css';
 import { useAuth } from '../../hook/useAuth';
-// import { LoginPage } from '../Pages/LoginPage/LoginPage';
 
 const Layout = ({ handleCreateDispute, handleChangePassword }) => {
 	const { isLoggedIn, currentUser, signout } = useAuth();
@@ -20,7 +19,6 @@ const Layout = ({ handleCreateDispute, handleChangePassword }) => {
 
 			<main className="layout__container">
 				<Outlet />
-				{/* {isLoggedIn ? <Outlet /> : <LoginPage />} */}
 			</main>
 		</>
 	);

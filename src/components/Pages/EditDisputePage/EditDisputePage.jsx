@@ -13,7 +13,6 @@ const EditDisputePage = () => {
 
 	const { state } = useLocation();
 	const { disputeId } = state;
-	console.log('State ', state);
 
 	const [initialArrayUsers, setInitialArrayUsers] = useState([]);
 	// const [initialSelectedOpponents, setInitialSelectedOpponents] = useState();

@@ -20,8 +20,8 @@ export const AuthProvider = ({ children }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(false);
 
+	// роверка авторизации
 	const checkAuth = async () => {
-		// setIsLoading(true)
 		if (localStorage.getItem('token')) {
 			const userId = localStorage.getItem('userId');
 			if (userId) {
@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }) => {
 		}
 		setIsLoading(false);
 	};
-
+	// LOGIN
 	const signin = async (newUser) => {
 		try {
 			const reqData = await login({
@@ -57,6 +57,7 @@ export const AuthProvider = ({ children }) => {
 			console.error('res Error ', err);
 		}
 	};
+	// LOGOUT
 	const signout = async () => {
 		try {
 			const reqData = await logout();
@@ -70,12 +71,14 @@ export const AuthProvider = ({ children }) => {
 			console.error('res Error', err);
 		}
 	};
+	// ИЗМЕНЕНИЕ ПАРОЛЯ
 	const handleChangePassword = async ({ new_password, current_password }) => {
 		try {
-			await changePassword({
+			const respChangePass = await changePassword({
 				new_password,
 				current_password,
 			});
+			console.log('respChangePass', respChangePass);
 		} catch (err) {
 			console.error('res Error ', err);
 		}

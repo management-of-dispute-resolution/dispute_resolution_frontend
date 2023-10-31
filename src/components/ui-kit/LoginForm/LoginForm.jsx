@@ -6,15 +6,11 @@ import Input from '../Input/Input';
 import './LoginForm.css';
 
 const LoginForm = ({ onLogin }) => {
-	// const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 	const [values, setValues] = useState({});
-	// const [isDisable, setIsDisable] = useState(true);
 
 	function handleChange(evt) {
 		const { name, value } = evt.target;
 		setValues((prev) => ({ ...prev, [name]: value }));
-		// eslint-disable-next-line no-unused-expressions
-		// values.Email ? setIsDisable(false) : setIsDisable(true);
 	}
 
 	const handleSubmit = (evt) => {
@@ -49,12 +45,7 @@ const LoginForm = ({ onLogin }) => {
 						type="password"
 					/>
 				</div>
-				<Button
-					backgroundColor="blueLagoon"
-					label="Продолжить"
-					type="submit"
-					// disabled={isDisable}
-				/>
+				<Button backgroundColor="blueLagoon" label="Продолжить" type="submit" />
 			</form>
 		</section>
 	);

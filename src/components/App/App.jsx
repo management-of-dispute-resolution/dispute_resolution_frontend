@@ -10,7 +10,6 @@ import CreateDisputePage from '../Pages/CreateDisputePage/CreateDisputePage';
 import CheckLogin from '../Pages/CheckLogin/CheckLogin';
 import { EditDisputePage } from '../Pages/EditDisputePage/EditDisputePage';
 import DisputePage from '../Pages/DisputePage/DisputePage';
-// import { useAuth } from '../../hook/useAuth';
 
 export default function App() {
 	const navigate = useNavigate();
@@ -19,11 +18,20 @@ export default function App() {
 		navigate('/create-dispute');
 	};
 
+	const handleChangePassword = () => {
+		console.log('Тут будет форма изменения пароля');
+	};
+
 	return (
 		<Routes>
 			<Route
 				path="/"
-				element={<Layout handleCreateDispute={handleCreateDispute} />}
+				element={
+					<Layout
+						handleCreateDispute={handleCreateDispute}
+						handleChangePassword={handleChangePassword}
+					/>
+				}
 			>
 				<Route index element={<CheckLogin />} />
 				<Route path="/login" element={<LoginPage />} />

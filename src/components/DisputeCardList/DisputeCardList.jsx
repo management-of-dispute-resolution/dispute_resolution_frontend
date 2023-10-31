@@ -34,10 +34,8 @@ function DisputeCardList({
 	);
 }
 DisputeCardList.propTypes = {
-	// disputesList: PropTypes.arrayOf(
 	disputesList: PropTypes.arrayOf(
 		PropTypes.shape({
-			id: PropTypes.number,
 			creator: PropTypes.shape({
 				email: PropTypes.string,
 				id: PropTypes.number,
