@@ -1,15 +1,22 @@
-import { Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useAuth } from '../hook/useAuth';
+import Preloader from '../components/Preloader/Preloader';
 
 const RequireAuth = ({ children }) => {
-	const { isLoggedIn } = useAuth();
+	const { isLoggedIn, checkAuth, isBooted } = useAuth();
+	const navigate = useNavigate();
 
-	if (!isLoggedIn) {
-		return <Navigate to="/login" />;
+	useEffect(() => {
+		checkAuth();
+	}, [checkAuth, isLoggedIn, navigate]);
+
+	if(isBooted) {
+		return !isLoggedIn ? <Navigate to="/login" /> : children;
 	}
+	 return <Preloader />
 
-	return children;
 };
 
 export { RequireAuth };

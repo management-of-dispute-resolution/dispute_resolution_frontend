@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isError, setIsError] = useState(false);
+	const [isBooted, setIsBooted] = useState(false);
 
 	// роверка авторизации
 	const checkAuth = async () => {
@@ -28,10 +29,15 @@ export const AuthProvider = ({ children }) => {
 			if (userData) {
 				setUser(userData);
 				setIsLoggedIn(true);
+						setIsBooted(true);
 			} else {
 				console.log('Ошибка при получении данных пользователя');
 				localStorage.removeItem('token');
 			}
+		}
+		else
+		{
+			setIsBooted(true);
 		}
 		setIsLoading(false);
 	};
@@ -95,6 +101,7 @@ export const AuthProvider = ({ children }) => {
 		setIsLoading,
 		isError,
 		setIsError,
+		isBooted
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
