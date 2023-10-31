@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import './NewDisputeForm.css';
+import { useNavigate } from 'react-router-dom';
 import Button from '../Button/Button';
 
 import { FilePreview } from '../FilePreview/FilePreview';
@@ -16,6 +17,9 @@ const NewDisputeForm = ({
 	handleRequestNewDispute,
 	isEditDispute,
 }) => {
+	const navigate = useNavigate();
+	const goBack = () => navigate(-1);
+
 	const [selectedOpponents, setSelectedOpponents] = useState([]); // Массив выбранных оппонентов
 	const [disputeText, setDisputeText] = useState({}); // Суть конфликта
 	const [fileList, setFileList] = useState([]); // Массив файлов для загрузки
@@ -86,6 +90,12 @@ const NewDisputeForm = ({
 	return (
 		<div className="new-dispute-form">
 			<div className="new-dispute-form__container">
+				<button
+					className="new-dispute-form__goBack"
+					type="button"
+					aria-label="Кнопка goBack"
+					onClick={goBack}
+				/>
 				{/* Блок выбора оппонентов */}
 				<div className="new-dispute-opponents new-dispute-form__item-wrapper">
 					<div className="new-dispute-form__item-title-wrapper">

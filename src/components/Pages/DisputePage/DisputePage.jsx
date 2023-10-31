@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './DisputePage.css';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import DisputeCard from '../../DisputeCard/DisputeCard';
 import ListMessageComment from '../../ListMessageComments/ListMessageComments';
 import { getDisputeId, getComments } from '../../../utils/api/disputes.api';
@@ -10,6 +10,8 @@ import Preloader from '../../Preloader/Preloader';
 const DisputePage = () => {
 	const [card, setCard] = useState();
 	const [comments, setComments] = useState();
+
+	const navigate = useNavigate();
 
 	const { isLoading, setIsLoading } = useAuth();
 	const { state } = useLocation();
@@ -47,15 +49,25 @@ const DisputePage = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id]);
 
+	const goDisputes = () => navigate('/disputes');
+
 	return (
 		<>
 			{isLoading && <Preloader />}
 			{!isLoading && (
 				<div className="dispute-page">
+					{state?.createMessage && state.createMessage === 'new' && (
+						<button
+							className="close-goDisputes"
+							type="button"
+							aria-label="Кнопка закрытия модального окна"
+							onClick={goDisputes}
+						/>
+					)}
 					<section className="dispute-page__card-section">
 						{' '}
 						<DisputeCard {...card} />
-						{state?.createMessage && state.createMessage === 'ok' && (
+						{state?.createMessage && state.createMessage === 'new' && (
 							<h2 className="createdDispute">Обращение создано</h2>
 						)}
 					</section>

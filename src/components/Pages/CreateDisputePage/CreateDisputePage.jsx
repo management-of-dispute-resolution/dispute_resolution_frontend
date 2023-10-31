@@ -38,7 +38,7 @@ const CreateDisputePage = () => {
 		try {
 			const reqData = await handleFormDataRequest('/api/disputes/', data);
 			const { id } = reqData;
-			navigate(`/disputes/${id}`, { state: { createMessage: 'ok' } });
+			navigate(`/disputes/${id}`, { state: { createMessage: 'new' } });
 		} catch (err) {
 			console.error('res Error ', err);
 		}

@@ -45,7 +45,8 @@ const DisputesPage = () => {
 		try {
 			const reqData = await deleteDisputesId(id);
 			if (reqData) {
-				console.log('Delete disp ', reqData);
+				const newAllDisputes = allDisputes.filter((card) => card.id !== id);
+				setAllDisputes(newAllDisputes);
 			}
 		} catch (err) {
 			console.error('Delete disp Error ', err);

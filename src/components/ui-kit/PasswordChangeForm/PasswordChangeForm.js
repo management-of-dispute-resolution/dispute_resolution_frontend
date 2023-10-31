@@ -9,6 +9,9 @@ const PasswordChangeForm = ({
 	disabled,
 	statusMessage,
 	handleUpdatePassword,
+	isOpen,
+	type,
+	onClose,
 }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -16,7 +19,7 @@ const PasswordChangeForm = ({
 	};
 
 	return (
-		<PopupWrapper isOpen="{true}" type="form" onClose={() => {}}>
+		<PopupWrapper isOpen={isOpen} type={type} onClose={onClose}>
 			<form className="password-edit-form" onSubmit={handleSubmit}>
 				<h1 className="password-edit-form__title"> Смена пароля</h1>
 				<div className="password-edit-form__inputs">
@@ -85,6 +88,9 @@ PasswordChangeForm.propTypes = {
 	statusMessage: PropTypes.string,
 	disabled: PropTypes.bool,
 	handleUpdatePassword: PropTypes.func,
+	isOpen: PropTypes.bool.isRequired,
+	type: PropTypes.string.isRequired,
+	onClose: PropTypes.func.isRequired,
 };
 
 PasswordChangeForm.defaultProps = {

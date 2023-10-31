@@ -31,3 +31,16 @@
 	text-align: center;
 	color: #07a044;
 }
+
+.close-goDisputes {
+	width: 25px;
+	height: 25px;
+	border: none;
+	background-image: url(../../../Images/closeIcon.svg);
+	background-repeat: no-repeat;
+	background-color: transparent;
+	background-size: contain;
+	cursor: pointer;
+	align-self: flex-end;
+	margin-bottom: 18px;
+}

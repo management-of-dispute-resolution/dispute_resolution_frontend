@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './DisputeCard.css';
 import PropTypes from 'prop-types';
 
+import { useLocation } from 'react-router-dom';
 import FileList from '../ui-kit/FileList/FileList';
 import Menu from '../ui-kit/Menu/Menu';
 import Button from '../ui-kit/Button/Button';
@@ -19,6 +20,9 @@ function DisputeCard({
 	onClick,
 }) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	const location = useLocation();
+	console.log(location);
 
 	const statusInterface = {
 		closed: 'Решено',
