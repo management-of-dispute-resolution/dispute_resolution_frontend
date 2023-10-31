@@ -10,9 +10,16 @@ import CreateDisputePage from '../Pages/CreateDisputePage/CreateDisputePage';
 import CheckLogin from '../Pages/CheckLogin/CheckLogin';
 import { EditDisputePage } from '../Pages/EditDisputePage/EditDisputePage';
 import DisputePage from '../Pages/DisputePage/DisputePage';
+import { useAuth } from '../../hook/useAuth';
 
 export default function App() {
 	const navigate = useNavigate();
+	const { checkAuth } = useAuth();
+
+	React.useEffect(() => {
+		checkAuth();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const handleCreateDispute = () => {
 		navigate('/create-dispute');
@@ -67,7 +74,7 @@ export default function App() {
 						</RequireAuth>
 					}
 				/>
-				<Route path="/notfound" element={<PageNotFound />} />
+				<Route path="/*" element={<PageNotFound />} />
 			</Route>
 		</Routes>
 	);

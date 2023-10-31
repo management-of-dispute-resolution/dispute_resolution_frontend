@@ -16,12 +16,7 @@ const CheckLogin = () => {
 		}
 	}, [checkAuth, isLoggedIn, navigate]);
 
-	return (
-		<>
-			<Preloader />
-			<h1>Проверка авторизации</h1>
-		</>
-	);
+	return <Preloader />;
 };
 
 export default CheckLogin;

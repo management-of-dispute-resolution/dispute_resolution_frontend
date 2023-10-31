@@ -18,7 +18,7 @@ function Header({
 	const navigate = useNavigate();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-	const handleGoHome = () => navigate('/', { replace: true });
+	const handleGoHome = () => navigate('/');
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);

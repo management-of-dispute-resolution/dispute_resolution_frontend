@@ -7,7 +7,7 @@ import {
 	logout,
 	changePassword,
 	getUserInfo,
-	getUserIdInfo,
+	// getUserIdInfo,
 } from '../utils/api/user.api';
 
 export const AuthContext = createContext();
@@ -22,24 +22,22 @@ export const AuthProvider = ({ children }) => {
 
 	// роверка авторизации
 	const checkAuth = async () => {
+		setIsLoading(true);
 		if (localStorage.getItem('token')) {
-			const userId = localStorage.getItem('userId');
-			if (userId) {
-				try {
-					const currentUserById = await getUserIdInfo(userId);
-					if (currentUserById) {
-						setUser(currentUserById);
-						setIsLoggedIn(true);
-					}
-				} catch (err) {
-					console.log(err);
-				}
+			const userData = await getUserInfo();
+			if (userData) {
+				setUser(userData);
+				setIsLoggedIn(true);
+			} else {
+				console.log('Ошибка при получении данных пользователя');
+				localStorage.removeItem('token');
 			}
 		}
 		setIsLoading(false);
 	};
 	// LOGIN
 	const signin = async (newUser) => {
+		setIsLoading(true);
 		try {
 			const reqData = await login({
 				email: newUser.email,
@@ -48,7 +46,6 @@ export const AuthProvider = ({ children }) => {
 			if (reqData) {
 				localStorage.setItem('token', reqData.auth_token);
 				const userData = await getUserInfo();
-				localStorage.setItem('userId', userData.id);
 				setIsLoggedIn(true);
 				setUser(userData);
 				navigate('disputes');
@@ -56,20 +53,22 @@ export const AuthProvider = ({ children }) => {
 		} catch (err) {
 			console.error('res Error ', err);
 		}
+		setIsLoading(false);
 	};
 	// LOGOUT
 	const signout = async () => {
+		setIsLoading(true);
 		try {
 			const reqData = await logout();
 			if (reqData) {
 				setUser({});
 				setIsLoggedIn(false);
 				localStorage.removeItem('token');
-				localStorage.removeItem('userId');
 			}
 		} catch (err) {
 			console.error('res Error', err);
 		}
+		setIsLoading(false);
 	};
 	// ИЗМЕНЕНИЕ ПАРОЛЯ
 	const handleChangePassword = async ({ new_password, current_password }) => {
@@ -88,10 +87,10 @@ export const AuthProvider = ({ children }) => {
 	const value = {
 		currentUser,
 		isLoggedIn,
+		checkAuth,
 		signin,
 		signout,
 		handleChangePassword,
-		checkAuth,
 		isLoading,
 		setIsLoading,
 		isError,

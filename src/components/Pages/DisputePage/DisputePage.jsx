@@ -4,11 +4,14 @@ import { useLocation, useParams } from 'react-router-dom';
 import DisputeCard from '../../DisputeCard/DisputeCard';
 import ListMessageComment from '../../ListMessageComments/ListMessageComments';
 import { getDisputeId, getComments } from '../../../utils/api/disputes.api';
+import { useAuth } from '../../../hook/useAuth';
+import Preloader from '../../Preloader/Preloader';
 
 const DisputePage = () => {
 	const [card, setCard] = useState();
 	const [comments, setComments] = useState();
 
+	const { isLoading, setIsLoading } = useAuth();
 	const { state } = useLocation();
 
 	const { id } = useParams();
@@ -37,24 +40,32 @@ const DisputePage = () => {
 	};
 
 	useEffect(() => {
+		setIsLoading(true);
 		getDisputeById(id);
 		getCommentsById(id);
+		setIsLoading(false);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [id]);
 
 	return (
-		<div className="dispute-page">
-			<section className="dispute-page__card-section">
-				{' '}
-				<DisputeCard {...card} />
-				{state?.createMessage && state.createMessage === 'ok' && (
-					<h2 className="createdDispute">Обращение создано</h2>
-				)}
-			</section>
-			<ListMessageComment comments={comments} />
+		<>
+			{isLoading && <Preloader />}
+			{!isLoading && (
+				<div className="dispute-page">
+					<section className="dispute-page__card-section">
+						{' '}
+						<DisputeCard {...card} />
+						{state?.createMessage && state.createMessage === 'ok' && (
+							<h2 className="createdDispute">Обращение создано</h2>
+						)}
+					</section>
+					<ListMessageComment comments={comments} />
 
-			{/* TODO:компонент для добавления комментария */}
-			<div className="dispute-page__comment-form" />
-		</div>
+					{/* TODO:компонент для добавления комментария */}
+					<div className="dispute-page__comment-form" />
+				</div>
+			)}
+		</>
 	);
 };
 
