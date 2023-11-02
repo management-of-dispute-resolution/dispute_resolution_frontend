@@ -5,13 +5,20 @@ import TextArea from '../TextArea/TextArea';
 import Button from '../Button/Button';
 
 function CommentForm({ user }) {
+	console.log(user);
 	return (
 		<div className="comment-form">
 			<div className="user-avatar">
 				<p className="user-name">{user?.lastName[0] ?? ''}</p>
 			</div>
 			<TextArea rows={1} error="" />
-			<Button size="micro" color="transperent" type="button" before="send" />
+			<Button
+				size="micro"
+				label=""
+				color="transperent"
+				type="button"
+				before="send"
+			/>
 		</div>
 	);
 }

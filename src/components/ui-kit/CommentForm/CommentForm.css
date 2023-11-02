@@ -1,10 +1,9 @@
-
 .comment-form {
-	width: 100%;
 	display: flex;
-    align-items: center;
-	gap: 20px;
+	align-items: center;
+	width: 100%;
 	margin: 0;
+	gap: 24px;
 	padding: 36px 70px;
 	min-height: 13vh;
 	background: var(--Background);
@@ -35,5 +34,3 @@
 	font-weight: 500;
 	line-height: normal;
 }
-
-

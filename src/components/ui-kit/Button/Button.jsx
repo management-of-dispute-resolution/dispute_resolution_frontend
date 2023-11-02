@@ -24,13 +24,15 @@ function Button({
 			{...props}
 			type={type}
 			className={[
-				`button button_size_${size}
+				`
 				 button_color_${color}
+				 button button_size_${size}
 				  ${
 						before && color === 'transperent'
 							? `button_before_type_${before} button_content_start`
 							: ''
 					}
+					
 					${disabled ? 'button_disabled_true' : ''}
 				`,
 			]}
