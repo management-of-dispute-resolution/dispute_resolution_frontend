@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 import clsx from 'clsx';
 import './DisputeCard.css';
 import PropTypes from 'prop-types';
@@ -8,6 +9,7 @@ import PropTypes from 'prop-types';
 import FileList from '../ui-kit/FileList/FileList';
 import Menu from '../ui-kit/Menu/Menu';
 import Button from '../ui-kit/Button/Button';
+import useOutsideClick from '../Hooks/useOutsideClick'
 
 function DisputeCard({
 	handleCancelDispute,
@@ -35,6 +37,7 @@ function DisputeCard({
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
 	};
+	const menuRef = useOutsideClick(isMenuOpen, toggleMenu);
 
 	function handleClick(evt) {
 		if (!isDisputePage) {
@@ -123,7 +126,7 @@ function DisputeCard({
 						<button onClick={toggleMenu} className="dispute-card__option">
 							{}
 						</button>
-						<div className="dispute-card__option-container">
+						<div ref={menuRef} className="dispute-card__option-container">
 							<Menu
 								isOpen={isMenuOpen}
 								firstButton={

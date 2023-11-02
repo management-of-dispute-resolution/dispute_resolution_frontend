@@ -1,8 +1,9 @@
 import './Header.css';
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Button from '../ui-kit/Button/Button';
 import Menu from '../ui-kit/Menu/Menu';
+import useOutsideClick from '../Hooks/useOutsideClick'
 
 function Header({
 	isLogged,
@@ -17,33 +18,7 @@ function Header({
 		setIsMenuOpen(!isMenuOpen);
 	};
 
-	const useOutsideClick = (closeMenu) => {
-		const ref = useRef();
-
-		useEffect(() => {
-			if (!isMenuOpen) {
-				return () => {};
-			}
-			const handleClick = (event) => {
-				if (ref.current && !ref.current.contains(event.target)) {
-					closeMenu();
-					event.stopPropagation();
-				}
-			};
-
-			document.addEventListener('click', handleClick, true);
-
-			return () => {
-				document.removeEventListener('click', handleClick, true);
-			};
-		});
-
-		return ref;
-	};
-
-	const menuRef = useOutsideClick(toggleMenu);
-
-	//   const buttobRef = useOutsideClick();
+	const menuRef = useOutsideClick(isMenuOpen, toggleMenu);
 
 	return (
 		<>
