@@ -14,38 +14,37 @@ function Header({
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const toggleMenu = () => {
-		setIsMenuOpen(!isMenuOpen);
+		console.log('toggleMenu');
+		setIsMenuOpen(true);
 	};
 
-	const menuRef = useRef(null);
+	const useOutsideClick = () => {
+		const ref = useRef();
 
-	useEffect(() => {
-		if (!isMenuOpen) {
-			return;
-		}
+		useEffect(() => {
+			const handleClick = (event) => {
+				console.log('ref.current', ref.current);
+				console.log('event.target', event.target);
+				if (isMenuOpen && ref.current && !ref.current.contains(event.target)) {
+					console.log('условие useEFFEct');
+					setIsMenuOpen(false);
+					event.stopPropagation();
+				}
+			};
 
-		const handler = (e) => {
-			if (
-				menuRef.current &&
-				!menuRef.current.contains(e.target) &&
-				!e.target.classList.contains('header__user-avatar') &&
-				!e.target.classList.contains('header__user-name') &&
-				!e.target.classList.contains('header__icon')
-			) {
-				setIsMenuOpen(false);
-				// console.log(e.target.classList);
-				// console.log(e);
-				// console.log(e.target.classList.contains('header__user-avatar'));
-			}
-		};
+			document.addEventListener('click', handleClick, true);
 
-		document.addEventListener('mousedown', handler);
+			return () => {
+				document.removeEventListener('click', handleClick, true);
+			};
+		});
 
-		// eslint-disable-next-line consistent-return
-		return () => {
-			document.removeEventListener('mousedown', handler);
-		};
-	}, [isMenuOpen]);
+		return ref;
+	};
+
+	const menuRef = useOutsideClick();
+
+	//   const buttobRef = useOutsideClick();
 
 	return (
 		<>
@@ -60,6 +59,7 @@ function Header({
 							type="button"
 							onClick={handleCreateDispute}
 						/>
+
 						<button className="header__user-avatar" onClick={toggleMenu}>
 							<p className="header__user-name">{user?.lastName[0] ?? ''}</p>
 						</button>
