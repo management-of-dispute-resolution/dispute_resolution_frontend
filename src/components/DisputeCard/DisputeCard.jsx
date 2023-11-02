@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import clsx from 'clsx';
 import './DisputeCard.css';
 import PropTypes from 'prop-types';
 
@@ -17,8 +20,11 @@ function DisputeCard({
 	files,
 	id,
 	onClick,
+	isDisputePage,
 }) {
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	const navigate = useNavigate();
 
 	const statusInterface = {
 		closed: 'Решено',
@@ -31,9 +37,15 @@ function DisputeCard({
 	};
 
 	function handleClick(evt) {
-		if (evt.target === evt.currentTarget) {
-			// alert(id);
-			onClick(id);
+		if (!isDisputePage) {
+			if (evt.target === evt.currentTarget) {
+				// alert(id);
+				onClick(id);
+			}
+		} else {
+			console.log('isDisputePage');
+			// просто  navigate
+			navigate(-1);
 		}
 	}
 
@@ -43,64 +55,101 @@ function DisputeCard({
 		}
 	}
 
+	const disputeCardClasses = clsx('dispute-card', {
+		'dispute-card_type_disputePage': isDisputePage,
+	});
+
+	const disputeContainerClasses = clsx('dispute-card__container', {
+		'dispute-card__container_type_disputePage': isDisputePage,
+	});
+
+	const disputeHeaderClasses = clsx('dispute-card__header', {
+		'dispute-card__header_type_disputePage': isDisputePage,
+	});
+
+	const disputeStatusClasses = clsx(
+		`dispute-card__status dispute-card__status_type_${status}`,
+		{
+			'dispute-card__status_type_disputePage': isDisputePage,
+		}
+	);
+	const disputeContentClasses = clsx(`dispute-card__content`, {
+		'dispute-card__content_type_disputePage': isDisputePage,
+	});
+	const disputeTitleClasses = clsx('dispute-card__title', {
+		'dispute-card__title_type_disputePage': isDisputePage,
+	});
+
+	const closedTimeClasses = clsx('dispute-card__closed-time', {
+		'dispute-card__closed-time_type_disputePage': isDisputePage,
+	});
+
+	const disputeTextClasses = clsx('dispute-card__text', {
+		'dispute-card__text_type_disputePage': isDisputePage,
+	});
+
 	return (
-		<div className="dispute-card">
+		<div className={disputeCardClasses}>
 			<div
-				className="dispute-card__container"
-				onClick={handleClick}
-				onKeyDown={handleKeyDown}
-				role="link"
-				tabIndex="0"
+				className={disputeContainerClasses}
+				{...(isDisputePage
+					? {}
+					: {
+							onClick: handleClick,
+							onKeyDown: handleKeyDown,
+							role: 'link',
+							tabIndex: 0,
+					  })}
 			>
-				<div
-					className={[
-						`dispute-card__status dispute-card__status_type_${status}`,
-					]}
-				>
-					{statusInterface[status]}
-				</div>
-				<div className="dispute-card__content">
-					<div className="dispute-card__header">
-						<h2 className="dispute-card__title">{`${creator} ${CreatedAt}`}</h2>
+				<div className={disputeStatusClasses}>{statusInterface[status]}</div>
+				<div className={disputeContentClasses}>
+					<div className={disputeHeaderClasses}>
+						<h2 className={disputeTitleClasses}>{`${creator} ${CreatedAt}`}</h2>
 						{status === 'closed' ? (
-							<p className="dispute-card__closed-time">{`Решено: ${closedAt}`}</p>
+							<p className={closedTimeClasses}>{`Решено: ${closedAt}`}</p>
 						) : (
 							''
 						)}
 					</div>
-					<p className="dispute-card__text">{description}</p>
+					<p className={disputeTextClasses}>{description}</p>
 					<FileList files={files} />
 				</div>
-				{/* попап добавлю, когда пройдёт ревью менюшки от Кати */}
-				<button onClick={toggleMenu} className="dispute-card__option">
-					<div className="dispute-card__option-container">
-						<Menu
-							isOpen={isMenuOpen}
-							firstButton={
-								<Button
-									size="small"
-									label="Редактировать"
-									color="transperent"
-									type="button"
-									before="edit"
-									onClick={handleChangeDispute}
-								/>
-							}
-							secondButton={
-								<Button
-									size="small"
-									label="Отменить обращение"
-									color="transperent"
-									type="button"
-									before="cancel"
-									onClick={handleCancelDispute}
-								/>
-							}
-						/>
-					</div>
-
-					{}
-				</button>
+				{isDisputePage ? (
+					<button onClick={handleClick} className="dispute-card__close">
+						{}
+					</button>
+				) : (
+					<>
+						<button onClick={toggleMenu} className="dispute-card__option">
+							{}
+						</button>
+						<div className="dispute-card__option-container">
+							<Menu
+								isOpen={isMenuOpen}
+								firstButton={
+									<Button
+										size="small"
+										label="Редактировать"
+										color="transperent"
+										type="button"
+										before="edit"
+										onClick={handleChangeDispute}
+									/>
+								}
+								secondButton={
+									<Button
+										size="small"
+										label="Отменить обращение"
+										color="transperent"
+										type="button"
+										before="cancel"
+										onClick={handleCancelDispute}
+									/>
+								}
+							/>
+						</div>
+					</>
+				)}
 			</div>
 		</div>
 	);
@@ -117,9 +166,11 @@ DisputeCard.propTypes = {
 	closed_at: PropTypes.string,
 	files: PropTypes.arrayOf(PropTypes.string),
 	onClick: PropTypes.func.isRequired,
+	isDisputePage: PropTypes.bool,
 };
 DisputeCard.defaultProps = {
 	closed_at: '',
+	isDisputePage: false,
 	files: [],
 	handleCancelDispute: undefined,
 	handleChangeDispute: undefined,

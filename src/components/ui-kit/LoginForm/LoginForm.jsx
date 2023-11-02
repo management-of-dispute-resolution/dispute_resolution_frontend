@@ -15,7 +15,6 @@ const LoginForm = ({ onLogin }) => {
 		setValues((prev) => ({ ...prev, [name]: value }));
 		// eslint-disable-next-line no-unused-expressions
 		values.Email ? setIsDisable(false) : setIsDisable(true);
-		console.log(isDisable);
 	}
 
 	const handleSubmit = (evt) => {
@@ -31,6 +30,7 @@ const LoginForm = ({ onLogin }) => {
 					<Input
 						label="Электронная почта"
 						name="Email"
+						id="userEmail"
 						onChange={(evt) => {
 							handleChange(evt);
 						}}
@@ -41,6 +41,7 @@ const LoginForm = ({ onLogin }) => {
 					<Input
 						label="Пароль"
 						name="Password"
+						id="userPassword"
 						onChange={(evt) => {
 							handleChange(evt);
 						}}
@@ -49,7 +50,7 @@ const LoginForm = ({ onLogin }) => {
 					/>
 				</div>
 				<Button
-					backgroundColor="#00696a"
+					backgroundColor="blueLagoon"
 					label="Продолжить"
 					type="submit"
 					disabled={isDisable}
