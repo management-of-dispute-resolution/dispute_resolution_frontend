@@ -14,20 +14,19 @@ function Header({
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const toggleMenu = () => {
-		console.log('toggleMenu');
-		setIsMenuOpen(true);
+		setIsMenuOpen(!isMenuOpen);
 	};
 
-	const useOutsideClick = () => {
+	const useOutsideClick = (closeMenu) => {
 		const ref = useRef();
 
 		useEffect(() => {
+			if (!isMenuOpen) {
+				return () => {};
+			}
 			const handleClick = (event) => {
-				console.log('ref.current', ref.current);
-				console.log('event.target', event.target);
-				if (isMenuOpen && ref.current && !ref.current.contains(event.target)) {
-					console.log('условие useEFFEct');
-					setIsMenuOpen(false);
+				if (ref.current && !ref.current.contains(event.target)) {
+					closeMenu();
 					event.stopPropagation();
 				}
 			};
@@ -42,7 +41,7 @@ function Header({
 		return ref;
 	};
 
-	const menuRef = useOutsideClick();
+	const menuRef = useOutsideClick(toggleMenu);
 
 	//   const buttobRef = useOutsideClick();
 
