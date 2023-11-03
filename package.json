@@ -1,5 +1,6 @@
 {
 	"name": "dispute_resolution",
+	"homepage": "https://management-of-dispute-resolution.github.io/",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
@@ -25,9 +26,9 @@
 		"lint": "eslint . --ext .js,.jsx .",
 		"lint:fix": "npm run lint -- --fix",
 		"format": "prettier . --write",
-		"prepare": "husky install",
 		"commit": "cz",
-		"deploy-storybook": "storybook build -o storybook-static && npx gh-pages -d storybook-static"
+		"deploy-storybook": "storybook build -o storybook-static && npx gh-pages -d storybook-static",
+		"deploy-gh-pages": "npm run build && npx gh-pages -d build"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -95,7 +96,6 @@
 		"eslint-config-airbnb": "^19.0.4",
 		"eslint-config-prettier": "^8.8.0",
 		"gh-pages": "^6.0.0",
-		"husky": "^8.0.3",
 		"lint-staged": "^13.2.1",
 		"prettier": "^2.8.8",
 		"storybook": "7.0.7",

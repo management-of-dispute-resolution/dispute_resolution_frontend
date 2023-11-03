@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import DisputeCardList from '../../DisputeList/DisputeCardList';
+import DisputeCardList from '../../DisputeCardList/DisputeCardList';
 
 import { getDisputes, deleteDisputesId } from '../../../utils/api/disputes.api';
 import { useAuth } from '../../../hook/useAuth';
