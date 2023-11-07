@@ -5,7 +5,6 @@ import clsx from 'clsx';
 import './DisputeCard.css';
 import PropTypes from 'prop-types';
 
-import { useLocation } from 'react-router-dom';
 import FileList from '../ui-kit/FileList/FileList';
 import Menu from '../ui-kit/Menu/Menu';
 import Button from '../ui-kit/Button/Button';
@@ -144,7 +143,7 @@ function DisputeCard({
 										color="transperent"
 										type="button"
 										before="cancel"
-										onClick={handleCancelDispute}
+										onClick={handleDeleteDispute}
 									/>
 								}
 							/>

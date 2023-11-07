@@ -36,8 +36,6 @@ function Input({
 						className="input__input"
 						id={name}
 						name={name}
-						id={id}
-						name={name}
 						placeholder={placeholder}
 						type={itemType}
 						value={value}
