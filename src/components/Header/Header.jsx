@@ -101,8 +101,8 @@ export default Header;
 Header.propTypes = {
 	isLogged: PropTypes.bool,
 	user: PropTypes.shape({
-		first_name: PropTypes.string,
-		last_name: PropTypes.string,
+		firstName: PropTypes.string,
+		lastName: PropTypes.string,
 	}),
 	handleCreateDispute: PropTypes.func,
 	handleChangePassword: PropTypes.func,
@@ -112,8 +112,8 @@ Header.propTypes = {
 Header.defaultProps = {
 	isLogged: true,
 	user: {
-		first_name: 'Сотрудник',
-		last_name: 'Тестовый',
+		firstName: 'Сотрудник',
+		lastName: 'Тестовый',
 	},
 	handleCreateDispute: undefined,
 	handleChangePassword: undefined,
