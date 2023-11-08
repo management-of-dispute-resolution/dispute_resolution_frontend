@@ -12,7 +12,7 @@ import Button from '../ui-kit/Button/Button';
 import useOutsideClick from '../Hooks/useOutsideClick'
 
 function DisputeCard({
-	handleCancelDispute,
+	handleDeleteDispute,
 	handleChangeDispute,
 	creator,
 	description,
@@ -146,7 +146,7 @@ function DisputeCard({
 										color="transperent"
 										type="button"
 										before="cancel"
-										onClick={handleCancelDispute}
+										onClick={handleDeleteDispute}
 									/>
 								}
 							/>
@@ -161,10 +161,17 @@ function DisputeCard({
 DisputeCard.propTypes = {
 	id: PropTypes.number.isRequired,
 	status: PropTypes.oneOf(['closed', 'started', 'not_started']).isRequired,
-	creator: PropTypes.string.isRequired,
+	creator: PropTypes.shape({
+		email: PropTypes.string,
+		id: PropTypes.number,
+		first_name: PropTypes.string,
+		last_name: PropTypes.string,
+		phone_number: PropTypes.string,
+		role: PropTypes.string,
+	}).isRequired,
 	description: PropTypes.string.isRequired,
 	created_at: PropTypes.string.isRequired,
-	handleCancelDispute: PropTypes.func,
+	handleDeleteDispute: PropTypes.func,
 	handleChangeDispute: PropTypes.func,
 	closed_at: PropTypes.string,
 	files: PropTypes.arrayOf(PropTypes.string),
@@ -175,7 +182,7 @@ DisputeCard.defaultProps = {
 	closed_at: '',
 	isDisputePage: false,
 	files: [],
-	handleCancelDispute: undefined,
+	handleDeleteDispute: undefined,
 	handleChangeDispute: undefined,
 };
 

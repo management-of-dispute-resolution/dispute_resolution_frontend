@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import './LoginForm.css';
 
 const LoginForm = ({ onLogin }) => {
-	// const pattern = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
 	const [values, setValues] = useState({});
-	const [isDisable, setIsDisable] = useState(true);
 
 	function handleChange(evt) {
 		const { name, value } = evt.target;
 		setValues((prev) => ({ ...prev, [name]: value }));
-		// eslint-disable-next-line no-unused-expressions
-		values.Email ? setIsDisable(false) : setIsDisable(true);
 	}
 
 	const handleSubmit = (evt) => {
@@ -29,7 +24,7 @@ const LoginForm = ({ onLogin }) => {
 				<div className="auth__form-input-area">
 					<Input
 						label="Электронная почта"
-						name="Email"
+						name="email"
 						id="userEmail"
 						onChange={(evt) => {
 							handleChange(evt);
@@ -40,7 +35,7 @@ const LoginForm = ({ onLogin }) => {
 					/>
 					<Input
 						label="Пароль"
-						name="Password"
+						name="password"
 						id="userPassword"
 						onChange={(evt) => {
 							handleChange(evt);
@@ -49,12 +44,7 @@ const LoginForm = ({ onLogin }) => {
 						type="password"
 					/>
 				</div>
-				<Button
-					backgroundColor="blueLagoon"
-					label="Продолжить"
-					type="submit"
-					disabled={isDisable}
-				/>
+				<Button backgroundColor="blueLagoon" label="Продолжить" type="submit" />
 			</form>
 		</section>
 	);

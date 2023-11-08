@@ -1,6 +1,10 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/jsx-no-comment-textnodes */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import './Header.css';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import Button from '../ui-kit/Button/Button';
 import Menu from '../ui-kit/Menu/Menu';
 import useOutsideClick from '../Hooks/useOutsideClick'
@@ -10,9 +14,12 @@ function Header({
 	user,
 	handleCreateDispute,
 	handleChangePassword,
-	handleSignOut,
+	onSignOut,
 }) {
+	const navigate = useNavigate();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	const handleGoHome = () => navigate('/');
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
@@ -24,7 +31,12 @@ function Header({
 		<>
 			{isLogged ? (
 				<header className="header">
-					<div className="header__logo" />
+					<div
+						className="header__logo"
+						role="button"
+						tabIndex={0}
+						onClick={handleGoHome}
+					/>
 					<div className="header__container">
 						<Button
 							size="medium"
@@ -70,7 +82,7 @@ function Header({
 									color="transperent"
 									type="button"
 									before="exit"
-									onClick={handleSignOut}
+									onClick={onSignOut}
 								/>
 							}
 						/>
@@ -89,21 +101,21 @@ export default Header;
 Header.propTypes = {
 	isLogged: PropTypes.bool,
 	user: PropTypes.shape({
-		firstName: PropTypes.string,
-		lastName: PropTypes.string,
+		first_name: PropTypes.string,
+		last_name: PropTypes.string,
 	}),
 	handleCreateDispute: PropTypes.func,
 	handleChangePassword: PropTypes.func,
-	handleSignOut: PropTypes.func,
+	onSignOut: PropTypes.func,
 };
 
 Header.defaultProps = {
 	isLogged: true,
 	user: {
-		firstName: 'Сотрудник',
-		lastName: 'Тестовый',
+		first_name: 'Сотрудник',
+		last_name: 'Тестовый',
 	},
 	handleCreateDispute: undefined,
 	handleChangePassword: undefined,
-	handleSignOut: undefined,
+	onSignOut: undefined,
 };
