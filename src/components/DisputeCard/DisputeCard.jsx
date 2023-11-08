@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import FileList from '../ui-kit/FileList/FileList';
 import Menu from '../ui-kit/Menu/Menu';
 import Button from '../ui-kit/Button/Button';
-import useOutsideClick from '../Hooks/useOutsideClick'
+import useOutsideClick from '../../hook/useOutsideClick'
 
 function DisputeCard({
 	handleDeleteDispute,

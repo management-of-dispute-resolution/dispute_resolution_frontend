@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import Button from '../ui-kit/Button/Button';
 import Menu from '../ui-kit/Menu/Menu';
-import useOutsideClick from '../Hooks/useOutsideClick'
+import useOutsideClick from '../../hook/useOutsideClick'
 
 function Header({
 	isLogged,
