@@ -1,4 +1,4 @@
-const BASE_URL_AUTH = 'http://80.87.109.81';
+const BASE_URL_AUTH = 'https://ccdia.acceleratorpracticum.ru';
 
 // Обработка ответа от сервера
 export const responceProcessing = (res) =>
