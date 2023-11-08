@@ -47,7 +47,8 @@ function Header({
 						/>
 
 						<button className="header__user-avatar" onClick={toggleMenu}>
-							<p className="header__user-name">{user?.lastName[0] ?? ''}</p>
+							<p className="header__user-name">{user.last_name[0] ?? ''}</p>
+						
 						</button>
 
 						<button
@@ -101,8 +102,8 @@ export default Header;
 Header.propTypes = {
 	isLogged: PropTypes.bool,
 	user: PropTypes.shape({
-		firstName: PropTypes.string,
-		lastName: PropTypes.string,
+		first_name: PropTypes.string,
+		last_name: PropTypes.string,
 	}),
 	handleCreateDispute: PropTypes.func,
 	handleChangePassword: PropTypes.func,
@@ -112,8 +113,8 @@ Header.propTypes = {
 Header.defaultProps = {
 	isLogged: true,
 	user: {
-		firstName: 'Сотрудник',
-		lastName: 'Тестовый',
+		first_name: 'Сотрудник',
+		last_name: 'Тестовый',
 	},
 	handleCreateDispute: undefined,
 	handleChangePassword: undefined,
