@@ -28,7 +28,6 @@ export const NewDisputeOpponentsModal = ({
 		<div
 			className={`new-dispute-opponents__input-modal 
       ${chooseOpponentModal && 'new-dispute-opponents__input-modal_opened'}`}
-			// style={{ bottom: `${(searchOpponent.length < 10) ? `-${24 * searchOpponent.length}px` : '-445px'}` }}
 		>
 			{searchOpponent.length > 0 ? (
 				searchOpponent.map((item) => (

@@ -1,142 +1,81 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable spaced-comment */
-import './App.css';
-import { React, useState, useEffect } from 'react';
-import { Route, Routes, Navigate, useNavigate } from 'react-router-dom';
-import PageNotFound from '../pages/PageNotFound/PageNotFound';
-import DisputePage from '../pages/DisputePage/DisputePage';
-import { InfoToolTip } from '../ui-kit/InfoToolTip/InfoToolTip';
-import Header from '../Header/Header';
-import LoginForm from '../ui-kit/LoginForm/LoginForm';
-import MainPage from '../pages/MainPage/MainPage';
-import NewDisputeForm from '../ui-kit/NewDisputeForm/NewDisputeForm';
-import mockDisputeData from './mockDisputeData';
+import * as React from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
-// eslint-disable-next-line no-unused-vars
-import {
-	//getUsers,
-	//register,
-	getUserInfo,
-	//getUserIdInfo,
-	login,
-	logout,
-	//changePassword,
-} from '../../utils/api/user.api';
+import { Layout } from '../Layout/Layout';
+import { LoginPage } from '../Pages/LoginPage/LoginPage';
+import PageNotFound from '../Pages/PageNotFound/PageNotFound';
+import { RequireAuth } from '../../hok/RequireAuth';
+import { DisputesPage } from '../Pages/DisputesPage/DisputesPage';
+import CreateDisputePage from '../Pages/CreateDisputePage/CreateDisputePage';
+import CheckLogin from '../Pages/CheckLogin/CheckLogin';
+import { EditDisputePage } from '../Pages/EditDisputePage/EditDisputePage';
+import DisputePage from '../Pages/DisputePage/DisputePage';
+import { useAuth } from '../../hook/useAuth';
 
-function App() {
+export default function App() {
 	const navigate = useNavigate();
-	const [popupInfo, setPopupInfo] = useState({
-		isOpen: false,
-		isSuccess: false,
-		doneText: '',
-		errorText: '',
-	});
-	const [isLoading, setIsLoading] = useState(false);
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [currentUser, setCurrentUser] = useState(null);
-	const [currentDisputeId, setCurrentDisputeId] = useState(null);
+	const { checkAuth } = useAuth();
 
-	useEffect(() => {
-		const token = localStorage.getItem('token');
-		if (!token) {
-			setIsLoggedIn(false);
-			setIsLoading(false);
-			return;
-		}
-
-		setIsLoading(true);
-
-		getUserInfo()
-			.then((res) => {
-				setIsLoggedIn(true);
-				console.log(res.data, 'response');
-				setCurrentUser(res.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			})
-			.finally(() => {
-				setIsLoading(false);
-			});
+	React.useEffect(() => {
+		checkAuth();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	const handleLogin = (value) => {
-		setIsLoading(true);
-		login({ email: value.Email, password: value.Password })
-			.then((res) => {
-				localStorage.setItem('token', res.auth_token);
-				setIsLoggedIn(true);
-				navigate(`disputes`);
-			})
-			.catch((err) => console.log(err))
-			.finally(() => {
-				setIsLoading(false);
-			});
+	const handleCreateDispute = () => {
+		navigate('/create-dispute');
 	};
 
-	const handleLogout = () => {
-		setIsLoading(true);
-		logout()
-			.then(() => {
-				localStorage.removeItem('token');
-				setIsLoggedIn(false);
-				navigate('/', { replace: true });
-			})
-			.catch((error) => {
-				console.error(error);
-			})
-			.finally(() => {
-				setIsLoading(false);
-			});
-	};
-
-	const handleCardClick = (id) => {
-		setCurrentDisputeId(id);
-		navigate(`disputes/${id}`);
-	};
-
-	const handleNewDisputeClick = () => {
-		navigate(`new-dispute`);
+	const handleChangePassword = () => {
+		console.log('Тут будет форма изменения пароля');
 	};
 
 	return (
-		<div className="App">
-			<Header
-				isLogged={isLoggedIn}
-				handleCreateDispute={handleNewDisputeClick}
-				handleSignOut={handleLogout}
-			/>
-
-			<Routes>
-				<Route path="/" element={<Navigate to="/login" />} />
-				<Route path="/login" element={<LoginForm onLogin={handleLogin} />} />
-
+		<Routes>
+			<Route
+				path="/"
+				element={
+					<Layout
+						handleCreateDispute={handleCreateDispute}
+						handleChangePassword={handleChangePassword}
+					/>
+				}
+			>
+				<Route index element={<CheckLogin />} />
+				<Route path="/login" element={<LoginPage />} />
 				<Route
 					path="/disputes"
 					element={
-						<MainPage array={mockDisputeData} onClick={handleCardClick} />
+						<RequireAuth>
+							<DisputesPage />
+						</RequireAuth>
 					}
 				/>
-
 				<Route
-					path={`disputes/${currentDisputeId}`}
-					element={<DisputePage id={currentDisputeId} />}
+					path="/disputes/:id"
+					element={
+						<RequireAuth>
+							<DisputePage />
+						</RequireAuth>
+					}
 				/>
-
-				<Route path="/new-dispute" element={<NewDisputeForm />} />
-
-				<Route path="*" element={<PageNotFound />} />
-			</Routes>
-
-			<InfoToolTip
-				isOpen={popupInfo.isOpen}
-				onClose={() => setPopupInfo({ ...popupInfo, isOpen: false })}
-				isSuccess={popupInfo.isSuccess}
-				doneText={popupInfo.doneText}
-				errorText={popupInfo.errorText}
-			/>
-		</div>
+				<Route
+					path="/create-dispute"
+					element={
+						<RequireAuth>
+							<CreateDisputePage />
+						</RequireAuth>
+					}
+				/>
+				<Route
+					path="/edit-dispute"
+					element={
+						<RequireAuth>
+							<EditDisputePage />
+						</RequireAuth>
+					}
+				/>
+				<Route path="/*" element={<PageNotFound />} />
+			</Route>
+		</Routes>
 	);
 }
-
-export default App;

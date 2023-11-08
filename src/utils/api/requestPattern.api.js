@@ -28,10 +28,3 @@ export const makeRequest = async (url, method, body) => {
 	const res = await fetch(`${BASE_URL_AUTH}${url}`, config);
 	return responceProcessing(res);
 };
-
-// Запрос с FormData
-export const makeFormDataReq = async (url, method, body) => {
-	const config = { method, body };
-	const res = await fetch(`${BASE_URL_AUTH}${url}`, config);
-	return responceProcessing(res);
-};
