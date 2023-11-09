@@ -3,19 +3,16 @@ import React from 'react';
 import './Menu.css';
 import Button from '../Button/Button';
 
-function Menu({ isOpen, firstButton, secondButton }) {
-	return (
-		isOpen && (
-			<nav className="menu">
-				<ul className="menu__links">
-					<div className="triangle" />
-					<li className="menu__link-item">{firstButton}</li>
-					<li className="menu__link-item">{secondButton}</li>
-				</ul>
-			</nav>
-		)
+const Menu = ({ isOpen, firstButton, secondButton }) =>
+	isOpen && (
+		<nav className="menu">
+			<ul className="menu__links">
+				<div className="triangle" />
+				<li className="menu__link-item">{firstButton}</li>
+				<li className="menu__link-item">{secondButton}</li>
+			</ul>
+		</nav>
 	);
-}
 
 export default Menu;
 Menu.propTypes = {
@@ -26,6 +23,7 @@ Menu.propTypes = {
 
 Menu.defaultProps = {
 	isOpen: false,
+
 	firstButton: (
 		<Button
 			size="small"
