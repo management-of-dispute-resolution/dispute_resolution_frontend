@@ -1,0 +1,37 @@
+.comment-form {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: inherit;
+	margin: 0;
+	gap: 24px;
+	padding: 36px 70px;
+	min-height: 13vh;
+	background: var(--Background);
+}
+
+.user-avatar {
+	margin: 0 8px 0 36px;
+	padding: 0;
+	height: 55px;
+	width: 55px;
+	border-radius: 44px;
+	background: var(--secondary-button, #00696a);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	cursor: pointer;
+}
+
+.user-name {
+	margin: 0;
+	padding: 0;
+	color: var(--Background, #ebeeee);
+	text-align: center;
+	font-family: Inter;
+	font-size: 30px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}

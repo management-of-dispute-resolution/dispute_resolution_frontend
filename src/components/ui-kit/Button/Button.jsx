@@ -24,13 +24,15 @@ function Button({
 			{...props}
 			type={type}
 			className={[
-				`button button_size_${size}
+				`
 				 button_color_${color}
+				 button button_size_${size}
 				  ${
 						before && color === 'transperent'
 							? `button_before_type_${before} button_content_start`
 							: ''
 					}
+					
 					${disabled ? 'button_disabled_true' : ''}
 				`,
 			]}
@@ -59,8 +61,8 @@ Button.propTypes = {
 		'blueLagoon-inverted',
 		'transperent',
 	]),
-	before: PropTypes.oneOf(['edit', 'exit', 'cancel', 'changePassword', '']),
-	size: PropTypes.oneOf(['small', 'medium', 'large', 'mlarge']),
+	before: PropTypes.oneOf(['edit', 'exit', 'cancel', 'changePassword', 'send']),
+	size: PropTypes.oneOf(['micro', 'small', 'medium', 'large', 'mlarge']),
 	onClick: PropTypes.func,
 	disabled: PropTypes.bool,
 	backgroundColor: PropTypes.string,

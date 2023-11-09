@@ -17,7 +17,7 @@ function TextArea({
 	const textAreaRef = useRef(null);
 
 	const resizeTextArea = () => {
-		textAreaRef.current.style.height = 'auto';
+		textAreaRef.current.style.height = '62px';
 		textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
 	};
 
@@ -29,9 +29,11 @@ function TextArea({
 
 	return (
 		<div className="textarea">
-			<label htmlFor="textDescription" className="textarea__label">
-				{label}
-			</label>
+			{label && (
+				<label htmlFor="textDescription" className="textarea__label">
+					{label}
+				</label>
+			)}
 			<div className="textarea__box">
 				<textarea
 					className="textarea__textarea"
@@ -46,7 +48,7 @@ function TextArea({
 				>
 					{value}
 				</textarea>
-				<span className="textarea__error">{error}</span>
+				{error && <span className="textarea__error">{error}</span>}
 			</div>
 		</div>
 	);

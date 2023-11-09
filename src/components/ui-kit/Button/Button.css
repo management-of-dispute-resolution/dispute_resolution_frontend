@@ -46,6 +46,11 @@
 	min-height: 50px;
 }
 
+.button_size_micro {
+	min-width: 90px;
+	min-height: 54px;
+}
+
 /* Прозрачная кнопка transperent  */
 
 .button_color_transperent {
@@ -61,8 +66,8 @@
 
 .button_color_transperent:before {
 	content: '';
-	width: 30px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	margin: 0;
 	padding: 0;
 	margin-right: 8px;
@@ -84,6 +89,9 @@
 }
 .button_before_changePassword::before {
 	background-image: url('../../../Images/key-icon.svg');
+}
+.button_before_type_send::before {
+	background-image: url('../../../Images/send-icon.svg');
 }
 
 /* downy */
