@@ -1,27 +1,42 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/jsx-no-comment-textnodes */
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import './Header.css';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import Button from '../ui-kit/Button/Button';
 import Menu from '../ui-kit/Menu/Menu';
+import useOutsideClick from '../../hook/useOutsideClick'
 
 function Header({
 	isLogged,
 	user,
 	handleCreateDispute,
 	handleChangePassword,
-	handleSignOut,
+	onSignOut,
 }) {
+	const navigate = useNavigate();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+	const handleGoHome = () => navigate('/');
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
 	};
 
+	const menuRef = useOutsideClick(isMenuOpen, toggleMenu);
+
 	return (
 		<>
 			{isLogged ? (
 				<header className="header">
-					<div className="header__logo" />
+					<div
+						className="header__logo"
+						role="button"
+						tabIndex={0}
+						onClick={handleGoHome}
+					/>
 					<div className="header__container">
 						<Button
 							size="medium"
@@ -30,9 +45,10 @@ function Header({
 							type="button"
 							onClick={handleCreateDispute}
 						/>
+
 						<button className="header__user-avatar" onClick={toggleMenu}>
-							{console.log(user.lastName)}
-							<p className="header__user-name">{user?.lastName[0] ?? ''}</p>
+							<p className="header__user-name">{user.last_name[0] ?? ''}</p>
+						
 						</button>
 
 						<button
@@ -47,7 +63,7 @@ function Header({
 							/>
 						</button>
 					</div>
-					<div className="header__menu-container">
+					<div ref={menuRef} className="header__menu-container">
 						<Menu
 							isOpen={isMenuOpen}
 							firstButton={
@@ -67,7 +83,7 @@ function Header({
 									color="transperent"
 									type="button"
 									before="exit"
-									onClick={handleSignOut}
+									onClick={onSignOut}
 								/>
 							}
 						/>
@@ -86,21 +102,21 @@ export default Header;
 Header.propTypes = {
 	isLogged: PropTypes.bool,
 	user: PropTypes.shape({
-		firstName: PropTypes.string,
-		lastName: PropTypes.string,
+		first_name: PropTypes.string,
+		last_name: PropTypes.string,
 	}),
 	handleCreateDispute: PropTypes.func,
 	handleChangePassword: PropTypes.func,
-	handleSignOut: PropTypes.func,
+	onSignOut: PropTypes.func,
 };
 
 Header.defaultProps = {
 	isLogged: true,
 	user: {
-		firstName: 'Сотрудник',
-		lastName: 'Тестовый',
+		first_name: 'Сотрудник',
+		last_name: 'Тестовый',
 	},
 	handleCreateDispute: undefined,
 	handleChangePassword: undefined,
-	handleSignOut: undefined,
+	onSignOut: undefined,
 };

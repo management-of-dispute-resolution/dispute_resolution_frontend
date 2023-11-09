@@ -1,4 +1,4 @@
-const BASE_URL_AUTH = 'http://80.87.109.81';
+const BASE_URL_AUTH = 'https://ccdia.acceleratorpracticum.ru';
 
 // Обработка ответа от сервера
 export const responceProcessing = (res) =>
@@ -25,13 +25,6 @@ export const makeRequest = async (url, method, body) => {
 		config.body = JSON.stringify(body); // если есть добавляем в запрос
 	}
 
-	const res = await fetch(`${BASE_URL_AUTH}${url}`, config);
-	return responceProcessing(res);
-};
-
-// Запрос с FormData
-export const makeFormDataReq = async (url, method, body) => {
-	const config = { method, body };
 	const res = await fetch(`${BASE_URL_AUTH}${url}`, config);
 	return responceProcessing(res);
 };

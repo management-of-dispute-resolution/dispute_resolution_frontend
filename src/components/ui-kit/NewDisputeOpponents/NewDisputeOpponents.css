@@ -9,7 +9,7 @@
 	border-radius: 10px;
 	display: flex;
 	align-items: center;
-	gap: 12px;
+	gap: 0 12px;
 	flex-wrap: wrap;
 	width: 860px;
 }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 import clsx from 'clsx';
 import './DisputeCard.css';
 import PropTypes from 'prop-types';
@@ -8,9 +9,10 @@ import PropTypes from 'prop-types';
 import FileList from '../ui-kit/FileList/FileList';
 import Menu from '../ui-kit/Menu/Menu';
 import Button from '../ui-kit/Button/Button';
+import useOutsideClick from '../../hook/useOutsideClick'
 
 function DisputeCard({
-	handleCancelDispute,
+	handleDeleteDispute,
 	handleChangeDispute,
 	creator,
 	description,
@@ -35,6 +37,7 @@ function DisputeCard({
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
 	};
+	const menuRef = useOutsideClick(isMenuOpen, toggleMenu);
 
 	function handleClick(evt) {
 		if (!isDisputePage) {
@@ -123,7 +126,7 @@ function DisputeCard({
 						<button onClick={toggleMenu} className="dispute-card__option">
 							{}
 						</button>
-						<div className="dispute-card__option-container">
+						<div ref={menuRef} className="dispute-card__option-container">
 							<Menu
 								isOpen={isMenuOpen}
 								firstButton={
@@ -143,7 +146,7 @@ function DisputeCard({
 										color="transperent"
 										type="button"
 										before="cancel"
-										onClick={handleCancelDispute}
+										onClick={handleDeleteDispute}
 									/>
 								}
 							/>
@@ -158,10 +161,17 @@ function DisputeCard({
 DisputeCard.propTypes = {
 	id: PropTypes.number.isRequired,
 	status: PropTypes.oneOf(['closed', 'started', 'not_started']).isRequired,
-	creator: PropTypes.string.isRequired,
+	creator: PropTypes.shape({
+		email: PropTypes.string,
+		id: PropTypes.number,
+		first_name: PropTypes.string,
+		last_name: PropTypes.string,
+		phone_number: PropTypes.string,
+		role: PropTypes.string,
+	}).isRequired,
 	description: PropTypes.string.isRequired,
 	created_at: PropTypes.string.isRequired,
-	handleCancelDispute: PropTypes.func,
+	handleDeleteDispute: PropTypes.func,
 	handleChangeDispute: PropTypes.func,
 	closed_at: PropTypes.string,
 	files: PropTypes.arrayOf(PropTypes.string),
@@ -172,7 +182,7 @@ DisputeCard.defaultProps = {
 	closed_at: '',
 	isDisputePage: false,
 	files: [],
-	handleCancelDispute: undefined,
+	handleDeleteDispute: undefined,
 	handleChangeDispute: undefined,
 };
 

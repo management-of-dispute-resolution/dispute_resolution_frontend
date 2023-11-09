@@ -12,8 +12,8 @@ export const IsLoggedHeader = {
 	args: {
 		isLogged: true,
 		user: {
-			firstName: 'Иван',
-			lastName: 'Иванов',
+			first_name: 'Иван',
+			last_name: 'Иванов',
 		},
 	},
 };
