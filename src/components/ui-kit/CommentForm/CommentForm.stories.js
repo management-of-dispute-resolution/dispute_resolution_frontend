@@ -8,8 +8,8 @@ export default {
 export const Default = {
 	args: {
 		user: {
-			firstName: 'Иван',
-			lastName: 'Иванов',
+			first_name: 'Иван',
+			last_name: 'Иванов',
 		},
 	},
 };

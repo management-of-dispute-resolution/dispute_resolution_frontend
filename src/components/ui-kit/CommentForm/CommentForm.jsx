@@ -4,12 +4,12 @@ import './CommentForm.css';
 import TextArea from '../TextArea/TextArea';
 import Button from '../Button/Button';
 
-function CommentForm({ user }) {
-	console.log(user);
+function CommentForm({ user, onSend }) {
+
 	return (
 		<div className="comment-form">
 			<div className="user-avatar">
-				<p className="user-name">{user?.lastName[0] ?? ''}</p>
+				<p className="user-name">{user.last_name[0] ?? ''}</p>
 			</div>
 			<TextArea rows={1} error="" />
 			<Button
@@ -18,6 +18,7 @@ function CommentForm({ user }) {
 				color="transperent"
 				type="button"
 				before="send"
+				onClick={onSend}
 			/>
 		</div>
 	);
@@ -25,10 +26,12 @@ function CommentForm({ user }) {
 
 CommentForm.propTypes = {
 	user: PropTypes.objectOf(CommentForm),
+	onSend: PropTypes.func,
 };
 
 CommentForm.defaultProps = {
 	user: {},
+	onSend: () => {},
 };
 
 export default CommentForm;
