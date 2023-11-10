@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '../Button/Button';
 import Input from '../Input/Input';
 import './LoginForm.css';
+import {useFormWithValidation} from '../../../hook/useForm'
 
 const LoginForm = ({ onLogin }) => {
-	const [values, setValues] = useState({});
+	const { values, handleChange, errors,isValid
+		//  , resetForm
+	 } = useFormWithValidation();
+	//  const [values, setValues] = useState({});
 
-	function handleChange(evt) {
-		const { name, value } = evt.target;
-		setValues((prev) => ({ ...prev, [name]: value }));
-	}
+	// function handleChange(evt) {
+	// 	const { name, value } = evt.target;
+	// 	setValues((prev) => ({ ...prev, [name]: value }));
+	// }
 
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
@@ -26,13 +30,17 @@ const LoginForm = ({ onLogin }) => {
 						label="Электронная почта"
 						name="email"
 						id="userEmail"
-						onChange={(evt) => {
-							handleChange(evt);
-						}}
 						placeholder="Электронная почта"
 						type="email"
 						autocomplete="off"
+						pattern='[a-zA-Z0-9]+@[a-z]+\.{1,1}[a-z]{2,}'
+						onChange={handleChange}
+						required
+						error={errors.email}
+						value={values.email}
+						
 					/>
+					{console.log(errors.email)}
 					<Input
 						label="Пароль"
 						name="password"
@@ -42,9 +50,10 @@ const LoginForm = ({ onLogin }) => {
 						}}
 						placeholder="Пароль"
 						type="password"
+						required
 					/>
 				</div>
-				<Button backgroundColor="blueLagoon" label="Продолжить" type="submit" />
+				<Button backgroundColor="blueLagoon" label="Продолжить" type="submit" disabled={!isValid}/>
 			</form>
 		</section>
 	);

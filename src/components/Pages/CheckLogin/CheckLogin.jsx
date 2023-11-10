@@ -14,7 +14,8 @@ const CheckLogin = () => {
 		} else {
 			navigate('/login');
 		}
-	}, [checkAuth, isLoggedIn, navigate]);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [isLoggedIn]);
 
 	return <Preloader />;
 };

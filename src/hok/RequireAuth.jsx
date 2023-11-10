@@ -6,11 +6,13 @@ import Preloader from '../components/Preloader/Preloader';
 
 const RequireAuth = ({ children }) => {
 	const { isLoggedIn, checkAuth, isBooted } = useAuth();
+	// eslint-disable-next-line no-unused-vars
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		checkAuth();
-	}, [checkAuth, isLoggedIn, navigate]);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	if(isBooted) {
 		return !isLoggedIn ? <Navigate to="/login" /> : children;
