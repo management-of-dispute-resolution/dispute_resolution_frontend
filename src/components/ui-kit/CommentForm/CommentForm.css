@@ -1,3 +1,6 @@
+.comment{
+	background: var(--Background);
+}
 .comment-form {
 	display: flex;
 	align-items: center;
@@ -7,7 +10,6 @@
 	gap: 24px;
 	padding: 36px 70px;
 	min-height: 13vh;
-	background: var(--Background);
 }
 
 .user-avatar {
@@ -34,4 +36,8 @@
 	font-style: normal;
 	font-weight: 500;
 	line-height: normal;
+}
+
+.file-conteiner{
+	margin-left: 200px;
 }
