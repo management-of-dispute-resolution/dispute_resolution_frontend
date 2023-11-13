@@ -5,7 +5,7 @@ import Input from '../Input/Input';
 import './LoginForm.css';
 import {useFormWithValidation} from '../../../hook/useForm'
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = ({ onLogin,loginStatus }) => {
 	const { values, handleChange, errors,isValid
 		//  , resetForm
 	 } = useFormWithValidation();
@@ -34,8 +34,8 @@ const LoginForm = ({ onLogin }) => {
 						type="email"
 						autocomplete="off"
 						pattern='[a-zA-Z0-9\-\.]+@[a-z\-\.]+\.{1,1}[a-z]{1,}'
-						minLength= "5"
-						maxLength="64"
+						minLength= {5}
+						maxLength={64}
 						onChange={handleChange}
 						required
 						error={errors.email}
@@ -52,14 +52,14 @@ const LoginForm = ({ onLogin }) => {
 						type="password"
 						pattern='[0-9a-zA-Z\!\@\#\$\%\.]{8,32}'
 						required
-						minLength= "8"
-						maxLength="32"
+						minLength= {8}
+						maxLength={32}
 						error={errors.password}
 						value={values.password}
 					/>
 				</div>
 				<span className='auth__form-error'>
-				Неправильные почта или пароль
+				{loginStatus}
 					</span>
 				<Button backgroundColor="blueLagoon" label="Продолжить" type="submit" disabled={!isValid}/>
 			</form>
@@ -69,6 +69,7 @@ const LoginForm = ({ onLogin }) => {
 
 LoginForm.propTypes = {
 	onLogin: PropTypes.func.isRequired,
+	loginStatus: PropTypes.string.isRequired
 };
 
 export default LoginForm;

@@ -10,6 +10,11 @@ import {
 	// getUserIdInfo,
 } from '../utils/api/user.api';
 
+import {
+	UNAUTHORIZED_ERROR_MESSAGE,
+	SERVER_ERROR_MESSAGE
+} from '../config/constants/errors'
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -21,6 +26,8 @@ export const AuthProvider = ({ children }) => {
 	const [isError, setIsError] = useState(false);
 	const [isBooted, setIsBooted] = useState(false);
 
+	const [loginStatus, setLoginStatus] = useState('');
+
 	// роверка авторизации
 	const checkAuth = async () => {
 		// setIsLoading(true);
@@ -29,20 +36,20 @@ export const AuthProvider = ({ children }) => {
 			if (userData) {
 				setUser(userData);
 				setIsLoggedIn(true);
-						setIsBooted(true);
+				setIsBooted(true);
 			} else {
 				console.log('Ошибка при получении данных пользователя');
 				localStorage.removeItem('token');
 			}
 		}
-		else
-		{
+		else {
 			setIsBooted(true);
 		}
 		setIsLoading(false);
 	};
 	// LOGIN
 	const signin = async (newUser) => {
+		setLoginStatus('')
 		setIsLoading(true);
 		try {
 			const reqData = await login({
@@ -57,6 +64,14 @@ export const AuthProvider = ({ children }) => {
 				navigate('disputes');
 			}
 		} catch (err) {
+
+			if (err === 400) {
+				setLoginStatus(UNAUTHORIZED_ERROR_MESSAGE)
+
+			}
+			else {
+				setLoginStatus(SERVER_ERROR_MESSAGE)
+			}
 			console.error('res Error ', err);
 		}
 		setIsLoading(false);
@@ -101,7 +116,9 @@ export const AuthProvider = ({ children }) => {
 		setIsLoading,
 		isError,
 		setIsError,
-		isBooted
+		isBooted,
+		loginStatus
+
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

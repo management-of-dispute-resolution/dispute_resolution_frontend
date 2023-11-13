@@ -4,7 +4,7 @@ const BASE_URL_AUTH = 'https://ccdia.acceleratorpracticum.ru';
 export const responceProcessing = (res) =>
 	// eslint-disable-next-line no-nested-ternary
 	!res.ok
-		? res.json().then((err) => Promise.reject(err))
+		? res.json().then(() => Promise.reject(res.status))
 		: res.status === 204
 		? Promise.resolve(res.status)
 		: res.json();
