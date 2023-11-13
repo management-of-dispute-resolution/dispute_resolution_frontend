@@ -33,26 +33,34 @@ const LoginForm = ({ onLogin }) => {
 						placeholder="Электронная почта"
 						type="email"
 						autocomplete="off"
-						pattern='[a-zA-Z0-9]+@[a-z]+\.{1,1}[a-z]{2,}'
+						pattern='[a-zA-Z0-9\-\.]+@[a-z\-\.]+\.{1,1}[a-z]{1,}'
+						minLength= "5"
+						maxLength="64"
 						onChange={handleChange}
 						required
 						error={errors.email}
 						value={values.email}
 						
 					/>
-					{console.log(errors.email)}
+					{console.log(errors.password)}
 					<Input
 						label="Пароль"
 						name="password"
 						id="userPassword"
-						onChange={(evt) => {
-							handleChange(evt);
-						}}
+						onChange={handleChange}
 						placeholder="Пароль"
 						type="password"
+						pattern='[0-9a-zA-Z\!\@\#\$\%\.]{8,32}'
 						required
+						minLength= "8"
+						maxLength="32"
+						error={errors.password}
+						value={values.password}
 					/>
 				</div>
+				<span className='auth__form-error'>
+				Неправильные почта или пароль
+					</span>
 				<Button backgroundColor="blueLagoon" label="Продолжить" type="submit" disabled={!isValid}/>
 			</form>
 		</section>

@@ -14,6 +14,8 @@ function Input({
 	error,
 	pattern,
 	required,
+	minLength,
+	maxLength
 }) {
 	const [isPassword, setIsPassword] = useState(true);
 	const [itemType, setItemType] = useState(type);
@@ -45,13 +47,20 @@ function Input({
 						pattern={pattern}
 						autoComplete="off"
 						required={required}
-						
+						minLength={minLength}
+
+
+						maxLength={maxLength}
+
+
+
+
 					/>
 					<label htmlFor={id} className="input__label">
 						{label}
 					</label>
 				</div>
-				{name === 'Password' && (
+				{type === 'password' && (
 					<button
 						className={
 							isPassword ? 'input__icon input__icon-close-eye' : 'input__icon'
@@ -81,6 +90,8 @@ Input.propTypes = {
 	required: PropTypes.bool,
 	error: PropTypes.string,
 	pattern: PropTypes.string,
+	minLength: PropTypes.number,
+	maxLength: PropTypes.number,
 };
 
 Input.defaultProps = {
@@ -92,7 +103,9 @@ Input.defaultProps = {
 	value: undefined,
 	onChange: undefined,
 	disabled: false,
-	required:false,
+	required: false,
 	error: '',
 	pattern: undefined,
+	minLength: 0,
+	maxLength: 64,
 };

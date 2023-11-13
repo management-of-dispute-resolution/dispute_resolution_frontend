@@ -74,11 +74,8 @@
 }
 
 .input__error {
-	margin: 6px 0 0;
-	max-width: 380px;
-	width: 100%;
-	min-height: 12px;
-	padding: 0;
+	margin: 6px 0 0 0;
+	padding: 0 4px;
 	color: var(--Error);
 	font-family: Inter;
 	font-size: 10px;

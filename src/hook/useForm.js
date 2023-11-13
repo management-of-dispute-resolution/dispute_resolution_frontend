@@ -32,21 +32,36 @@ export function useFormWithValidation() {
     setValues({ ...values, [name]: value });
 
 
-    setErrors({ ...errors, [name]: target.validationMessage });
-    if (name === 'name') {
-      if (target.validity.patternMismatch) {
-        setErrors({ ...errors, [name]: "Имя может содержать только буквы русского и английского алфавита, пробел, дефис." });
-      }
+  
+
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: target.validationMessage }));
     
-  }
+  //   if (name === 'name') {
+  //     if (target.validity.patternMismatch) {
+  //       setErrors({ ...errors, [name]: "Имя может содержать только буквы русского и английского алфавита, пробел, дефис." });
+  //     }
+    
+  // }
 
     if (name === 'email') {
-      if (target.validity.valueMissing) {
-        setErrors({ ...errors, [name]: "Email не может быть пустым" });
-    }
       if (target.validity.patternMismatch) {
-        setErrors({ ...errors, [name]: "Е-mail должен соответствовать шаблону электронной почты" });
+        setErrors({ ...errors, [name]: "Е-mail должен соответствовать шаблону электронной почты. Например, example@mail.com" });
       }
+      if (target.validity.valueMissing) {
+        setErrors({ ...errors, [name]: "E-mail не может быть пустым" });
+    }
+      
+ 
+    }
+
+    if (name === 'password') {
+     
+      if (target.validity.valueMissing) {
+        setErrors({ ...errors, [name]: "Пароль не может быть пустым" });
+    }
+    if (target.validity.patternMismatch) {
+      setErrors({ ...errors, [name]: "Пароль должен содержать от 8 до 32 символов:английские буквы, цифры, cпецсимволы." });
+    }
  
     }
 
