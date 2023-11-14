@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './CommentForm.css';
@@ -10,11 +11,9 @@ function CommentForm({ user, onSend }) {
 	const handleCommentChange = (evt) => {
 		const {value} = evt.target;
 		setCommentData((prev) => ({ ...prev, 'content': value }));
-		
 	}
 	const handleSend = () => {
 		onSend(commentData); 
-		
 	};
 
 	return (
@@ -22,7 +21,7 @@ function CommentForm({ user, onSend }) {
 			<div className="user-avatar">
 				<p className="user-name">{user.last_name[0] ?? ''}</p>
 			</div>
-			<TextArea rows={1} error="" value={commentData.text} handleChange = {handleCommentChange}/>
+			<TextArea rows={1} error="" value={commentData.content} handleChange = {handleCommentChange}/>
 			<Button
 				size="micro"
 				label=""

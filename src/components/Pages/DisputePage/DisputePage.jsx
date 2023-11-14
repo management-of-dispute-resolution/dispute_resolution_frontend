@@ -16,6 +16,7 @@ import { useAuth } from '../../../hook/useAuth';
 import Preloader from '../../Preloader/Preloader';
 import CommentForm from '../../ui-kit/CommentForm/CommentForm';
 import Button from '../../ui-kit/Button/Button';
+import { InfoToolTip } from '../../ui-kit/InfoToolTip/InfoToolTip';
 
 const DisputePage = () => {
 	const [dispute, setDispute] = useState();
@@ -25,10 +26,47 @@ const DisputePage = () => {
 	const navigate = useNavigate();
 	const { isLoading, setIsLoading, currentUser } = useAuth();
 	const { state } = useLocation();
-
 	const { id } = useParams();
 
+	const [info, setInfo] = useState({
+		isOpen: false,
+		isSuccess: false,
+		doneText: '',
+		errorText: '',
+	});
+
+	const onCloseInfo = () => {
+		setInfo((prev) => ({
+			...prev,
+			isOpen: false,
+			isSuccess: false,
+			doneText: '',
+			errorText: '',
+		}));
+	};
+
 	const handleSendComment = async (data) => {
+		if(dispute.status !== 'started')
+		{
+			setInfo({
+				isOpen: true,
+				isSuccess: false,
+				doneText: '',
+				errorText: 'Нельзя оставлять комментарии до начала диспута',
+			});
+			return;
+		}
+
+		if (!data.content) {
+			setInfo({
+				isOpen: true,
+				isSuccess: false,
+				doneText: '',
+				errorText: 'Заполните поле комментария',
+			});
+			return;
+		}
+
 		try {
 			await createComment(id, data.content);
 			window.location.reload();
@@ -64,8 +102,11 @@ const DisputePage = () => {
 			: false;
 	};
 
+	const goDisputes = () => navigate('/disputes');
+
 	useEffect(() => {
 		(async () => {
+			setIsLoading(true);
 			try {
 				const disputeData = await getDisputeId(id);
 				const commentsData = await getComments(id);
@@ -74,7 +115,6 @@ const DisputePage = () => {
 				setDispute(disputeData);
 				setComments(commentsData);
 				setUsers(usersData);
-
 				if (!checkAccess(disputeData)) {
 					throw new Error('Access denied');
 				}
@@ -87,63 +127,58 @@ const DisputePage = () => {
 		})();
 	}, [id, navigate]);
 
-	const goDisputes = () => navigate('/disputes');
+	if (isLoading || !dispute) {
+		return <Preloader />;
+	}
 
 	return (
-		<>
-			{isLoading ? (
-				<Preloader />
-			) : (
-				!isLoading && (
-					<div className="dispute-page">
-						{state?.createMessage && state.createMessage === 'new' && (
+		<div className="dispute-page">
+			{/* {state?.createMessage && state.createMessage === 'new' && (
 							<button
 								className="close-goDisputes"
 								type="button"
 								aria-label="Кнопка закрытия модального окна"
 								onClick={goDisputes}
 							/>
-						)}
-						<section className="dispute-page__card-section">
-							{' '}
-							<DisputeCard {...dispute} isDisputePage={true} />
-							{state?.createMessage && state.createMessage === 'new' && (
+						)} */}
+			<section className="dispute-page__card-section">
+				{' '}
+				<DisputeCard {...dispute} isDisputePage={true} onClick={()=>{}} />
+				{/* {state?.createMessage && state.createMessage === 'new' && (
 								<h2 className="createdDispute">Обращение создано</h2>
-							)}
-						</section>
-						<ListMessageComment comments={comments} />
+							)} */}
+			</section>
+			<ListMessageComment comments={comments} />
+			<CommentForm user={currentUser} onSend={handleSendComment} />
 
-						{/* <div className="dispute-page__comment-form"> */}
-						<CommentForm user={currentUser} onSend={handleSendComment} />
-
-						{currentUser.role === 'mediator' && (
-							<div className="dispute-page__panel">
-								<Button
-									label="Взять в рассмотрение"
-									color="blueLagoon-inverted"
-									size="large"
-									onClick={() => handleChangeStatus('started')}
-									type="button"
-								/>
-								<Button
-									label="Добавить оппонента"
-									color="blueLagoon-inverted"
-									size="large"
-									onClick={() => {}}
-									type="button"
-								/>
-								<Button
-									label="Закрыть обращение"
-									size="large"
-									type="button"
-									onClick={() => handleCloseDispute(id, 'not_started')}
-								/>
-							</div>
-						)}
-					</div>
-				)
+			{currentUser.role === 'mediator' && (
+				<div className="dispute-page__panel">
+					<Button
+						label="Взять в рассмотрение"
+						color="blueLagoon-inverted"
+						size="large"
+						onClick={() => handleChangeStatus('started')}
+						type="button"
+					/>
+					<Button
+						label="Добавить оппонента"
+						color="blueLagoon-inverted"
+						size="large"
+						onClick={() => {}}
+						type="button"
+					/>
+					<Button
+						label="Закрыть обращение"
+						size="large"
+						type="button"
+						onClick={() => handleCloseDispute(id, 'not_started')}
+					/>
+				</div>
 			)}
-		</>
+
+			<InfoToolTip {...info} onClose={onCloseInfo} />
+			
+		</div>
 	);
 };
 

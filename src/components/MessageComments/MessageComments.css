@@ -26,6 +26,11 @@
 
 .message__container {
 	margin-left: 20px;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	white-space: pre-wrap;
+	hyphens: auto;
+	max-width: 100%;
 }
 
 .message__heading {
@@ -64,6 +69,8 @@
 	font-style: normal;
 	font-weight: 400;
 	line-height: 150.023%;
+
+	
 }
 
 .message__list-documents {
