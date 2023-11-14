@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable jsx-a11y/control-has-associated-label */
@@ -26,6 +27,9 @@ function Header({
 	};
 
 	const menuRef = useOutsideClick(isMenuOpen, toggleMenu);
+	const { role,last_name
+		//  , resetForm
+	 } = user;
 
 	return (
 		<>
@@ -38,16 +42,18 @@ function Header({
 						onClick={handleGoHome}
 					/>
 					<div className="header__container">
-						<Button
+					
+						{role !=='mediator' && 	<Button
 							size="medium"
 							label="Создать обращение"
 							color="downy"
 							type="button"
 							onClick={handleCreateDispute}
-						/>
+						/>}
+					
 
 						<button className="header__user-avatar" onClick={toggleMenu}>
-							<p className="header__user-name">{user.last_name[0] ?? ''}</p>
+							<p className="header__user-name">{last_name[0] ?? ''}</p>
 						
 						</button>
 
