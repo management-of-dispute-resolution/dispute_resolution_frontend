@@ -101,6 +101,7 @@ CommentForm.propTypes = {
 CommentForm.defaultProps = {
 	user: {},
 	onSend: () => { },
+	onSend: () => { },
 };
 
 export default CommentForm;
