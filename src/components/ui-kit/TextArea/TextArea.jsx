@@ -11,6 +11,7 @@ function TextArea({
 	error,
 	srartRows,
 	handleChange,
+	children
 }) {
 	
 	const textAreaRef = useRef(null);
@@ -43,6 +44,7 @@ function TextArea({
 				>
 					{value || ''}
 				</textarea>
+				{children}
 				{error && <span className="textarea__error">{error}</span>}
 			</div>
 		</div>
@@ -59,6 +61,7 @@ TextArea.propTypes = {
 	error: PropTypes.string,
 	srartRows: PropTypes.number,
 	handleChange: PropTypes.func,
+	children: PropTypes.node
 	// expand: PropTypes.bool,
 };
 
@@ -71,5 +74,6 @@ TextArea.defaultProps = {
 	error: 'zzzzzzzz',
 	srartRows: 2,
 	handleChange: () => {},
+	children: undefined
 	// expand: true,
 };

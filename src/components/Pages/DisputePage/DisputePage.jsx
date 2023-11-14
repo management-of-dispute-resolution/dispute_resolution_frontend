@@ -68,7 +68,7 @@ const DisputePage = () => {
 		}
 
 		try {
-			await createComment(id, data.content);
+			await createComment(id, data.content, data.file);
 			window.location.reload();
 		} catch (err) {
 			console.error('res Error ', err);
@@ -114,6 +114,7 @@ const DisputePage = () => {
 
 				setDispute(disputeData);
 				setComments(commentsData);
+				console.log(commentsData,'commentsData');
 				setUsers(usersData);
 				if (!checkAccess(disputeData)) {
 					throw new Error('Access denied');
