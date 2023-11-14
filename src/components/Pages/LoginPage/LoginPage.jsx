@@ -7,7 +7,7 @@ import { useAuth } from '../../../hook/useAuth';
 const LoginPage = () => {
 	const navigate = useNavigate();
 	
-	const { isLoggedIn, signin, loginStatus } = useAuth();
+	const { isLoggedIn, signin, loginStatus, isLoading } = useAuth();
 
 	useEffect(() => {
 		if (isLoggedIn) {
@@ -18,9 +18,9 @@ const LoginPage = () => {
 	const handleLogin = (data) => {
 		signin(data)
 	};
+	
 
-
-	return <LoginForm onLogin={handleLogin} loginStatus={loginStatus} />;
+	return <LoginForm onLogin={handleLogin} loginStatus={loginStatus} isLoading={isLoading} />;
 
 };
 

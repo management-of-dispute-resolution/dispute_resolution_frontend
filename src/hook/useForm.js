@@ -4,32 +4,41 @@ import { useCallback, useState
 } from "react";
 
 // хук управления формой
-export function useForm() {
-  const [values, setValues] =useState({});
+// export function useForm() {
+//   const [values, setValues] =useState({});
 
 
-  const handleSubmit = (event) => {
-    const {target} = event;
-    const {value} = target;
-    const {name} = target;
-    setValues({ ...values, [name]: value });
-  };
+//   const handleSubmit = (event) => {
+//     const {target} = event;
+//     const {value} = target;
+//     const {name} = target;
+//     setValues({ ...values, [name]: value });
+//   };
 
-  return { values, handleSubmit, setValues };
-}
+//   return { values, handleSubmit, setValues };
+// }
 
 //  хук управления формой и валидации формы
 export function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
+  // const [isLoading, setisLoading] = useState(false);
   // const currentUser = useContext(CurrentUserContext);
 
+  // console.log(isLoading)
+  // eslint-disable-next-line no-unused-vars
+ 
   const handleChange = (event) => {
+  
+    
+    
     const {target} = event;
     const {value} = target;
     const {name} = target;
     setValues({ ...values, [name]: value });
+  
+
 
 
   
@@ -64,7 +73,7 @@ export function useFormWithValidation() {
     }
  
     }
-
+    // setLoginStatus('')
     setIsValid(target.closest("form").checkValidity());
   };
 

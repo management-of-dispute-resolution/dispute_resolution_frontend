@@ -117,7 +117,8 @@ export const AuthProvider = ({ children }) => {
 		isError,
 		setIsError,
 		isBooted,
-		loginStatus
+		loginStatus,
+		setLoginStatus
 
 	};
 

@@ -5,8 +5,9 @@ import Input from '../Input/Input';
 import './LoginForm.css';
 import {useFormWithValidation} from '../../../hook/useForm'
 
-const LoginForm = ({ onLogin,loginStatus }) => {
-	const { values, handleChange, errors,isValid
+const LoginForm = ({ onLogin,loginStatus, isLoading }) => {
+	// eslint-disable-next-line no-unused-vars
+	const { values, handleChange, errors,isValid, resetForm
 		//  , resetForm
 	 } = useFormWithValidation();
 	//  const [values, setValues] = useState({});
@@ -19,6 +20,7 @@ const LoginForm = ({ onLogin,loginStatus }) => {
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
 		onLogin(values);
+	
 	};
 
 	return (
@@ -61,7 +63,7 @@ const LoginForm = ({ onLogin,loginStatus }) => {
 				<span className='auth__form-error'>
 				{loginStatus}
 					</span>
-				<Button backgroundColor="blueLagoon" label="Продолжить" type="submit" disabled={!isValid}/>
+				<Button backgroundColor="blueLagoon" label="Продолжить" type="submit" disabled={!isValid || isLoading}/>
 			</form>
 		</section>
 	);
@@ -69,7 +71,8 @@ const LoginForm = ({ onLogin,loginStatus }) => {
 
 LoginForm.propTypes = {
 	onLogin: PropTypes.func.isRequired,
-	loginStatus: PropTypes.string.isRequired
+	loginStatus: PropTypes.string.isRequired,
+	isLoading:PropTypes.bool.isRequired
 };
 
 export default LoginForm;
