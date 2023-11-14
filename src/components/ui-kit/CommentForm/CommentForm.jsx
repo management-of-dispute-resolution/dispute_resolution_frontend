@@ -7,7 +7,8 @@ import {NewDisputeFileUpload} from '../NewDisputeFileUpload/NewDisputeFileUpload
 import { FilePreview } from '../FilePreview/FilePreview';
 
 function CommentForm({ user, onSend }) {
-	const [fileList, setFileList] = useState([]); // Массив файлов для загрузки
+	const [fileList, setFileList] = useState([]);
+	const [fileAdd, setFileAdd] = useState(false);
 	// Установка стейта загружаемых файлов
 	const updateFileList = (updatedList) => {
 		setFileList(updatedList);
@@ -18,6 +19,10 @@ function CommentForm({ user, onSend }) {
 		updatedList.splice(fileList.indexOf(item), 1);
 		setFileList(updatedList);
 	};
+	const handleAddFile = ()=>{
+		setFileAdd(!fileAdd)
+	}
+
 
 	return (
 		<div className='comment'>
@@ -25,7 +30,9 @@ function CommentForm({ user, onSend }) {
 			<div className="user-avatar">
 				<p className="user-name">{user.last_name[0] ?? ''}</p>
 			</div>
-			<TextArea rows={1} error="" />
+			<TextArea rows={1} error="" >
+			<button label="" aria-label="Mute volume" type="button" onClick={handleAddFile} className='comment-pipe'  />
+			</TextArea>
 			<Button
 				size="micro"
 				label=""
@@ -35,9 +42,12 @@ function CommentForm({ user, onSend }) {
 				onClick={onSend}
 			/>
 		</div>
+		{fileAdd ? (
 		<div className='file-conteiner'>
 		{/* Блок рабооты с файлами */}
-		
+			
+
+			
 					<div className="new-dispute-file new-dispute-form__item-wrapper">
 						<div className="new-dispute-form__item-title-wrapper_large">
 							<h3 className="new-dispute-form__item-title">Прикрепите файлы</h3>
@@ -72,7 +82,7 @@ function CommentForm({ user, onSend }) {
 							</div>
 						</div>
 						</div>
-						</div>
+						</div>): null}
 		</div>
 	);
 }

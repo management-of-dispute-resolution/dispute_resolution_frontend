@@ -1,6 +1,6 @@
 import './TextArea.css';
 import PropTypes from 'prop-types';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 
 function TextArea({
 	name,
@@ -10,9 +10,11 @@ function TextArea({
 	disabled,
 	error,
 	srartRows,
-
+	children
 	// expand
-}) {
+}) 
+{
+	console.log(children)
 	const [val, setVal] = useState('');
 	const textAreaRef = useRef(null);
 
@@ -48,6 +50,7 @@ function TextArea({
 				>
 					{value}
 				</textarea>
+				{children}
 				{error && <span className="textarea__error">{error}</span>}
 			</div>
 		</div>
@@ -63,6 +66,7 @@ TextArea.propTypes = {
 	disabled: PropTypes.bool,
 	error: PropTypes.string,
 	srartRows: PropTypes.number,
+	children: PropTypes.string
 	// expand: PropTypes.bool,
 };
 
@@ -74,5 +78,6 @@ TextArea.defaultProps = {
 	disabled: false,
 	error: 'zzzzzzzz',
 	srartRows: 2,
+	children: ''
 	// expand: true,
 };

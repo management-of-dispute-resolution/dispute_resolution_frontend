@@ -5,6 +5,7 @@
 	max-width: 1061px;
 	gap: 20px;
 	flex:1;
+
 }
 
 .textarea__box {
@@ -12,19 +13,21 @@
 	padding: 0;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	box-sizing: border-box;
-	flex-direction: column;
 	width: 100%;
+	border-radius: 10px;
+	border: 1px solid #858ba9;
+	background:white;
 }
 
 .textarea__textarea {
 	border-radius: 10px;
-	border: 1px solid #858ba9;
+	border: none;
 	margin: 0;
 	padding: 20px 40px 20px 40px;
 	color: #000;
 	font-variant-numeric: lining-nums tabular-nums;
-
 	font-family: Inter;
 	font-size: 16px;
 	font-style: normal;

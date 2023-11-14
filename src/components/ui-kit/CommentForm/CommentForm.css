@@ -39,5 +39,15 @@
 }
 
 .file-conteiner{
-	margin-left: 200px;
+	margin-left: 202px;
+}
+
+.comment-pipe{
+	background: url(../../../Images/paperClip.svg);
+	margin-right: 24px;
+	width: 30px;
+	height: 30px;
+	border: none;
+	cursor: pointer;
+	z-index: 2;
 }
