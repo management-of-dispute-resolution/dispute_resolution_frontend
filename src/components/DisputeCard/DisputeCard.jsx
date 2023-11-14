@@ -107,7 +107,7 @@ function DisputeCard({
 				<div className={disputeStatusClasses}>{statusInterface[status]}</div>
 				<div className={disputeContentClasses}>
 					<div className={disputeHeaderClasses}>
-						<h2 className={disputeTitleClasses}>{`${creator} ${CreatedAt}`}</h2>
+						<h2 className={disputeTitleClasses}>{`${creator?.first_name} ${creator?.last_name} ${CreatedAt}`}</h2>
 						{status === 'closed' ? (
 							<p className={closedTimeClasses}>{`Решено: ${closedAt}`}</p>
 						) : (

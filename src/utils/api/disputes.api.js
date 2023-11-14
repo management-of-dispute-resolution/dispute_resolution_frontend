@@ -18,6 +18,9 @@ export const getDisputeId = (id) =>
 export const editDisputeId = ({ id, text }) =>
 	makeRequest(`/api/disputes/${id}/`, 'PUT', text);
 
+export const changeStatusDisputeId = (id, {status }) =>
+	makeRequest(`/api/disputes/${id}/`, 'PATCH', { status});
+
 // Редактирование диспута по id
 export const editPatchDisputeId = ({ id, text }) =>
 	makeRequest(`/api/disputes/${id}/`, 'PATCH', text);
@@ -29,6 +32,12 @@ export const deleteDisputesId = (id) =>
 // Получение комментариев к диспуту по id
 export const getComments = (dispute_id) =>
 	makeRequest(`/api/disputes/${dispute_id}/comments/`, 'GET', undefined);
+
+export const createComment = (dispute_id, content, file) =>
+	makeRequest(`/api/disputes/${dispute_id}/comments/`, 'POST', {
+		content,
+		file,
+	});
 
 // Добавление комментариев к диспуту по id
 // export const createComments = ({ dispute_id, content, file }) =>

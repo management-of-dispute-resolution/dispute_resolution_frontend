@@ -10,7 +10,8 @@ const RequireAuth = ({ children }) => {
 
 	useEffect(() => {
 		checkAuth();
-	}, [checkAuth, isLoggedIn, navigate]);
+		/* eslint-disable-next-line */
+	}, [ isLoggedIn,navigate]);
 
 	if(isBooted) {
 		return !isLoggedIn ? <Navigate to="/login" /> : children;
