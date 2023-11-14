@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './CommentForm.css';
 import TextArea from '../TextArea/TextArea';
 import Button from '../Button/Button';
-import {NewDisputeFileUpload} from '../NewDisputeFileUpload/NewDisputeFileUpload'
+import { NewDisputeFileUpload } from '../NewDisputeFileUpload/NewDisputeFileUpload'
 import { FilePreview } from '../FilePreview/FilePreview';
 
 function CommentForm({ user, onSend }) {
@@ -19,35 +19,32 @@ function CommentForm({ user, onSend }) {
 		updatedList.splice(fileList.indexOf(item), 1);
 		setFileList(updatedList);
 	};
-	const handleAddFile = ()=>{
+	const handleAddFile = () => {
 		setFileAdd(!fileAdd)
 	}
 
 
 	return (
 		<div className='comment'>
-		<div className="comment-form">
-			<div className="user-avatar">
-				<p className="user-name">{user.last_name[0] ?? ''}</p>
+			<div className="comment-form">
+				<div className="user-avatar">
+					<p className="user-name">{user.last_name[0] ?? ''}</p>
+				</div>
+				<TextArea rows={1} error="" >
+					<button label="" aria-label="Mute volume" type="button" onClick={handleAddFile} className='comment-pipe' />
+				</TextArea>
+				<Button
+					size="micro"
+					label=""
+					color="transperent"
+					type="button"
+					before="send"
+					onClick={onSend}
+				/>
 			</div>
-			<TextArea rows={1} error="" >
-			<button label="" aria-label="Mute volume" type="button" onClick={handleAddFile} className='comment-pipe'  />
-			</TextArea>
-			<Button
-				size="micro"
-				label=""
-				color="transperent"
-				type="button"
-				before="send"
-				onClick={onSend}
-			/>
-		</div>
-		{fileAdd ? (
-		<div className='file-conteiner'>
-		{/* Блок рабооты с файлами */}
-			
-
-			
+			{fileAdd ? (
+				<div className='file-conteiner'>
+					{/* Блок рабооты с файлами */}
 					<div className="new-dispute-file new-dispute-form__item-wrapper">
 						<div className="new-dispute-form__item-title-wrapper_large">
 							<h3 className="new-dispute-form__item-title">Прикрепите файлы</h3>
@@ -61,15 +58,15 @@ function CommentForm({ user, onSend }) {
 						/>
 					</div>
 
-				{/* Блок кнопки submit'а и выбранных файлов */}
-				<div className="new-dispute-footer new-dispute-form__item-wrapper">
-					<span />
-					<div className="new-dispute-footer__used-zone">
-						
-							
+					{/* Блок кнопки submit'а и выбранных файлов */}
+					<div className="new-dispute-footer new-dispute-form__item-wrapper">
+						<span />
+						<div className="new-dispute-footer__used-zone">
 
-						{/* Отображение загруженных файлов */}
-						
+
+
+							{/* Отображение загруженных файлов */}
+
 							<div className="file-preview">
 								{fileList.map((item, index) => (
 									<FilePreview
@@ -81,8 +78,8 @@ function CommentForm({ user, onSend }) {
 								))}
 							</div>
 						</div>
-						</div>
-						</div>): null}
+					</div>
+				</div>) : null}
 		</div>
 	);
 }
@@ -94,7 +91,7 @@ CommentForm.propTypes = {
 
 CommentForm.defaultProps = {
 	user: {},
-	onSend: () => {},
+	onSend: () => { },
 };
 
 export default CommentForm;
