@@ -136,7 +136,7 @@ const DisputePage = () => {
 		<div className="dispute-page">
 			{/* {state?.createMessage && state.createMessage === 'new' && (
 							<button
-								className="close-goDisputes"
+								 className="close-goDisputes"
 								type="button"
 								aria-label="Кнопка закрытия модального окна"
 								onClick={goDisputes}
