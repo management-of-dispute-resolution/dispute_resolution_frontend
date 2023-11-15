@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { useNavigate } from 'react-router-dom';
@@ -22,25 +22,23 @@ export const AuthProvider = ({ children }) => {
 	const [isBooted, setIsBooted] = useState(false);
 
 	// роверка авторизации
-	const checkAuth = async () => {
-		// setIsLoading(true);
+	const checkAuth = useCallback(async () => {
 		if (localStorage.getItem('token')) {
 			const userData = await getUserInfo();
 			if (userData) {
 				setUser(userData);
 				setIsLoggedIn(true);
-						setIsBooted(true);
+				setIsBooted(true);
 			} else {
 				console.log('Ошибка при получении данных пользователя');
 				localStorage.removeItem('token');
 			}
 		}
-		else
-		{
+		else {
 			setIsBooted(true);
 		}
 		setIsLoading(false);
-	};
+	}, []);
 	// LOGIN
 	const signin = async (newUser) => {
 		setIsLoading(true);
