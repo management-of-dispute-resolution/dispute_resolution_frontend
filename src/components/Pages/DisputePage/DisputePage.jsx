@@ -10,6 +10,8 @@ import {
 	createComment,
 	changeStatusDisputeId,
 	deleteDisputesId,
+	addOpponentDisputeId,
+	changeDataDisputeId
 } from '../../../utils/api/disputes.api';
 import { getUsers } from '../../../utils/api/user.api';
 import { useAuth } from '../../../hook/useAuth';
@@ -48,47 +50,56 @@ const DisputePage = () => {
 	const handleSendComment = async (data) => {
 		if(dispute.status !== 'started')
 		{
-			setInfo({
-				isOpen: true,
-				isSuccess: false,
-				doneText: '',
-				errorText: 'Нельзя оставлять комментарии до начала диспута',
-			});
+			setInfo({isOpen: true,isSuccess: false,doneText: '',errorText: 'Нельзя оставлять комментарии до начала диспута',});
 			return;
 		}
 
 		if (!data.content) {
-			setInfo({
-				isOpen: true,
-				isSuccess: false,
-				doneText: '',
-				errorText: 'Заполните поле комментария',
-			});
+			setInfo({isOpen: true,isSuccess: false,doneText: '',errorText: 'Заполните поле комментария',});
 			return;
 		}
 
-		try {
-			await createComment(id, data.content, data.file);
-			window.location.reload();
-		} catch (err) {
-			console.error('res Error ', err);
-		}
+		// try {
+		// 	await createComment(id, data.content, data.file);
+		// 	window.location.reload();
+		// } catch (err) {
+		// 	console.error('res Error ', err);
+		// }
+
+		//const newComment = new FormData();
+		//newComment.append('description', 123);
+		// for (let i = 0; i < data.file.length; i += 1) {
+		//	newComment.append(`uploaded_files`, 456);
+		// }
+		// console.log(newComment);
+		// console.log(data);
 	};
 
 	const handleChangeStatus = async (status) => {
 		try {
-			await changeStatusDisputeId(id, { status });
-			window.location.reload();
+			await changeStatusDisputeId({id, status });
+			setDispute((prev) => ({ ...prev, status }));
 		} catch (err) {
 			console.error('res Error ', err);
 		}
 	};
 
-	const handleCloseDispute = async (id, status) => {
+	const handleAddOpponent = async (id) => {
 		try {
-			await changeStatusDisputeId(id, { status });
-			await deleteDisputesId(id);
-			window.location.reload();
+			const res = await addOpponentDisputeId({ id, add_opponent: true });
+			setDispute((prev) => ({ ...prev, res }));
+		} catch (err) {
+			console.error('res Error ', err);
+		}
+	};
+
+	const handleCloseDispute = async (status) => {
+		try {
+			await changeStatusDisputeId({id, status });
+			// await changeDataDisputeId(id, {closed_at: '1111-11-11 11:11:11'});
+			setDispute((prev) => ({ ...prev, status }));
+			// await deleteDisputesId(id);
+			// window.location.reload();
 		} catch (err) {
 			console.error('res Error ', err);
 		}
@@ -96,7 +107,10 @@ const DisputePage = () => {
 
 	const checkAccess = (disputeData) => {
 		return currentUser.id === disputeData.creator.id ||
-			disputeData.opponent.some((opponent) => currentUser.id === opponent.id) ||
+			(disputeData.opponent.some(
+				(opponent) => currentUser.id === opponent.id
+			) &&
+				disputeData.add_opponent === true) ||
 			currentUser.role === 'mediator'
 			? true
 			: false;
@@ -114,7 +128,6 @@ const DisputePage = () => {
 
 				setDispute(disputeData);
 				setComments(commentsData);
-				console.log(commentsData,'commentsData');
 				setUsers(usersData);
 				if (!checkAccess(disputeData)) {
 					throw new Error('Access denied');
@@ -127,6 +140,10 @@ const DisputePage = () => {
 			}
 		})();
 	}, [id, navigate]);
+
+
+	console.log(dispute, 'dispute');
+
 
 	if (isLoading || !dispute) {
 		return <Preloader />;
@@ -144,10 +161,11 @@ const DisputePage = () => {
 						)} */}
 			<section className="dispute-page__card-section">
 				{' '}
-				<DisputeCard {...dispute} isDisputePage={true} onClick={()=>{}} />
-				{/* {state?.createMessage && state.createMessage === 'new' && (
+				<DisputeCard {...dispute} files={dispute.file} isDisputePage={true} onClick={()=>{}} />
+				
+				{state?.createMessage && state.createMessage === 'new' && (
 								<h2 className="createdDispute">Обращение создано</h2>
-							)} */}
+							)}
 			</section>
 			<ListMessageComment comments={comments} />
 			<CommentForm user={currentUser} onSend={handleSendComment} />
@@ -160,19 +178,22 @@ const DisputePage = () => {
 						size="large"
 						onClick={() => handleChangeStatus('started')}
 						type="button"
+						disabled={dispute.status === 'started'}
 					/>
 					<Button
 						label="Добавить оппонента"
 						color="blueLagoon-inverted"
 						size="large"
-						onClick={() => {}}
+						onClick={()=> handleAddOpponent(id)}
 						type="button"
+						// disabled={dispute.add_opponent === true}
 					/>
 					<Button
 						label="Закрыть обращение"
 						size="large"
 						type="button"
-						onClick={() => handleCloseDispute(id, 'not_started')}
+						onClick={() => handleCloseDispute('closed')}
+						disabled={dispute.status !== 'started'}
 					/>
 				</div>
 			)}
