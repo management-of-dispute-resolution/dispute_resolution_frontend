@@ -11,7 +11,7 @@ import {
 	changeStatusDisputeId,
 	deleteDisputesId,
 	addOpponentDisputeId,
-	changeDataDisputeId
+	changeDataDisputeId,
 } from '../../../utils/api/disputes.api';
 import { getUsers } from '../../../utils/api/user.api';
 import { useAuth } from '../../../hook/useAuth';
@@ -19,6 +19,8 @@ import Preloader from '../../Preloader/Preloader';
 import CommentForm from '../../ui-kit/CommentForm/CommentForm';
 import Button from '../../ui-kit/Button/Button';
 import { InfoToolTip } from '../../ui-kit/InfoToolTip/InfoToolTip';
+
+import { handleFormDataRequest } from '../../../utils/api/reqFormDataPattern';
 
 const DisputePage = () => {
 	const [dispute, setDispute] = useState();
@@ -48,36 +50,45 @@ const DisputePage = () => {
 	};
 
 	const handleSendComment = async (data) => {
-		if(dispute.status !== 'started')
-		{
-			setInfo({isOpen: true,isSuccess: false,doneText: '',errorText: 'Нельзя оставлять комментарии до начала диспута',});
+		if (dispute.status !== 'started') {
+			setInfo({
+				isOpen: true,
+				isSuccess: false,
+				doneText: '',
+				errorText: 'Нельзя оставлять комментарии до начала диспута',
+			});
 			return;
 		}
 
 		if (!data.content) {
-			setInfo({isOpen: true,isSuccess: false,doneText: '',errorText: 'Заполните поле комментария',});
+			setInfo({
+				isOpen: true,
+				isSuccess: false,
+				doneText: '',
+				errorText: 'Заполните поле комментария',
+			});
 			return;
 		}
 
-		// try {
-		// 	await createComment(id, data.content, data.file);
-		// 	window.location.reload();
-		// } catch (err) {
-		// 	console.error('res Error ', err);
-		// }
+		const newComment = new FormData();
 
-		//const newComment = new FormData();
-		//newComment.append('description', 123);
-		// for (let i = 0; i < data.file.length; i += 1) {
-		//	newComment.append(`uploaded_files`, 456);
-		// }
-		// console.log(newComment);
-		// console.log(data);
+		newComment.append('content', data.content);
+
+		data.file.forEach((item) => {
+			newComment.append('uploaded_files', item);
+		});
+
+		try {
+			await handleFormDataRequest(`/api/disputes/${id}/comments/`, newComment);
+			window.location.reload();
+		} catch (err) {
+			console.error('res Error ', err);
+		}
 	};
 
 	const handleChangeStatus = async (status) => {
 		try {
-			await changeStatusDisputeId({id, status });
+			await changeStatusDisputeId({ id, status });
 			setDispute((prev) => ({ ...prev, status }));
 		} catch (err) {
 			console.error('res Error ', err);
@@ -95,11 +106,8 @@ const DisputePage = () => {
 
 	const handleCloseDispute = async (status) => {
 		try {
-			await changeStatusDisputeId({id, status });
-			// await changeDataDisputeId(id, {closed_at: '1111-11-11 11:11:11'});
+			await changeStatusDisputeId({ id, status });
 			setDispute((prev) => ({ ...prev, status }));
-			// await deleteDisputesId(id);
-			// window.location.reload();
 		} catch (err) {
 			console.error('res Error ', err);
 		}
@@ -141,10 +149,6 @@ const DisputePage = () => {
 		})();
 	}, [id, navigate]);
 
-
-	console.log(dispute, 'dispute');
-
-
 	if (isLoading || !dispute) {
 		return <Preloader />;
 	}
@@ -161,11 +165,15 @@ const DisputePage = () => {
 						)} */}
 			<section className="dispute-page__card-section">
 				{' '}
-				<DisputeCard {...dispute} files={dispute.file} isDisputePage={true} onClick={()=>{}} />
-				
+				<DisputeCard
+					{...dispute}
+					files={dispute.file}
+					isDisputePage={true}
+					onClick={() => {}}
+				/>
 				{state?.createMessage && state.createMessage === 'new' && (
-								<h2 className="createdDispute">Обращение создано</h2>
-							)}
+					<h2 className="createdDispute">Обращение создано</h2>
+				)}
 			</section>
 			<ListMessageComment comments={comments} />
 			<CommentForm user={currentUser} onSend={handleSendComment} />
@@ -184,9 +192,9 @@ const DisputePage = () => {
 						label="Добавить оппонента"
 						color="blueLagoon-inverted"
 						size="large"
-						onClick={()=> handleAddOpponent(id)}
+						onClick={() => handleAddOpponent(id)}
 						type="button"
-						// disabled={dispute.add_opponent === true}
+						disabled={dispute.add_opponent === true}
 					/>
 					<Button
 						label="Закрыть обращение"
@@ -199,7 +207,6 @@ const DisputePage = () => {
 			)}
 
 			<InfoToolTip {...info} onClose={onCloseInfo} />
-			
 		</div>
 	);
 };

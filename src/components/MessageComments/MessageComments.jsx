@@ -21,14 +21,14 @@ function MessageComments({ name, role, date, text, files }) {
 				<p className="message__text">{text}</p>
 				<div className="message__list-documents">
 					{files.map((file) => (
-						<a className="message__document" href={file.linkFile}>
+						<a className="message__document" href={file.file}>
 							<img
 								className="message__document message__document_icon"
 								alt="icon"
-								src={iconFile[file.nameFile.split('.')[1]]}
+								src={iconFile[file?.file.split('.').pop()]}
 							/>
 							<p className="message__document message__document_title">
-								{file.nameFile.split('.')[0]}
+								{file?.file.split('/').pop().split('.')[0]}
 							</p>
 						</a>
 					))}
