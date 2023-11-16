@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import Header from '../Header/Header';
 import './Layout.css';
 import { useAuth } from '../../hook/useAuth';
+import PasswordChangeForm from '../ui-kit/PasswordChangeForm/PasswordChangeForm';
+
 
 const Layout = ({ handleCreateDispute, handleChangePassword }) => {
 	const { isLoggedIn, currentUser, signout } = useAuth();
@@ -12,6 +14,19 @@ const Layout = ({ handleCreateDispute, handleChangePassword }) => {
 
 	const location = useLocation();
 	const { pathname } = location;
+	// eslint-disable-next-line no-unused-vars
+	const [isPasswordFormOpen, setPasswordFormOpen] = useState(false);
+	// eslint-disable-next-line no-unused-vars
+	const openChangePasswordForm = () => {
+		setPasswordFormOpen(true)
+		console.log(isPasswordFormOpen)
+	};
+
+	const closeChangePasswordForm = () => {
+		setPasswordFormOpen(false)
+		console.log(isPasswordFormOpen)
+	};
+	
 
 	useEffect(() => {
 		// eslint-disable-next-line no-unused-expressions
@@ -28,9 +43,11 @@ const Layout = ({ handleCreateDispute, handleChangePassword }) => {
 				handleCreateDispute={handleCreateDispute}
 				handleChangePassword={handleChangePassword}
 				onSignOut={signout}
+				openChangePasswordForm={openChangePasswordForm}
 			/>
-
+<PasswordChangeForm isOpen={isPasswordFormOpen} onClose={closeChangePasswordForm}/>
 			<main className={`layout__container align-flex-center ${styleList}`}>
+				
 				<Outlet />
 			</main>
 		</>

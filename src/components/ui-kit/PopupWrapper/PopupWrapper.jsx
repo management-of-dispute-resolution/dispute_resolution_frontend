@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './PopupWrapper.css';
 
+// eslint-disable-next-line no-unused-vars
 export const PopupWrapper = ({ isOpen, onClose, type, children }) => {
 	useEffect(() => {
 		if (!isOpen) return undefined;
@@ -17,7 +18,7 @@ export const PopupWrapper = ({ isOpen, onClose, type, children }) => {
 		return () => document.removeEventListener('keydown', handleESC);
 	}, [isOpen, onClose]);
 
-	return (
+	 return(
 		<div
 			className={`popup ${isOpen ? 'popup_opened' : ''}`}
 			role="button"
@@ -36,12 +37,21 @@ export const PopupWrapper = ({ isOpen, onClose, type, children }) => {
 				{children}
 			</div>
 		</div>
-	);
-};
+	)
+}
+
+;
 
 PopupWrapper.propTypes = {
-	isOpen: PropTypes.bool.isRequired,
-	onClose: PropTypes.func.isRequired,
-	type: PropTypes.oneOf(['info', 'form']).isRequired,
+	isOpen: PropTypes.bool,
+	onClose: PropTypes.func,
+	type: PropTypes.oneOf(['info', 'form']),
 	children: PropTypes.element.isRequired,
+};
+
+PopupWrapper.defaultProps = {
+	isOpen: false,
+
+	onClose: undefined,
+	type: 'form',
 };

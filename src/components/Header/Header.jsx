@@ -14,17 +14,33 @@ function Header({
 	isLogged,
 	user,
 	handleCreateDispute,
-	handleChangePassword,
+	// eslint-disable-next-line no-unused-vars
+	openChangePasswordForm,
 	onSignOut,
 }) {
 	const navigate = useNavigate();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	// eslint-disable-next-line no-unused-vars
+
 
 	const handleGoHome = () => navigate('/');
+	
 
 	const toggleMenu = () => {
+	
 		setIsMenuOpen(!isMenuOpen);
 	};
+
+	const handlePasswordForm = () => {
+	
+		openChangePasswordForm()
+		setIsMenuOpen(false);
+
+	};
+	// const handleExit = () => {
+	// 	onSignOut()
+	// 	setIsMenuOpen(!isMenuOpen);
+	// };
 
 	const menuRef = useOutsideClick(isMenuOpen, toggleMenu);
 	const { role,last_name
@@ -79,7 +95,7 @@ function Header({
 									color="transperent"
 									type="button"
 									before="changePassword"
-									onClick={handleChangePassword}
+									onClick={handlePasswordForm}
 								/>
 							}
 							secondButton={
@@ -112,7 +128,7 @@ Header.propTypes = {
 		last_name: PropTypes.string,
 	}),
 	handleCreateDispute: PropTypes.func,
-	handleChangePassword: PropTypes.func,
+	openChangePasswordForm: PropTypes.func,
 	onSignOut: PropTypes.func,
 };
 
@@ -123,6 +139,6 @@ Header.defaultProps = {
 		last_name: 'Тестовый',
 	},
 	handleCreateDispute: undefined,
-	handleChangePassword: undefined,
+	openChangePasswordForm: undefined,
 	onSignOut: undefined,
 };

@@ -10,6 +10,8 @@ import {
 	// getUserIdInfo,
 } from '../utils/api/user.api';
 
+import setIsMenuOpen from '../components/Header/Header'
+
 import {
 	UNAUTHORIZED_ERROR_MESSAGE,
 	SERVER_ERROR_MESSAGE
@@ -85,6 +87,7 @@ export const AuthProvider = ({ children }) => {
 				setUser({});
 				setIsLoggedIn(false);
 				localStorage.removeItem('token');
+				setIsMenuOpen(false)
 			}
 		} catch (err) {
 			console.error('res Error', err);
