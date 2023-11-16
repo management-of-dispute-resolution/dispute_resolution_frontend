@@ -14,6 +14,11 @@
 	border-radius: 39px;
 }
 
+.message__icon_mediator
+{
+	background: var(--Accent);
+}
+
 .message__icon_letter {
 	background: none;
 	color: var(--Background);

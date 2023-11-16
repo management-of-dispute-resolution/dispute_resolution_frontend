@@ -40,7 +40,7 @@ function CommentForm({ user, onSend }) {
 	return (
 		<div className='comment'>
 			<div className="comment-form">
-				<div className="user-avatar">
+				<div className={`user-avatar ${user.role === 'mediator' && 'user-avatar_mediator'}`}>
 					<p className="user-name">{user.last_name[0] ?? ''}</p>
 				</div>
 				<TextArea rows={1} error="" value={commentData.content} handleChange = {handleCommentChange}>

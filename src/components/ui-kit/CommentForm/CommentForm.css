@@ -27,6 +27,11 @@
 	cursor: pointer;
 }
 
+.user-avatar_mediator
+{
+	background: var(--Accent);
+}
+
 .user-name {
 	margin: 0;
 	padding: 0;
