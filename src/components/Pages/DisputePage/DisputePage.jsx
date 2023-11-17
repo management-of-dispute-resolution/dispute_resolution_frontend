@@ -60,20 +60,8 @@ const DisputePage = () => {
 			return;
 		}
 
-		if (!data.content) {
-			setInfo({
-				isOpen: true,
-				isSuccess: false,
-				doneText: '',
-				errorText: 'Заполните поле комментария',
-			});
-			return;
-		}
-
 		const newComment = new FormData();
-
 		newComment.append('content', data.content);
-
 		data.file.forEach((item) => {
 			newComment.append('uploaded_files', item);
 		});
@@ -108,6 +96,12 @@ const DisputePage = () => {
 		try {
 			await changeStatusDisputeId({ id, status });
 			setDispute((prev) => ({ ...prev, status }));
+			setInfo(prev => ({...prev,
+				isOpen: true,
+				isSuccess: true,
+				doneText: 'Обращение закрыто',
+				errorText: '',
+			}));
 		} catch (err) {
 			console.error('res Error ', err);
 		}
@@ -149,6 +143,8 @@ const DisputePage = () => {
 		})();
 	}, [id, navigate]);
 
+	console.log(comments, 'comments');
+
 	if (isLoading || !dispute) {
 		return <Preloader />;
 	}
@@ -174,9 +170,11 @@ const DisputePage = () => {
 				{state?.createMessage && state.createMessage === 'new' && (
 					<h2 className="createdDispute">Обращение создано</h2>
 				)}
+				
 			</section>
 			<ListMessageComment comments={comments} />
 			<CommentForm user={currentUser} onSend={handleSendComment} />
+		
 
 			{currentUser.role === 'mediator' && (
 				<div className="dispute-page__panel">
@@ -201,7 +199,7 @@ const DisputePage = () => {
 						size="large"
 						type="button"
 						onClick={() => handleCloseDispute('closed')}
-						disabled={dispute.status !== 'started'}
+						disabled={dispute.status !== 'started' || comments.length === 0}
 					/>
 				</div>
 			)}

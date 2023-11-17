@@ -53,6 +53,7 @@ function CommentForm({ user, onSend }) {
 					type="button"
 					before="send"
 					onClick={handleSend}
+					disabled = {!commentData.content}
 				/>
 			</div>
 			{fileAdd ? (
