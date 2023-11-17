@@ -3,11 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import NewDisputeForm from '../../ui-kit/NewDisputeForm/NewDisputeForm';
 
 import { handleFormDataRequest } from '../../../utils/api/reqFormDataPattern';
-// import { getUsers, register } from '../../../utils/api/user.api';
 import { useAuth } from '../../../hook/useAuth';
 import Preloader from '../../Preloader/Preloader';
-
-// import { exampleOpponents } from '../../ui-kit/NewDisputeOpponents/default.config';
 
 const CreateDisputePage = () => {
 	const { isLoading, setIsLoading } = useAuth();

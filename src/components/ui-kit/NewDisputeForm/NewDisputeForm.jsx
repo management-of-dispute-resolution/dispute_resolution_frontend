@@ -18,7 +18,7 @@ const NewDisputeForm = ({
 	isEditDispute,
 }) => {
 
-	if (isEditDispute) { console.log('Редактирование') }
+	// if (isEditDispute) { console.log('Редактирование') }
 
 	const navigate = useNavigate();
 	const goBack = () => navigate(-1);

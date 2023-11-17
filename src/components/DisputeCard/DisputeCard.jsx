@@ -42,12 +42,9 @@ function DisputeCard({
 	function handleClick(evt) {
 		if (!isDisputePage) {
 			if (evt.target === evt.currentTarget) {
-				// alert(id);
 				onClick(id);
 			}
 		} else {
-			console.log('isDisputePage');
-			// просто  navigate
 			navigate(-1);
 		}
 	}

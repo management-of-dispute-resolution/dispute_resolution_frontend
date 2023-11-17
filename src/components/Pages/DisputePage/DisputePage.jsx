@@ -1,31 +1,30 @@
 /* eslint-disable */
-import React, { useState, useEffect } from 'react';
 import './DisputePage.css';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+
+import Preloader from '../../Preloader/Preloader';
 import DisputeCard from '../../DisputeCard/DisputeCard';
 import ListMessageComment from '../../ListMessageComments/ListMessageComments';
+import CommentForm from '../../ui-kit/CommentForm/CommentForm';
+import Button from '../../ui-kit/Button/Button';
+import { InfoToolTip } from '../../ui-kit/InfoToolTip/InfoToolTip';
+
+import { useAuth } from '../../../hook/useAuth';
+import { handleFormDataRequest } from '../../../utils/api/reqFormDataPattern';
 import {
 	getDisputeId,
 	getComments,
 	changeStatusDisputeId,
 	addOpponentDisputeId,
-	changeDataDisputeId,
 } from '../../../utils/api/disputes.api';
-import { getUsers } from '../../../utils/api/user.api';
-import { useAuth } from '../../../hook/useAuth';
-import Preloader from '../../Preloader/Preloader';
-import CommentForm from '../../ui-kit/CommentForm/CommentForm';
-import Button from '../../ui-kit/Button/Button';
-import { InfoToolTip } from '../../ui-kit/InfoToolTip/InfoToolTip';
-
-import { handleFormDataRequest } from '../../../utils/api/reqFormDataPattern';
 
 const DisputePage = () => {
+	const navigate = useNavigate();
 	const [dispute, setDispute] = useState();
 	const [comments, setComments] = useState();
 	const [users, setUsers] = useState([]);
-
-	const navigate = useNavigate();
+	
 	const { isLoading, setIsLoading, currentUser } = useAuth();
 	const { state } = useLocation();
 	const { id } = useParams();
@@ -65,7 +64,11 @@ const DisputePage = () => {
 		});
 
 		try {
-			await handleFormDataRequest(`/api/disputes/${id}/comments/`, newComment);
+			await handleFormDataRequest(
+				`/api/disputes/${id}/comments/`,
+				'POST',
+				newComment
+			);
 			window.location.reload();
 		} catch (err) {
 			console.error('res Error ', err);
@@ -125,14 +128,9 @@ const DisputePage = () => {
 			try {
 				const disputeData = await getDisputeId(id);
 				const commentsData = await getComments(id);
-				const usersData = await getUsers();
-
 				setDispute(disputeData);
 				setComments(commentsData);
-				setUsers(usersData);
-				if (!checkAccess(disputeData)) {
-					throw new Error('Access denied');
-				}
+				if (!checkAccess(disputeData)) {throw new Error('Access denied');}
 			} catch (error) {
 				console.error('error:', error);
 				navigate('/disputes');
@@ -141,9 +139,6 @@ const DisputePage = () => {
 			}
 		})();
 	}, [id, navigate]);
-
-	// console.log(comments, 'comments');
-	console.log(dispute, 'dispute');
 
 	if (isLoading || !dispute) {
 		return <Preloader />;

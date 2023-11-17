@@ -18,7 +18,7 @@ const EditDisputePage = () => {
 	const getDisputeById = async (id) => {
 		try {
 			const reqData = await getDisputeId(id);
-			console.log('Карточка по ИД', reqData)
+			// console.log('Карточка по ИД', reqData)
 			if (reqData) {
 				setInitialDisputeText(reqData.description);
 				setInitialSelectedOpponents(reqData.opponent);
@@ -35,8 +35,8 @@ const EditDisputePage = () => {
 	// Редактировать диспут
 	const handleEditDispute = async (data) => {
 		try {
-			const reqData = await handleFormDataRequest(`/api/disputes/${disputeId}/`, 'PATCH', data);
-			console.log('responce редактирования карточки', reqData);
+			await handleFormDataRequest(`/api/disputes/${disputeId}/`, 'PATCH', data);
+			// console.log('responce редактирования карточки', reqData);
 		} catch (err) {
 			console.error('res Error ', err);
 		}
