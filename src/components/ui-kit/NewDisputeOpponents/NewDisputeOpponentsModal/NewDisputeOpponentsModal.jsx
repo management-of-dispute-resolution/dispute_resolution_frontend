@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
+import useOutsideClick from '../../../../hook/useOutsideClick';
+
 import './NewDisputeOpponentsModal.css';
 
 export const NewDisputeOpponentsModal = ({
@@ -9,6 +11,9 @@ export const NewDisputeOpponentsModal = ({
 	handleAddOpponent,
 	handleCloseOpponentsModal,
 }) => {
+
+	const opponentModalRef = useOutsideClick(chooseOpponentModal, handleCloseOpponentsModal)
+
 	useEffect(() => {
 		if (!chooseOpponentModal) return undefined;
 
@@ -26,13 +31,14 @@ export const NewDisputeOpponentsModal = ({
 
 	return (
 		<div
+			ref={opponentModalRef}
 			className={`new-dispute-opponents__input-modal 
       ${chooseOpponentModal && 'new-dispute-opponents__input-modal_opened'}`}
 		>
 			{searchOpponent.length > 0 ? (
 				searchOpponent.map((item) => (
 					<button
-						key={`${item.first_name} ${item.last_name}`}
+						key={item.id}
 						className="new-dispute-opponents__modal-item"
 						onClick={() => handleAddOpponent(item)}
 						alt="Добавить оппонента"
