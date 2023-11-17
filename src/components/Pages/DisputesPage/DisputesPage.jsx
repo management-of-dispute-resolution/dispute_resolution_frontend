@@ -17,7 +17,7 @@ const DisputesPage = () => {
 		setIsLoading(true);
 		setIsError(false);
 		try {
-			const reqData = await getDisputes();
+			const reqData = await getDisputes({ queryParam: 'notParam', value: 'empty' });
 			if (reqData) {
 				setIsLoading(false);
 				setAllDisputes(reqData.results);

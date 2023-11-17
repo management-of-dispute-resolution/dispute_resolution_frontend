@@ -2,8 +2,8 @@
 import { makeRequest } from './requestPattern.api';
 
 // Получение всех диспутов - РАБОТАЕТ
-export const getDisputes = () =>
-	makeRequest(`/api/disputes/`, 'GET', undefined);
+export const getDisputes = (params) =>
+	makeRequest(`/api/disputes/`, 'GET', undefined, params);
 
 // Получение диспута по id - РАБОТАЕТ
 export const getDisputeId = (id) =>

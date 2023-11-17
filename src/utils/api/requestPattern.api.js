@@ -29,9 +29,6 @@ export const makeRequest = async (url, method, body, param) => {
 		else if (queryParam === 'pagination') {
 			fetchURL += `?page=${value.page}&page_size=${value.size}`
 		}
-		else {
-			throw new Error('Не верные параметры запроса')
-		}
 	}
 
 	const config = { method, headers };
