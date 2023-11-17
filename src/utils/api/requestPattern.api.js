@@ -6,17 +6,32 @@ export const responceProcessing = (res) =>
 	!res.ok
 		? res.json().then((err) => Promise.reject(err))
 		: res.status === 204
-		? Promise.resolve(res.status)
-		: res.json();
+			? Promise.resolve(res.status)
+			: res.json();
 
 // Формирование модели запроса
-export const makeRequest = async (url, method, body) => {
+export const makeRequest = async (url, method, body, param) => {
 	const headers = { 'Content-Type': 'application/json' };
+
+	let fetchURL = BASE_URL_AUTH + url;
 
 	const token = localStorage.getItem('token'); // Проверяем токен в LS
 	if (token !== undefined && token !== null) {
 		// если токен есть
 		headers.authorization = `Token ${token}`; // добавляем заголовок авторизации по токену
+	}
+
+	if (param !== undefined) { // Параметры запроса такие как: поиск и пагинация
+		const { queryParam, value } = param;
+		if (queryParam === 'search') {
+			fetchURL += `?search=${value}`
+		}
+		else if (queryParam === 'pagination') {
+			fetchURL += `?page=${value.page}&page_size=${value.size}`
+		}
+		else {
+			throw new Error('Не верные параметры запроса')
+		}
 	}
 
 	const config = { method, headers };
@@ -25,6 +40,7 @@ export const makeRequest = async (url, method, body) => {
 		config.body = JSON.stringify(body); // если есть добавляем в запрос
 	}
 
-	const res = await fetch(`${BASE_URL_AUTH}${url}`, config);
+	const res = await fetch(fetchURL, config);
+
 	return responceProcessing(res);
 };

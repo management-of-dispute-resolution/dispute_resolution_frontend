@@ -5,11 +5,6 @@ import { makeRequest } from './requestPattern.api';
 export const getDisputes = () =>
 	makeRequest(`/api/disputes/`, 'GET', undefined);
 
-// Создание дтспута - ПОКА ПРОБЛЕМА
-// export const createDispute = (data) => {
-// 	makeFormDataReq('/api/disputes/', 'POST', data);
-// };
-
 // Получение диспута по id - РАБОТАЕТ
 export const getDisputeId = (id) =>
 	makeRequest(`/api/disputes/${id}/`, 'GET', undefined);
