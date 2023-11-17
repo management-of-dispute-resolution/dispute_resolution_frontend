@@ -94,6 +94,10 @@
 	background-image: url('../../../Images/send-icon.svg');
 }
 
+.button_disabled_true.button_before_type_send::before {
+	background-image: url('../../../Images/send-icon-disabled.svg');
+}
+
 /* downy */
 
 .button_color_downy {
