@@ -7,9 +7,7 @@ import ListMessageComment from '../../ListMessageComments/ListMessageComments';
 import {
 	getDisputeId,
 	getComments,
-	createComment,
 	changeStatusDisputeId,
-	deleteDisputesId,
 	addOpponentDisputeId,
 	changeDataDisputeId,
 } from '../../../utils/api/disputes.api';
@@ -96,7 +94,8 @@ const DisputePage = () => {
 		try {
 			await changeStatusDisputeId({ id, status });
 			setDispute((prev) => ({ ...prev, status }));
-			setInfo(prev => ({...prev,
+			setInfo((prev) => ({
+				...prev,
 				isOpen: true,
 				isSuccess: true,
 				doneText: 'Обращение закрыто',
@@ -143,7 +142,8 @@ const DisputePage = () => {
 		})();
 	}, [id, navigate]);
 
-	console.log(comments, 'comments');
+	// console.log(comments, 'comments');
+	console.log(dispute, 'dispute');
 
 	if (isLoading || !dispute) {
 		return <Preloader />;
@@ -151,30 +151,14 @@ const DisputePage = () => {
 
 	return (
 		<div className="dispute-page">
-			{/* {state?.createMessage && state.createMessage === 'new' && (
-							<button
-								 className="close-goDisputes"
-								type="button"
-								aria-label="Кнопка закрытия модального окна"
-								onClick={goDisputes}
-							/>
-						)} */}
 			<section className="dispute-page__card-section">
-				{' '}
-				<DisputeCard
-					{...dispute}
-					files={dispute.file}
-					isDisputePage={true}
-					onClick={() => {}}
-				/>
+				<DisputeCard {...dispute} files={dispute.file} isDisputePage={true} />
 				{state?.createMessage && state.createMessage === 'new' && (
 					<h2 className="createdDispute">Обращение создано</h2>
 				)}
-				
 			</section>
 			<ListMessageComment comments={comments} />
 			<CommentForm user={currentUser} onSend={handleSendComment} />
-		
 
 			{currentUser.role === 'mediator' && (
 				<div className="dispute-page__panel">
@@ -192,7 +176,7 @@ const DisputePage = () => {
 						size="large"
 						onClick={() => handleAddOpponent(id)}
 						type="button"
-						disabled={dispute.add_opponent === true}
+						disabled={dispute.status !== 'started' || dispute.add_opponent}
 					/>
 					<Button
 						label="Закрыть обращение"
