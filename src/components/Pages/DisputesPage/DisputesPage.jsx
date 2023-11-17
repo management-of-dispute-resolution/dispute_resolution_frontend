@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DisputeCardList from '../../DisputeCardList/DisputeCardList';
 
@@ -13,24 +13,23 @@ const DisputesPage = () => {
 	const [allDisputes, setAllDisputes] = useState({});
 
 	// Получить все диспуты
-	const getAllDisputes = async () => {
+	const getAllDisputes = useCallback(async () => {
 		setIsLoading(true);
 		setIsError(false);
 		try {
-			const reqData = await getDisputes();
+			const reqData = await getDisputes({ queryParam: 'notParam', value: 'empty' });
 			if (reqData) {
 				setIsLoading(false);
-				setAllDisputes(reqData);
+				setAllDisputes(reqData.results);
 			}
 		} catch (err) {
 			setIsError(true);
 		}
-	};
+	}, [setIsError, setIsLoading]);
 
 	useEffect(() => {
 		getAllDisputes();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [getAllDisputes]);
 
 	const handleCardClick = (id) => {
 		navigate(`/disputes/${id}`);

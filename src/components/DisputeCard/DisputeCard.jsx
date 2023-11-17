@@ -98,11 +98,11 @@ function DisputeCard({
 				{...(isDisputePage
 					? {}
 					: {
-							onClick: handleClick,
-							onKeyDown: handleKeyDown,
-							role: 'link',
-							tabIndex: 0,
-					  })}
+						onClick: handleClick,
+						onKeyDown: handleKeyDown,
+						role: 'link',
+						tabIndex: 0,
+					})}
 			>
 				<div className={disputeStatusClasses}>{statusInterface[status]}</div>
 				<div className={disputeContentClasses}>
@@ -119,12 +119,12 @@ function DisputeCard({
 				</div>
 				{isDisputePage ? (
 					<button onClick={handleClick} className="dispute-card__close">
-						{}
+						{ }
 					</button>
 				) : (
 					<>
 						<button onClick={toggleMenu} className="dispute-card__option">
-							{}
+							{ }
 						</button>
 						<div ref={menuRef} className="dispute-card__option-container">
 							<Menu
@@ -136,7 +136,7 @@ function DisputeCard({
 										color="transperent"
 										type="button"
 										before="edit"
-										onClick={handleChangeDispute}
+										onClick={() => handleChangeDispute(id)}
 									/>
 								}
 								secondButton={
@@ -146,7 +146,7 @@ function DisputeCard({
 										color="transperent"
 										type="button"
 										before="cancel"
-										onClick={handleDeleteDispute}
+										onClick={() => handleDeleteDispute(id)}
 									/>
 								}
 							/>
