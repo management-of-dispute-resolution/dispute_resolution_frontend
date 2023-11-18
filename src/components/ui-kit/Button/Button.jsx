@@ -61,7 +61,10 @@ Button.propTypes = {
 		'blueLagoon-inverted',
 		'transperent',
 	]),
-	before: PropTypes.oneOf(['edit', 'exit', 'cancel', 'changePassword', 'send']),
+	before: PropTypes.oneOfType([
+		PropTypes.oneOf(['edit', 'exit', 'cancel', 'changePassword', 'send']),
+		PropTypes.oneOf(['']), // Позволяет использовать пустую строку
+	]),
 	size: PropTypes.oneOf(['micro', 'small', 'medium', 'large', 'mlarge']),
 	onClick: PropTypes.func,
 	disabled: PropTypes.bool,
