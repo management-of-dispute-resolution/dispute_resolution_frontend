@@ -9,7 +9,7 @@ function FileList({ files, type }) {
 			{files.map((item) => {
 				const name = item.filename;
 				const format = item.file.split('.').pop();
-				const downloadLink = files.file;
+				const downloadLink = item.file;
 				return (
 					<a
 						className="file"

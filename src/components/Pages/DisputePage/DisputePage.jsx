@@ -147,7 +147,7 @@ const DisputePage = () => {
 	return (
 		<div className="dispute-page">
 			<section className="dispute-page__card-section">
-				<DisputeCard {...dispute} files={dispute.file} isDisputePage={true} />
+				<DisputeCard {...dispute} files={dispute.file} isDisputePage={true} onClick={()=>{}}/>
 				{state?.createMessage && state.createMessage === 'new' && (
 					<h2 className="createdDispute">Обращение создано</h2>
 				)}
