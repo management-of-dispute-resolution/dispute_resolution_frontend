@@ -4,6 +4,7 @@
 	min-width: 1370px;
 }
 .dispute-card__container {
+	min-width: 1370px;
 	box-sizing: border-box;
 	padding: 30px 0 30px 70px;
 	font-family: Inter;

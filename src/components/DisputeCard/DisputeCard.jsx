@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,6 +10,7 @@ import FileList from '../ui-kit/FileList/FileList';
 import Menu from '../ui-kit/Menu/Menu';
 import Button from '../ui-kit/Button/Button';
 import useOutsideClick from '../../hook/useOutsideClick';
+import { useAuth } from '../../hook/useAuth';
 
 function DisputeCard({
 	handleDeleteDispute,
@@ -23,6 +25,12 @@ function DisputeCard({
 	onClick,
 	isDisputePage,
 }) {
+	const { currentUser } = useAuth();
+
+	function isCreator() {
+		return currentUser && currentUser.id === creator.id;
+	}
+
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const navigate = useNavigate();
@@ -121,9 +129,12 @@ function DisputeCard({
 					</button>
 				) : (
 					<>
-						<button onClick={toggleMenu} className="dispute-card__option">
-							{}
-						</button>
+						{isCreator() && (
+							<button onClick={toggleMenu} className="dispute-card__option">
+								{}
+							</button>
+						)}
+
 						<div ref={menuRef} className="dispute-card__option-container">
 							<Menu
 								isOpen={isMenuOpen}
