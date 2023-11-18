@@ -4,18 +4,30 @@ import PropTypes from 'prop-types';
 import Input from '../Input/Input';
 import { PopupWrapper } from '../PopupWrapper/PopupWrapper';
 import Button from '../Button/Button';
+import {useFormWithValidation} from '../../../hook/useForm'
+import { useAuth } from '../../../hook/useAuth';
 
 const PasswordChangeForm = ({
 	disabled,
 	statusMessage,
+	// eslint-disable-next-line no-unused-vars
 	handleUpdatePassword,
 
 	isOpen,
 	onClose,
 }) => {
+
+	const { values, handleChange, errors,isValid
+		//  , resetForm
+	 } = useFormWithValidation();
+
+	 const { handleChangePassword, isLoading } = useAuth();
+
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		handleUpdatePassword();
+		console.log(values)
+		handleChangePassword(values);
 	};
 	
 	return (
@@ -27,27 +39,48 @@ const PasswordChangeForm = ({
 				<div className="password-edit-form__inputs">
 					<Input
 						id="Password"
-						name="Password"
+						name="password"
 						label="Текущий пароль"
 						placeholder="Текущий пароль"
 						type="password"
 						disabled={disabled}
+						pattern='[0-9a-zA-Z\!\@\#\$\%\.]{8,32}'
+						required
+						minLength= {8}
+						maxLength={32}
+						error={errors.password}
+						value={values.password}
+						onChange={handleChange}
 					/>
 					<Input
 						id="newPassword"
-						name="Password"
+						name="newPassword"
 						label="Новый пароль"
 						placeholder="Новый пароль"
 						type="password"
 						disabled={disabled}
+						pattern='[0-9a-zA-Z\!\@\#\$\%\.]{8,32}'
+						required
+						minLength= {8}
+						maxLength={32}
+						error={errors.newPassword}
+						value={values.newPassword}
+						onChange={handleChange}
 					/>
 					<Input
 						id="confirmNewPassword"
-						name="Password"
+						name="newPasswordConfirm"
 						label="Подтвержите новый пароль"
 						placeholder="Подтвердите новый пароль"
 						type="password"
 						disabled={disabled}
+						pattern='[0-9a-zA-Z\!\@\#\$\%\.]{8,32}'
+						required
+						minLength= {8}
+						maxLength={32}
+						error={errors.newPasswordConfirm}
+						value={values.newPasswordConfirm}
+						onChange={handleChange}
 					/>
 				</div>
 
@@ -79,7 +112,7 @@ const PasswordChangeForm = ({
 					label="Изменить пароль"
 					color="blueLagoon"
 					type="submit"
-					disabled={disabled}
+					disabled={!isValid || isLoading}
 				/>
 			</form>
 		</PopupWrapper>

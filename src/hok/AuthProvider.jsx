@@ -14,7 +14,8 @@ import setIsMenuOpen from '../components/Header/Header'
 
 import {
 	UNAUTHORIZED_ERROR_MESSAGE,
-	SERVER_ERROR_MESSAGE
+	SERVER_ERROR_MESSAGE,
+	SUCCESS_MESSAGE
 } from '../config/constants/errors'
 
 export const AuthContext = createContext();
@@ -29,6 +30,7 @@ export const AuthProvider = ({ children }) => {
 	const [isBooted, setIsBooted] = useState(false);
 
 	const [loginStatus, setLoginStatus] = useState('');
+	const [changePasswordStatus, setChangePasswordStatus] = useState('');
 
 	// роверка авторизации
 	const checkAuth = async () => {
@@ -67,7 +69,9 @@ export const AuthProvider = ({ children }) => {
 			}
 		} catch (err) {
 
-			if (err === 400) {
+
+
+			if (err.status === 400) {
 				setLoginStatus(UNAUTHORIZED_ERROR_MESSAGE)
 
 			}
@@ -95,15 +99,17 @@ export const AuthProvider = ({ children }) => {
 		setIsLoading(false);
 	};
 	// ИЗМЕНЕНИЕ ПАРОЛЯ
-	const handleChangePassword = async ({ new_password, current_password }) => {
+	const handleChangePassword = async (passwordData) => {
 		try {
 			const respChangePass = await changePassword({
-				new_password,
-				current_password,
+				new_password:passwordData.newPassword,
+				current_password:passwordData.password
 			});
 			console.log('respChangePass', respChangePass);
+			setChangePasswordStatus(SUCCESS_MESSAGE)
 		} catch (err) {
 			console.error('res Error ', err);
+			setChangePasswordStatus("Ошибка")
 		}
 	};
 
@@ -121,7 +127,8 @@ export const AuthProvider = ({ children }) => {
 		setIsError,
 		isBooted,
 		loginStatus,
-		setLoginStatus
+		setLoginStatus,
+		changePasswordStatus
 
 	};
 

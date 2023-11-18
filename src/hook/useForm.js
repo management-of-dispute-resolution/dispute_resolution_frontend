@@ -1,5 +1,7 @@
 
-import { useCallback, useState
+import {
+  useCallback, useState
+  // ,useEffect
 
 } from "react";
 
@@ -28,29 +30,18 @@ export function useFormWithValidation() {
 
   // console.log(isLoading)
   // eslint-disable-next-line no-unused-vars
- 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  //  useEffect(() => {
+  //   console.log('Обновленное значение values:', values);
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [value]);
+
   const handleChange = (event) => {
-  
-    
-    
-    const {target} = event;
-    const {value} = target;
-    const {name} = target;
+    const { target } = event;
+    const { value } = target;
+    const { name } = target;
     setValues({ ...values, [name]: value });
-  
-
-
-
-  
-
     setErrors((prevErrors) => ({ ...prevErrors, [name]: target.validationMessage }));
-    
-  //   if (name === 'name') {
-  //     if (target.validity.patternMismatch) {
-  //       setErrors({ ...errors, [name]: "Имя может содержать только буквы русского и английского алфавита, пробел, дефис." });
-  //     }
-    
-  // }
 
     if (name === 'email') {
       if (target.validity.patternMismatch) {
@@ -58,24 +49,97 @@ export function useFormWithValidation() {
       }
       if (target.validity.valueMissing) {
         setErrors({ ...errors, [name]: "E-mail не может быть пустым" });
-    }
-      
- 
+      }
     }
 
     if (name === 'password') {
-     
+
       if (target.validity.valueMissing) {
         setErrors({ ...errors, [name]: "Пароль не может быть пустым" });
+      }
+      if (target.validity.patternMismatch) {
+
+        setErrors({ ...errors, [name]: "Пароль должен содержать от 8 до 32 символов:английские буквы, цифры, cпецсимволы." });
+      }
     }
-    if (target.validity.patternMismatch) {
-      setErrors({ ...errors, [name]: "Пароль должен содержать от 8 до 32 символов:английские буквы, цифры, cпецсимволы." });
+
+    if (name === 'newPassword') {
+
+
+      
+      
+      if (target.value !== values.newPasswordConfirm && values.newPasswordConfirm !== '' && values.newPasswordConfirm !== undefined 
+   
+      
+      ) {
+
+        setErrors(() => ({
+          ...errors,
+          newPassword: 'Пароли не совпадают',
+          newPasswordConfirm: 'Пароли не совпадают',
+        }));
+
+      
+      } 
+      else {
+        console.log("ОЧИСТКА")
+        setErrors(() => ({
+          ...errors,
+          newPassword: '',
+          newPasswordConfirm: '',
+        }));
+      }
+
+      
+      if (target.validity.patternMismatch) {
+        console.log("patternMismatch")
+
+        setErrors({ ...errors, [name]: "Пароль должен содержать от 8 до 32 символов:английские буквы, цифры, cпецсимволы." });
+      }
+
+      if (target.validity.valueMissing) {
+        setErrors({ ...errors, [name]: "Пароль не может быть пустым" });
+      }
     }
- 
+
+
+
+
+    if (name === 'newPasswordConfirm') {
+
+      if (target.value !== values.newPassword && values.newPassword !== '' && values.newPasswordConfirm !== undefined) {
+
+        setErrors(() => ({
+          ...errors,
+          newPassword: 'Пароли не совпадают',
+          newPasswordConfirm: 'Пароли не совпадают',
+        }));
+
+      } else {
+        setErrors(() => ({
+          ...errors,
+          newPassword: '',
+          newPasswordConfirm: '',
+        }));
+      }
+
+   
+      if (target.validity.patternMismatch) {
+
+        setErrors({ ...errors, [name]: "Пароль должен содержать от 8 до 32 символов:английские буквы, цифры, cпецсимволы." });
+      } 
+
+      if (target.validity.valueMissing) {
+        setErrors({ ...errors, [name]: "Пароль не может быть пустым" });
+      }
+      
+      
+   
     }
-    // setLoginStatus('')
     setIsValid(target.closest("form").checkValidity());
   };
+
+
 
 
   const resetForm = useCallback(

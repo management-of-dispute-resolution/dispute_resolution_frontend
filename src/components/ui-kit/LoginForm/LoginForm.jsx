@@ -44,7 +44,7 @@ const LoginForm = ({ onLogin,loginStatus, isLoading }) => {
 						value={values.email}
 						
 					/>
-					{console.log(errors.password)}
+			
 					<Input
 						label="Пароль"
 						name="password"
