@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 import clsx from 'clsx';
 import './DisputeCard.css';
 import PropTypes from 'prop-types';
@@ -9,7 +8,7 @@ import PropTypes from 'prop-types';
 import FileList from '../ui-kit/FileList/FileList';
 import Menu from '../ui-kit/Menu/Menu';
 import Button from '../ui-kit/Button/Button';
-import useOutsideClick from '../../hook/useOutsideClick'
+import useOutsideClick from '../../hook/useOutsideClick';
 
 function DisputeCard({
 	handleDeleteDispute,
@@ -95,16 +94,18 @@ function DisputeCard({
 				{...(isDisputePage
 					? {}
 					: {
-						onClick: handleClick,
-						onKeyDown: handleKeyDown,
-						role: 'link',
-						tabIndex: 0,
-					})}
+							onClick: handleClick,
+							onKeyDown: handleKeyDown,
+							role: 'link',
+							tabIndex: 0,
+					  })}
 			>
 				<div className={disputeStatusClasses}>{statusInterface[status]}</div>
 				<div className={disputeContentClasses}>
 					<div className={disputeHeaderClasses}>
-						<h2 className={disputeTitleClasses}>{`${creator?.first_name} ${creator?.last_name} ${CreatedAt}`}</h2>
+						<h2
+							className={disputeTitleClasses}
+						>{`${creator?.first_name} ${creator?.last_name} ${CreatedAt}`}</h2>
 						{status === 'closed' ? (
 							<p className={closedTimeClasses}>{`Решено: ${closedAt}`}</p>
 						) : (
@@ -116,12 +117,12 @@ function DisputeCard({
 				</div>
 				{isDisputePage ? (
 					<button onClick={handleClick} className="dispute-card__close">
-						{ }
+						{}
 					</button>
 				) : (
 					<>
 						<button onClick={toggleMenu} className="dispute-card__option">
-							{ }
+							{}
 						</button>
 						<div ref={menuRef} className="dispute-card__option-container">
 							<Menu
@@ -171,7 +172,13 @@ DisputeCard.propTypes = {
 	handleDeleteDispute: PropTypes.func,
 	handleChangeDispute: PropTypes.func,
 	closed_at: PropTypes.string,
-	files: PropTypes.arrayOf(PropTypes.string),
+	files: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number.isRequired,
+			filename: PropTypes.string.isRequired,
+			file: PropTypes.string.isRequired,
+		})
+	), // Если files также является массивом
 	onClick: PropTypes.func.isRequired,
 	isDisputePage: PropTypes.bool,
 };

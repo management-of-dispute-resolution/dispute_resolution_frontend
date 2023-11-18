@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DisputeCard from '../DisputeCard/DisputeCard';
+import Button from '../ui-kit/Button/Button';
 import './DisputeCardList.css';
 
 function DisputeCardList({
@@ -8,6 +9,8 @@ function DisputeCardList({
 	onClick,
 	handleChangeDispute,
 	handleDeleteDispute,
+	More,
+	hasMore,
 }) {
 	return (
 		<div className="dispute-cardlist">
@@ -20,7 +23,7 @@ function DisputeCardList({
 						status={card.status}
 						closed_at={card.closed_at}
 						created_at={card.created_at}
-						files={card.files}
+						files={card.file}
 						id={card.id}
 						onClick={onClick}
 						handleChangeDispute={handleChangeDispute}
@@ -29,6 +32,15 @@ function DisputeCardList({
 				))
 			) : (
 				<p>Обращений пока нет</p>
+			)}
+			{hasMore && (
+				<Button
+					size="large"
+					label="Ещё"
+					color="blueLagoon"
+					type="button"
+					onClick={More}
+				/>
 			)}
 		</div>
 	);
@@ -48,15 +60,28 @@ DisputeCardList.propTypes = {
 			status: PropTypes.string,
 			closed_at: PropTypes.string,
 			created_at: PropTypes.string,
-			files: PropTypes.arrayOf(PropTypes.string), // Если files также является массивом
+			files: PropTypes.arrayOf(
+				PropTypes.shape({
+					id: PropTypes.number.isRequired,
+					filename: PropTypes.string.isRequired,
+					file: PropTypes.string.isRequired,
+				})
+			),
 		})
 	),
 	onClick: PropTypes.func.isRequired,
 	handleChangeDispute: PropTypes.func.isRequired,
 	handleDeleteDispute: PropTypes.func.isRequired,
+	More: PropTypes.func,
+	hasMore: PropTypes.bool,
 };
 
 DisputeCardList.defaultProps = {
 	disputesList: [],
+	More: (evt) => {
+		evt.preventDefault();
+		alert('Нажали кнопку "Ещё"');
+	},
+	hasMore: true,
 };
 export default DisputeCardList;
