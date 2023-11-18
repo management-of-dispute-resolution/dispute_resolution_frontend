@@ -9,6 +9,7 @@ import ListMessageComment from '../../ListMessageComments/ListMessageComments';
 import CommentForm from '../../ui-kit/CommentForm/CommentForm';
 import Button from '../../ui-kit/Button/Button';
 import { InfoToolTip } from '../../ui-kit/InfoToolTip/InfoToolTip';
+import INFO_STATES from '../../../config/constants/massage';
 
 import { useAuth } from '../../../hook/useAuth';
 import { handleFormDataRequest } from '../../../utils/api/reqFormDataPattern';
@@ -24,36 +25,21 @@ const DisputePage = () => {
 	const [dispute, setDispute] = useState();
 	const [comments, setComments] = useState();
 	const [users, setUsers] = useState([]);
-	
+
 	const { isLoading, setIsLoading, currentUser } = useAuth();
 	const { state } = useLocation();
 	const { id } = useParams();
 
-	const [info, setInfo] = useState({
-		isOpen: false,
-		isSuccess: false,
-		doneText: '',
-		errorText: '',
-	});
+	const [info, setInfo] = useState(INFO_STATES.DEFAULT);
 
 	const onCloseInfo = () => {
-		setInfo((prev) => ({
-			...prev,
-			isOpen: false,
-			isSuccess: false,
-			doneText: '',
-			errorText: '',
-		}));
+		setInfo((prev) => ({ ...prev, ...INFO_STATES.DEFAULT }));
 	};
 
 	const handleSendComment = async (data) => {
 		if (dispute.status !== 'started') {
-			setInfo({
-				isOpen: true,
-				isSuccess: false,
-				doneText: '',
-				errorText: 'Нельзя оставлять комментарии до начала диспута',
-			});
+			dispute.status === 'closed' && setInfo(INFO_STATES.ALREADY_CLOSED);
+			dispute.status === 'not_started' && setInfo(INFO_STATES.NOT_STARTED);
 			return;
 		}
 
@@ -72,6 +58,10 @@ const DisputePage = () => {
 			window.location.reload();
 		} catch (err) {
 			console.error('res Error ', err);
+			setInfo({
+				...INFO_STATES.GENERAL_ERROR,
+				errorText: err.status,
+			});
 		}
 	};
 
@@ -81,6 +71,10 @@ const DisputePage = () => {
 			setDispute((prev) => ({ ...prev, status }));
 		} catch (err) {
 			console.error('res Error ', err);
+			setInfo({
+				...INFO_STATES.GENERAL_ERROR,
+				errorText: err.status,
+			});
 		}
 	};
 
@@ -88,8 +82,13 @@ const DisputePage = () => {
 		try {
 			const res = await addOpponentDisputeId({ id, add_opponent: true });
 			setDispute((prev) => ({ ...prev, res }));
+			setInfo(INFO_STATES.ADD_OPPONENT);
 		} catch (err) {
 			console.error('res Error ', err);
+			setInfo({
+				...INFO_STATES.GENERAL_ERROR,
+				errorText: err.status,
+			});
 		}
 	};
 
@@ -97,15 +96,13 @@ const DisputePage = () => {
 		try {
 			await changeStatusDisputeId({ id, status });
 			setDispute((prev) => ({ ...prev, status }));
-			setInfo((prev) => ({
-				...prev,
-				isOpen: true,
-				isSuccess: true,
-				doneText: 'Обращение закрыто',
-				errorText: '',
-			}));
+			setInfo(INFO_STATES.CLOSE_SUCCESS);
 		} catch (err) {
 			console.error('res Error ', err);
+			setInfo({
+				...INFO_STATES.GENERAL_ERROR,
+				errorText: err.status,
+			});
 		}
 	};
 
@@ -130,7 +127,9 @@ const DisputePage = () => {
 				const commentsData = await getComments(id);
 				setDispute(disputeData);
 				setComments(commentsData);
-				if (!checkAccess(disputeData)) {throw new Error('Access denied');}
+				if (!checkAccess(disputeData)) {
+					throw new Error('Access denied');
+				}
 			} catch (error) {
 				console.error('error:', error);
 				navigate('/disputes');
@@ -147,7 +146,12 @@ const DisputePage = () => {
 	return (
 		<div className="dispute-page">
 			<section className="dispute-page__card-section">
-				<DisputeCard {...dispute} files={dispute.file} isDisputePage={true} onClick={()=>{}}/>
+				<DisputeCard
+					{...dispute}
+					files={dispute.file}
+					isDisputePage={true}
+					onClick={() => {}}
+				/>
 				{state?.createMessage && state.createMessage === 'new' && (
 					<h2 className="createdDispute">Обращение создано</h2>
 				)}
