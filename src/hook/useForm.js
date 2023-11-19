@@ -5,36 +5,16 @@ import {
 
 } from "react";
 
-// хук управления формой
-// export function useForm() {
-//   const [values, setValues] =useState({});
+import { useAuth } from "./useAuth";
 
 
-//   const handleSubmit = (event) => {
-//     const {target} = event;
-//     const {value} = target;
-//     const {name} = target;
-//     setValues({ ...values, [name]: value });
-//   };
-
-//   return { values, handleSubmit, setValues };
-// }
-
-//  хук управления формой и валидации формы
 export function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
-  // const [isLoading, setisLoading] = useState(false);
-  // const currentUser = useContext(CurrentUserContext);
 
-  // console.log(isLoading)
   // eslint-disable-next-line no-unused-vars
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  //  useEffect(() => {
-  //   console.log('Обновленное значение values:', values);
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [value]);
+  const {PasswordServerError } = useAuth();
 
   const handleChange = (event) => {
     const { target } = event;
@@ -44,12 +24,14 @@ export function useFormWithValidation() {
     setErrors((prevErrors) => ({ ...prevErrors, [name]: target.validationMessage }));
 
     if (name === 'email') {
+     
       if (target.validity.patternMismatch) {
         setErrors({ ...errors, [name]: "Е-mail должен соответствовать шаблону электронной почты. Например, example@mail.com" });
       }
       if (target.validity.valueMissing) {
         setErrors({ ...errors, [name]: "E-mail не может быть пустым" });
       }
+     
     }
 
     if (name === 'password') {
@@ -64,9 +46,7 @@ export function useFormWithValidation() {
     }
 
     if (name === 'newPassword') {
-
-
-      
+      console.log(document.getElementById('newPasswordConfirm'))
       
       if (target.value !== values.newPasswordConfirm && values.newPasswordConfirm !== '' && values.newPasswordConfirm !== undefined 
    
@@ -79,20 +59,25 @@ export function useFormWithValidation() {
           newPasswordConfirm: 'Пароли не совпадают',
         }));
 
+        target.setCustomValidity("Пароли не совпадают")
+      
+
       
       } 
       else {
-        console.log("ОЧИСТКА")
+        target.setCustomValidity('')
+        document.getElementById('newPasswordConfirm').setCustomValidity('')
         setErrors(() => ({
           ...errors,
           newPassword: '',
           newPasswordConfirm: '',
         }));
+       
       }
 
       
       if (target.validity.patternMismatch) {
-        console.log("patternMismatch")
+
 
         setErrors({ ...errors, [name]: "Пароль должен содержать от 8 до 32 символов:английские буквы, цифры, cпецсимволы." });
       }
@@ -114,15 +99,23 @@ export function useFormWithValidation() {
           newPassword: 'Пароли не совпадают',
           newPasswordConfirm: 'Пароли не совпадают',
         }));
+        target.setCustomValidity("Пароли не совпадают")
+      
 
-      } else {
+      } 
+      
+      else {
+        target.setCustomValidity('')
+        document.getElementById('newPassword').setCustomValidity('')
         setErrors(() => ({
           ...errors,
           newPassword: '',
           newPasswordConfirm: '',
         }));
+       
       }
-
+    
+    
    
       if (target.validity.patternMismatch) {
 
@@ -136,6 +129,7 @@ export function useFormWithValidation() {
       
    
     }
+    console.log()
     setIsValid(target.closest("form").checkValidity());
   };
 

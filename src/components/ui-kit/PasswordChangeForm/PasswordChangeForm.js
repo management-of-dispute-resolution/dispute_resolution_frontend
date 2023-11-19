@@ -21,13 +21,15 @@ const PasswordChangeForm = ({
 		//  , resetForm
 	 } = useFormWithValidation();
 
-	 const { handleChangePassword, isLoading } = useAuth();
+	 // eslint-disable-next-line no-unused-vars
+	 const { handleChangePassword, isLoading, isPasswordServerError, setIsPasswordServerError } = useAuth();
 
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(values)
-		handleChangePassword(values);
+		handleChangePassword(values)
+	
+		
 	};
 	
 	return (
@@ -103,7 +105,7 @@ const PasswordChangeForm = ({
 					<li className="password-edit-form__list-item">
 						Буквы только латинского алфавита
 					</li>
-					<li className="password-edit-form__list-item">Не менее 6 символов</li>
+					<li className="password-edit-form__list-item">Не менее 8 символов</li>
 					<li className="password-edit-form__list-item">Цифры</li>
 				</ul>
 				<span className="password-edit-form__status">{statusMessage}</span>

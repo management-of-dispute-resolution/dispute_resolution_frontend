@@ -29,6 +29,8 @@ export const AuthProvider = ({ children }) => {
 	const [isError, setIsError] = useState(false);
 	const [isBooted, setIsBooted] = useState(false);
 
+	const [isPasswordServerError, setIsPasswordServerError] = useState(false);
+
 	const [loginStatus, setLoginStatus] = useState('');
 	const [changePasswordStatus, setChangePasswordStatus] = useState('');
 
@@ -71,7 +73,7 @@ export const AuthProvider = ({ children }) => {
 
 
 
-			if (err.status === 400) {
+			if (err.res.status === 400) {
 				setLoginStatus(UNAUTHORIZED_ERROR_MESSAGE)
 
 			}
@@ -101,16 +103,36 @@ export const AuthProvider = ({ children }) => {
 	// ИЗМЕНЕНИЕ ПАРОЛЯ
 	const handleChangePassword = async (passwordData) => {
 		try {
+
+
 			const respChangePass = await changePassword({
-				new_password:passwordData.newPassword,
-				current_password:passwordData.password
+				new_password: passwordData.newPassword,
+				current_password: passwordData.password
 			});
-			console.log('respChangePass', respChangePass);
+
+
+			console.log(respChangePass);
+
 			setChangePasswordStatus(SUCCESS_MESSAGE)
-		} catch (err) {
-			console.error('res Error ', err);
-			setChangePasswordStatus("Ошибка")
 		}
+
+
+		catch (err) {
+
+			console.error('res Error ', err.data.current_password[0]);
+			if (err.data.current_password[0].includes('Invalid password')
+			) {
+				console.log("Неверный текущий пароль")
+				setIsPasswordServerError("Неправильный пароль")
+			} else {
+				setChangePasswordStatus(SERVER_ERROR_MESSAGE)
+			}
+
+
+		}
+
+
+
 	};
 
 	// eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -128,7 +150,8 @@ export const AuthProvider = ({ children }) => {
 		isBooted,
 		loginStatus,
 		setLoginStatus,
-		changePasswordStatus
+		changePasswordStatus,
+		setIsPasswordServerError, isPasswordServerError
 
 	};
 

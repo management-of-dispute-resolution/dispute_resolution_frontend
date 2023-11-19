@@ -4,13 +4,16 @@ const BASE_URL_AUTH = 'https://ccdia.acceleratorpracticum.ru';
 export const responceProcessing = (res) =>
 	// eslint-disable-next-line no-nested-ternary
 	!res.ok
-		? res.json().then((data) => 
-			
-		{console.log(data)
-		return Promise.reject(res,data)}
-			
+		? res.json()
 		
-			)
+		.then( (data) => 
+			
+		// eslint-disable-next-line prefer-promise-reject-errors
+		Promise.reject({res,data})
+			
+				)
+
+
 		: (res.status === 204)
 		
 		? Promise.resolve(res.status)
@@ -35,4 +38,5 @@ export const makeRequest = async (url, method, body) => {
 
 	const res = await fetch(`${BASE_URL_AUTH}${url}`, config);
 	return responceProcessing(res);
+	// return res.json
 };
