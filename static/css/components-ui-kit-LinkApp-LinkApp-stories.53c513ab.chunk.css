@@ -1,0 +1,20 @@
+.link-app {
+	color: #3547e9;
+	color: var(--Accent, #3547e9);
+	-webkit-font-feature-settings: lining-nums tabular-nums;
+	        font-feature-settings: lining-nums tabular-nums;
+	font-variant-numeric: lining-nums tabular-nums;
+	text-decoration: none;
+	font-family: Inter;
+	font-size: 16px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 140.023%;
+}
+
+.link-app:hover {
+	opacity: 0.7;
+}
+
+
+/*# sourceMappingURL=components-ui-kit-LinkApp-LinkApp-stories.53c513ab.chunk.css.map*/
