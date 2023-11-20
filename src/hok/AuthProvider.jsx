@@ -12,7 +12,6 @@ import {
 	// getUserIdInfo,
 } from '../utils/api/user.api';
 
-// import {setIsMenuOpen, isMenuOpen} from '../components/Header/Header'
 
 
 import {
@@ -98,8 +97,7 @@ export const AuthProvider = ({ children }) => {
 				setUser({});
 				setIsLoggedIn(false);
 				localStorage.removeItem('token');
-				// setIsMenuOpen(false)
-				// console.log(isMenuOpen);
+				
 			}
 		} catch (err) {
 			console.error('res Error', err);
