@@ -27,7 +27,7 @@
 		"lint:fix": "npm run lint -- --fix",
 		"format": "prettier . --write",
 		"commit": "cz",
-		"deploy-storybook": "storybook build -o storybook-static && npx gh-pages -d storybook-static",
+		"deploy-storybook": "storybook build -o storybook-static && npx gh-pages -d storybook-static -r https://github.com/management-of-dispute-resolution/dispute_resolution_frontend.git",
 		"deploy-gh-pages": "npm run build && npx gh-pages -d build"
 	},
 	"eslintConfig": {

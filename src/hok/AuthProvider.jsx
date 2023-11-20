@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable import/named */
-import { createContext, useState } from 'react';
+import { createContext, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { useNavigate } from 'react-router-dom';
@@ -38,8 +36,7 @@ export const AuthProvider = ({ children }) => {
 	const [changePasswordStatus, setChangePasswordStatus] = useState('');
 
 	// роверка авторизации
-	const checkAuth = async () => {
-		// setIsLoading(true);
+	const checkAuth = useCallback(async () => {
 		if (localStorage.getItem('token')) {
 			const userData = await getUserInfo();
 			if (userData) {
@@ -55,7 +52,7 @@ export const AuthProvider = ({ children }) => {
 			setIsBooted(true);
 		}
 		setIsLoading(false);
-	};
+	}, []);
 	// LOGIN
 	const signin = async (newUser) => {
 		setLoginStatus('')
@@ -139,6 +136,7 @@ export const AuthProvider = ({ children }) => {
 
 
 	};
+
 
 	// eslint-disable-next-line react/jsx-no-constructed-context-values
 	const value = {

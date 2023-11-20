@@ -7,7 +7,15 @@ function ListMessageComments({ comments }) {
 	return (
 		<section className="comments">
 			{comments.map((comment) => (
-				<MessageComments {...comment} />
+				<MessageComments
+					{...comment}
+					key={comment.id}
+					name={comment.sender.last_name}
+					role={comment.sender.role}
+					date={comment.date}
+					text={comment.content}
+					files={comment.file}
+				/>
 			))}
 		</section>
 	);

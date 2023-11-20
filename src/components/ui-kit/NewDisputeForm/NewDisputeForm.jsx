@@ -9,14 +9,17 @@ import { FilePreview } from '../FilePreview/FilePreview';
 import { NewDisputeOpponents } from '../NewDisputeOpponents/NewDisputeOpponents';
 import { NewDisputeExplanation } from '../NewDisputeExplanation/NewDisputeExplanation';
 import { NewDisputeFileUpload } from '../NewDisputeFileUpload/NewDisputeFileUpload';
+import { MAX_QUANTITY_FILES } from '../../../config/constants/variable.constants';
 
 const NewDisputeForm = ({
-	initialArrayUsers,
 	initialSelectedOpponents,
 	initialDisputeText,
 	handleRequestNewDispute,
 	isEditDispute,
 }) => {
+
+	// if (isEditDispute) { console.log('Редактирование') }
+
 	const navigate = useNavigate();
 	const goBack = () => navigate(-1);
 
@@ -80,7 +83,8 @@ const NewDisputeForm = ({
 		// Добавляем описание
 		newDisputeData.append('description', disputeText.newDisputeText);
 		// Добавляем файлы
-		for (let i = 0; i < fileList.length; i += 1) {
+		const maxFiles = (fileList.length > 4) ? MAX_QUANTITY_FILES : fileList.length
+		for (let i = 0; i < maxFiles; i += 1) {
 			newDisputeData.append(`uploaded_files`, fileList[i]);
 		}
 		// Внешняя функция для отвравки запроса на сервер
@@ -105,7 +109,6 @@ const NewDisputeForm = ({
 						</p>
 					</div>
 					<NewDisputeOpponents
-						initialArrayUsers={initialArrayUsers}
 						selectedOpponents={selectedOpponents}
 						handleSetSelectedOpponents={handleSetSelectedOpponents}
 					/>
@@ -161,18 +164,18 @@ const NewDisputeForm = ({
 						)}
 
 						{/* Отображение загруженных файлов */}
-						{!isEditDispute && fileList.length > 0 ? (
-							<div className="file-preview">
-								{fileList.map((item, index) => (
-									<FilePreview
-										key={`${item.name}_${item.type}`}
-										item={item}
-										index={index}
-										onDeleteFile={handleDeleteFile}
-									/>
-								))}
-							</div>
-						) : null}
+						{/* {!isEditDispute && fileList.length > 0 ? ( */}
+						<div className="file-preview">
+							{fileList.map((item) => (
+								<FilePreview
+									key={`${item.name}_${item.type}`}
+									item={item}
+									onDeleteFile={handleDeleteFile}
+									isEditDispute={isEditDispute}
+								/>
+							))}
+						</div>
+						{/* ) : null} */}
 					</div>
 				</div>
 			</div>
@@ -181,23 +184,12 @@ const NewDisputeForm = ({
 };
 
 NewDisputeForm.defaultProps = {
-	initialArrayUsers: [],
 	initialSelectedOpponents: [],
 	initialDisputeText: '',
 	isEditDispute: false,
-	handleRequestNewDispute: () => {},
+	handleRequestNewDispute: () => { },
 };
 NewDisputeForm.propTypes = {
-	initialArrayUsers: PropTypes.arrayOf(
-		PropTypes.shape({
-			email: PropTypes.string,
-			id: PropTypes.number,
-			first_name: PropTypes.string,
-			last_name: PropTypes.string,
-			phone_number: PropTypes.string,
-			role: PropTypes.string,
-		})
-	),
 	initialSelectedOpponents: PropTypes.arrayOf(
 		PropTypes.shape({
 			email: PropTypes.string,

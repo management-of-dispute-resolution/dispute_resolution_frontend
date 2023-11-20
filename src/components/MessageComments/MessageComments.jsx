@@ -6,11 +6,11 @@ import jpg from '../../Images/FileType-JPG.svg';
 import png from '../../Images/FileType-PNG.svg';
 import zip from '../../Images/FileType-ZIP.svg';
 
-function MessageComments({ name, date, text, files }) {
+function MessageComments({ name, role, date, text, files }) {
 	const iconFile = { pdf, jpg, png, zip };
 	return (
 		<div className="message">
-			<div className="message__icon">
+			<div className={`message__icon ${role === 'mediator' && 'message__icon_mediator'}`}>
 				<p className="message__icon message__icon_letter">{name[0]}</p>
 			</div>
 			<div className="message__container">
@@ -21,14 +21,14 @@ function MessageComments({ name, date, text, files }) {
 				<p className="message__text">{text}</p>
 				<div className="message__list-documents">
 					{files.map((file) => (
-						<a className="message__document" href={file.linkFile}>
+						<a className="message__document" href={file.file}>
 							<img
 								className="message__document message__document_icon"
 								alt="icon"
-								src={iconFile[file.nameFile.split('.')[1]]}
+								src={iconFile[file?.file.split('.').pop()]}
 							/>
 							<p className="message__document message__document_title">
-								{file.nameFile.split('.')[0]}
+								{file?.file.split('/').pop().split('.')[0]}
 							</p>
 						</a>
 					))}
@@ -40,6 +40,7 @@ function MessageComments({ name, date, text, files }) {
 
 MessageComments.propTypes = {
 	name: PropTypes.string,
+	role: PropTypes.string,
 	date: PropTypes.string,
 	text: PropTypes.string,
 	files: PropTypes.arrayOf(
@@ -52,6 +53,7 @@ MessageComments.propTypes = {
 
 MessageComments.defaultProps = {
 	name: '',
+	role: '',
 	date: '',
 	text: '',
 	files: [{ linkFile: '', nameFile: '' }],

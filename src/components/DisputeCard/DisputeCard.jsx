@@ -1,6 +1,6 @@
+/* eslint-disable consistent-return */
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 
 import clsx from 'clsx';
 import './DisputeCard.css';
@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import FileList from '../ui-kit/FileList/FileList';
 import Menu from '../ui-kit/Menu/Menu';
 import Button from '../ui-kit/Button/Button';
-import useOutsideClick from '../../hook/useOutsideClick'
+import useOutsideClick from '../../hook/useOutsideClick';
+import { useAuth } from '../../hook/useAuth';
 
 function DisputeCard({
 	handleDeleteDispute,
@@ -24,6 +25,12 @@ function DisputeCard({
 	onClick,
 	isDisputePage,
 }) {
+	const { currentUser } = useAuth();
+
+	function isCreator() {
+		return currentUser && currentUser.id === creator.id;
+	}
+
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const navigate = useNavigate();
@@ -38,25 +45,6 @@ function DisputeCard({
 		setIsMenuOpen(!isMenuOpen);
 	};
 	const menuRef = useOutsideClick(isMenuOpen, toggleMenu);
-
-	function handleClick(evt) {
-		if (!isDisputePage) {
-			if (evt.target === evt.currentTarget) {
-				// alert(id);
-				onClick(id);
-			}
-		} else {
-			console.log('isDisputePage');
-			// просто  navigate
-			navigate(-1);
-		}
-	}
-
-	function handleKeyDown(evt) {
-		if (evt.key === 'Enter') {
-			handleClick(evt);
-		}
-	}
 
 	const disputeCardClasses = clsx('dispute-card', {
 		'dispute-card_type_disputePage': isDisputePage,
@@ -91,6 +79,41 @@ function DisputeCard({
 		'dispute-card__text_type_disputePage': isDisputePage,
 	});
 
+	const excludedClasses = [
+		disputeCardClasses,
+		disputeContainerClasses,
+		disputeHeaderClasses,
+		disputeStatusClasses,
+		disputeContentClasses,
+		disputeTitleClasses,
+		closedTimeClasses,
+		disputeTextClasses,
+	];
+
+	function isElementExcluded(evt, classNames) {
+		return classNames.some((className) =>
+			className
+				.split(' ') // Split classes if there are multiple in one string
+				.some((singleClass) => evt.target.classList.contains(singleClass))
+		);
+	}
+
+	function handleClick(evt) {
+		if (!isDisputePage) {
+			if (isElementExcluded(evt, excludedClasses)) {
+				onClick(id);
+			}
+		} else {
+			navigate(-1);
+		}
+	}
+
+	function handleKeyDown(evt) {
+		if (evt.key === 'Enter') {
+			handleClick(evt);
+		}
+	}
+
 	return (
 		<div className={disputeCardClasses}>
 			<div
@@ -107,7 +130,9 @@ function DisputeCard({
 				<div className={disputeStatusClasses}>{statusInterface[status]}</div>
 				<div className={disputeContentClasses}>
 					<div className={disputeHeaderClasses}>
-						<h2 className={disputeTitleClasses}>{`${creator} ${CreatedAt}`}</h2>
+						<h2
+							className={disputeTitleClasses}
+						>{`${creator?.first_name} ${creator?.last_name} ${CreatedAt}`}</h2>
 						{status === 'closed' ? (
 							<p className={closedTimeClasses}>{`Решено: ${closedAt}`}</p>
 						) : (
@@ -123,9 +148,12 @@ function DisputeCard({
 					</button>
 				) : (
 					<>
-						<button onClick={toggleMenu} className="dispute-card__option">
-							{}
-						</button>
+						{isCreator() && (
+							<button onClick={toggleMenu} className="dispute-card__option">
+								{}
+							</button>
+						)}
+
 						<div ref={menuRef} className="dispute-card__option-container">
 							<Menu
 								isOpen={isMenuOpen}
@@ -136,7 +164,7 @@ function DisputeCard({
 										color="transperent"
 										type="button"
 										before="edit"
-										onClick={handleChangeDispute}
+										onClick={() => handleChangeDispute(id)}
 									/>
 								}
 								secondButton={
@@ -146,7 +174,7 @@ function DisputeCard({
 										color="transperent"
 										type="button"
 										before="cancel"
-										onClick={handleDeleteDispute}
+										onClick={() => handleDeleteDispute(id)}
 									/>
 								}
 							/>
@@ -174,7 +202,13 @@ DisputeCard.propTypes = {
 	handleDeleteDispute: PropTypes.func,
 	handleChangeDispute: PropTypes.func,
 	closed_at: PropTypes.string,
-	files: PropTypes.arrayOf(PropTypes.string),
+	files: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number.isRequired,
+			filename: PropTypes.string.isRequired,
+			file: PropTypes.string.isRequired,
+		})
+	), // Если files также является массивом
 	onClick: PropTypes.func.isRequired,
 	isDisputePage: PropTypes.bool,
 };

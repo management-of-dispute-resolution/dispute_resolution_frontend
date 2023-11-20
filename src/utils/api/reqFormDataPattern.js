@@ -1,6 +1,6 @@
 const BASE_URL_AUTH = 'https://ccdia.acceleratorpracticum.ru';
 
-export const handleFormDataRequest = async (url, data) => {
+export const handleFormDataRequest = async (url, method, data) => {
 	const headers = {};
 
 	const token = localStorage.getItem('token'); // Проверяем токен в LS
@@ -9,7 +9,7 @@ export const handleFormDataRequest = async (url, data) => {
 		headers.authorization = `Token ${token}`; // добавляем заголовок авторизации по токену
 	}
 
-	const config = { method: 'POST', headers };
+	const config = { method, headers };
 	if (data !== undefined) {
 		// Проверяем наличие тела запроса
 		config.body = data; // если есть добавляем в запрос
