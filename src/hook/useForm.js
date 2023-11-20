@@ -5,16 +5,12 @@ import {
 
 } from "react";
 
-import { useAuth } from "./useAuth";
-
 
 export function useFormWithValidation() {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars
-  const {PasswordServerError } = useAuth();
 
   const handleChange = (event) => {
     const { target } = event;
@@ -46,7 +42,6 @@ export function useFormWithValidation() {
     }
 
     if (name === 'newPassword') {
-      console.log(document.getElementById('newPasswordConfirm'))
       
       if (target.value !== values.newPasswordConfirm && values.newPasswordConfirm !== '' && values.newPasswordConfirm !== undefined 
    
@@ -129,7 +124,7 @@ export function useFormWithValidation() {
       
    
     }
-    console.log()
+  
     setIsValid(target.closest("form").checkValidity());
   };
 

@@ -84,6 +84,7 @@
 	line-height: normal;
 	text-align: right;
 	min-height: 15px;
+	align-self:flex-end;
 }
 
 .input__icon {

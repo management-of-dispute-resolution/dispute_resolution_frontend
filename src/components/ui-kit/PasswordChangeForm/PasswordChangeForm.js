@@ -31,6 +31,12 @@ const PasswordChangeForm = ({
 	
 		
 	};
+
+	const handleChangeForPass = (e) => {
+		e.preventDefault();
+		setIsPasswordServerError('')
+		handleChange(e)
+	};
 	
 	return (
 		
@@ -50,9 +56,9 @@ const PasswordChangeForm = ({
 						required
 						minLength= {8}
 						maxLength={32}
-						error={errors.password}
+						error={errors.password || isPasswordServerError}
 						value={values.password}
-						onChange={handleChange}
+						onChange={handleChangeForPass}
 					/>
 					<Input
 						id="newPassword"
@@ -114,7 +120,7 @@ const PasswordChangeForm = ({
 					label="Изменить пароль"
 					color="blueLagoon"
 					type="submit"
-					disabled={!isValid || isLoading}
+					disabled={!isValid || isLoading || isPasswordServerError}
 				/>
 			</form>
 		</PopupWrapper>

@@ -119,7 +119,7 @@ export const AuthProvider = ({ children }) => {
 
 		catch (err) {
 
-			console.error('res Error ', err.data.current_password[0]);
+			
 			if (err.data.current_password[0].includes('Invalid password')
 			) {
 				console.log("Неверный текущий пароль")
