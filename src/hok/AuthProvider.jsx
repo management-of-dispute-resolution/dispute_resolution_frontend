@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/named */
 import { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -10,7 +12,8 @@ import {
 	// getUserIdInfo,
 } from '../utils/api/user.api';
 
-import setIsMenuOpen from '../components/Header/Header'
+// import {setIsMenuOpen, isMenuOpen} from '../components/Header/Header'
+
 
 import {
 	UNAUTHORIZED_ERROR_MESSAGE,
@@ -76,11 +79,13 @@ export const AuthProvider = ({ children }) => {
 			if (err.res.status === 400) {
 				setLoginStatus(UNAUTHORIZED_ERROR_MESSAGE)
 
-			}
-			else {
+			} else{
 				setLoginStatus(SERVER_ERROR_MESSAGE)
 			}
-			console.error('res Error ', err);
+			
+			
+			
+			
 		}
 		setIsLoading(false);
 	};
@@ -93,7 +98,8 @@ export const AuthProvider = ({ children }) => {
 				setUser({});
 				setIsLoggedIn(false);
 				localStorage.removeItem('token');
-				setIsMenuOpen(false)
+				// setIsMenuOpen(false)
+				// console.log(isMenuOpen);
 			}
 		} catch (err) {
 			console.error('res Error', err);

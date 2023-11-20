@@ -120,7 +120,7 @@ const PasswordChangeForm = ({
 					label="Изменить пароль"
 					color="blueLagoon"
 					type="submit"
-					disabled={!isValid || isLoading || isPasswordServerError}
+					disabled={!isValid || isLoading || isPasswordServerError!==''}
 				/>
 			</form>
 		</PopupWrapper>

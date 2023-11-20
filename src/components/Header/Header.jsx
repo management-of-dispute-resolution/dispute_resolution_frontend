@@ -10,14 +10,14 @@ import Button from '../ui-kit/Button/Button';
 import Menu from '../ui-kit/Menu/Menu';
 import useOutsideClick from '../../hook/useOutsideClick'
 
-function Header({
+const Header = ({
 	isLogged,
 	user,
 	handleCreateDispute,
 	// eslint-disable-next-line no-unused-vars
 	openChangePasswordForm,
 	onSignOut,
-}) {
+}) => {
 	const navigate = useNavigate();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	// eslint-disable-next-line no-unused-vars
@@ -37,10 +37,10 @@ function Header({
 		setIsMenuOpen(false);
 
 	};
-	// const handleExit = () => {
-	// 	onSignOut()
-	// 	setIsMenuOpen(!isMenuOpen);
-	// };
+	const handleExit = (e) => {
+		onSignOut(e)
+		setIsMenuOpen(!isMenuOpen);
+	};
 
 	const menuRef = useOutsideClick(isMenuOpen, toggleMenu);
 	const { role,last_name
@@ -105,7 +105,7 @@ function Header({
 									color="transperent"
 									type="button"
 									before="exit"
-									onClick={onSignOut}
+									onClick={handleExit}
 								/>
 							}
 						/>
