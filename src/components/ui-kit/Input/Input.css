@@ -48,7 +48,7 @@
 .input__input_disabled {
 	color: var(--Stroke);
 }
-.input:not(:has(.input__error:empty)) .input__box {
+.input__box_red {
 	border: 1px solid var(--Error);
 }
 

@@ -20,6 +20,15 @@ function Input({
 	const [isPassword, setIsPassword] = useState(true);
 	const [itemType, setItemType] = useState(type);
 
+	let boxClassName = 'input__box';
+	if (disabled) {
+		boxClassName += ' input__box_disabled';
+	} else if (error) {
+		boxClassName += ' input__box_red';
+	} else {
+		boxClassName += ' input__box_active';
+	}
+
 	function handleShowPassword() {
 		setIsPassword(!isPassword);
 		setItemType(isPassword ? 'text' : 'password');
@@ -28,11 +37,7 @@ function Input({
 	return (
 		<div className="input">
 			<div
-				className={
-					disabled
-						? 'input__box input__box_disabled'
-						: 'input__box input__box_active'
-				}
+				className={boxClassName}
 			>
 				<div className="input__box-with-label">
 					<input
@@ -48,13 +53,7 @@ function Input({
 						autoComplete="off"
 						required={required}
 						minLength={minLength}
-
-
 						maxLength={maxLength}
-
-
-
-
 					/>
 					<label htmlFor={id} className="input__label">
 						{label}

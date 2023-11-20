@@ -4,12 +4,15 @@ import Button from '../Button/Button';
 import Input from '../Input/Input';
 import './LoginForm.css';
 import {useFormWithValidation} from '../../../hook/useForm'
+import { useAuth } from '../../../hook/useAuth';
 
-const LoginForm = ({ onLogin,loginStatus, isLoading }) => {
+const LoginForm = ({ onLogin, loginStatus,isLoading }) => {
 	// eslint-disable-next-line no-unused-vars
 	const { values, handleChange, errors,isValid, resetForm
 		//  , resetForm
 	 } = useFormWithValidation();
+	 const {
+		setLoginStatus,loginServerError, setloginServerError} = useAuth();
 	//  const [values, setValues] = useState({});
 
 	// function handleChange(evt) {
@@ -20,6 +23,14 @@ const LoginForm = ({ onLogin,loginStatus, isLoading }) => {
 	const handleSubmit = (evt) => {
 		evt.preventDefault();
 		onLogin(values);
+	
+	};
+
+	const onChange = (evt) => {
+		evt.preventDefault();
+		setLoginStatus('')
+		setloginServerError('')
+		handleChange(evt);
 	
 	};
 
@@ -38,10 +49,10 @@ const LoginForm = ({ onLogin,loginStatus, isLoading }) => {
 						pattern='[a-zA-Z0-9\-\.]+@[a-z\-\.]+\.{1,1}[a-z]{1,}'
 						minLength= {5}
 						maxLength={64}
-						onChange={handleChange}
+						onChange={onChange}
 						required
-						error={errors.email}
-						value={values.email}
+						error={errors.email || loginStatus}
+						value={values.email || ''}
 						
 					/>
 			
@@ -49,21 +60,21 @@ const LoginForm = ({ onLogin,loginStatus, isLoading }) => {
 						label="Пароль"
 						name="password"
 						id="userPassword"
-						onChange={handleChange}
+						onChange={onChange}
 						placeholder="Пароль"
 						type="password"
 						pattern='[0-9a-zA-Z\!\@\#\$\%\.]{8,32}'
 						required
 						minLength= {8}
 						maxLength={32}
-						error={errors.password}
-						value={values.password}
+						error={errors.password || loginStatus}
+						value={values.password ||''}
 					/>
 				</div>
 				<span className='auth__form-error'>
-				{loginStatus}
+				{loginServerError}
 					</span>
-				<Button backgroundColor="blueLagoon" label="Продолжить" type="submit" disabled={!isValid || isLoading}/>
+				<Button backgroundColor="blueLagoon" label="Продолжить" type="submit" disabled={!isValid || isLoading || loginStatus!=='' || loginServerError !=='' }/>
 			</form>
 		</section>
 	);

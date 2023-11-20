@@ -7,7 +7,7 @@ import { useAuth } from '../../../hook/useAuth';
 const LoginPage = () => {
 	const navigate = useNavigate();
 	
-	const { isLoggedIn, signin, loginStatus, isLoading } = useAuth();
+	const { isLoggedIn, loginStatus, signin, isLoading } = useAuth();
 
 	useEffect(() => {
 		if (isLoggedIn) {

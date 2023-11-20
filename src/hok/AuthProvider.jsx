@@ -31,9 +31,10 @@ export const AuthProvider = ({ children }) => {
 	const [isError, setIsError] = useState(false);
 	const [isBooted, setIsBooted] = useState(false);
 
-	const [isPasswordServerError, setIsPasswordServerError] = useState(false);
+	const [isPasswordServerError, setIsPasswordServerError] = useState('');
 
 	const [loginStatus, setLoginStatus] = useState('');
+	const [loginServerError, setloginServerError] = useState('');
 	const [changePasswordStatus, setChangePasswordStatus] = useState('');
 
 	// роверка авторизации
@@ -75,11 +76,11 @@ export const AuthProvider = ({ children }) => {
 
 
 
-			if (err.res.status === 400) {
+			if (err.res.status === 401) {
 				setLoginStatus(UNAUTHORIZED_ERROR_MESSAGE)
 
 			} else{
-				setLoginStatus(SERVER_ERROR_MESSAGE)
+				setloginServerError(SERVER_ERROR_MESSAGE)
 			}
 			
 			
@@ -155,7 +156,8 @@ export const AuthProvider = ({ children }) => {
 		loginStatus,
 		setLoginStatus,
 		changePasswordStatus,
-		setIsPasswordServerError, isPasswordServerError
+		setIsPasswordServerError, isPasswordServerError,
+		loginServerError, setloginServerError
 
 	};
 
