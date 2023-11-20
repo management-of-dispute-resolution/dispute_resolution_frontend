@@ -46,22 +46,6 @@ function DisputeCard({
 	};
 	const menuRef = useOutsideClick(isMenuOpen, toggleMenu);
 
-	function handleClick(evt) {
-		if (!isDisputePage) {
-			if (evt.target === evt.currentTarget) {
-				onClick(id);
-			}
-		} else {
-			navigate(-1);
-		}
-	}
-
-	function handleKeyDown(evt) {
-		if (evt.key === 'Enter') {
-			handleClick(evt);
-		}
-	}
-
 	const disputeCardClasses = clsx('dispute-card', {
 		'dispute-card_type_disputePage': isDisputePage,
 	});
@@ -94,6 +78,41 @@ function DisputeCard({
 	const disputeTextClasses = clsx('dispute-card__text', {
 		'dispute-card__text_type_disputePage': isDisputePage,
 	});
+
+	const excludedClasses = [
+		disputeCardClasses,
+		disputeContainerClasses,
+		disputeHeaderClasses,
+		disputeStatusClasses,
+		disputeContentClasses,
+		disputeTitleClasses,
+		closedTimeClasses,
+		disputeTextClasses,
+	];
+
+	function isElementExcluded(evt, classNames) {
+		return classNames.some((className) =>
+			className
+				.split(' ') // Split classes if there are multiple in one string
+				.some((singleClass) => evt.target.classList.contains(singleClass))
+		);
+	}
+
+	function handleClick(evt) {
+		if (!isDisputePage) {
+			if (isElementExcluded(evt, excludedClasses)) {
+				onClick(id);
+			}
+		} else {
+			navigate(-1);
+		}
+	}
+
+	function handleKeyDown(evt) {
+		if (evt.key === 'Enter') {
+			handleClick(evt);
+		}
+	}
 
 	return (
 		<div className={disputeCardClasses}>
