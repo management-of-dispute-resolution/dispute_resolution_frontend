@@ -10,6 +10,7 @@ import Button from '../ui-kit/Button/Button';
 import Menu from '../ui-kit/Menu/Menu';
 import useOutsideClick from '../../hook/useOutsideClick'
 
+
 const Header = ({
 	isLogged,
 	user,
@@ -20,6 +21,7 @@ const Header = ({
 }) => {
 	const navigate = useNavigate();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+
 	// eslint-disable-next-line no-unused-vars
 
 
@@ -32,7 +34,7 @@ const Header = ({
 	};
 
 	const handlePasswordForm = () => {
-	
+
 		openChangePasswordForm()
 		setIsMenuOpen(false);
 

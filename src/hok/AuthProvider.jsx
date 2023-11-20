@@ -71,9 +71,9 @@ export const AuthProvider = ({ children }) => {
 			}
 		} catch (err) {
 
+// можно завязаться толькоо на статус ошибки как бэк поменяет
 
-
-			if (err.res.status === 401) {
+			if (err.res.status === 401 || err.data.non_field_errors[0].includes('Unable to log in with provided credentials.')) {
 				setLoginStatus(UNAUTHORIZED_ERROR_MESSAGE)
 
 			} else{
@@ -104,6 +104,7 @@ export const AuthProvider = ({ children }) => {
 	};
 	// ИЗМЕНЕНИЕ ПАРОЛЯ
 	const handleChangePassword = async (passwordData) => {
+		setChangePasswordStatus('')
 		try {
 
 
@@ -126,6 +127,7 @@ export const AuthProvider = ({ children }) => {
 			) {
 				console.log("Неверный текущий пароль")
 				setIsPasswordServerError("Неправильный пароль")
+				setChangePasswordStatus('')
 			} else {
 				setChangePasswordStatus(SERVER_ERROR_MESSAGE)
 			}
@@ -153,7 +155,7 @@ export const AuthProvider = ({ children }) => {
 		isBooted,
 		loginStatus,
 		setLoginStatus,
-		changePasswordStatus,
+		changePasswordStatus,setChangePasswordStatus,
 		setIsPasswordServerError, isPasswordServerError,
 		loginServerError, setloginServerError
 

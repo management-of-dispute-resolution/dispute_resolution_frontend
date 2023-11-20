@@ -7,18 +7,19 @@ import { useAuth } from '../../hook/useAuth';
 import PasswordChangeForm from '../ui-kit/PasswordChangeForm/PasswordChangeForm';
 
 
-const Layout = ({ handleCreateDispute, handleChangePassword }) => {
-	const { isLoggedIn, currentUser, signout, changePasswordStatus } = useAuth();
+const Layout = ({ handleCreateDispute }) => {
+	const { isLoggedIn, currentUser, signout, changePasswordStatus, handleChangePassword, setChangePasswordStatus } = useAuth();
 
 	const [styleList, setStyleList] = useState('');
 
 	const location = useLocation();
 	const { pathname } = location;
-	// eslint-disable-next-line no-unused-vars
+	
 	const [isPasswordFormOpen, setPasswordFormOpen] = useState(false);
-	// eslint-disable-next-line no-unused-vars
+	
 	const openChangePasswordForm = () => {
 		setPasswordFormOpen(true)
+		setChangePasswordStatus('')
 	
 	};
 
@@ -41,11 +42,10 @@ const Layout = ({ handleCreateDispute, handleChangePassword }) => {
 				isLogged={isLoggedIn}
 				user={currentUser}
 				handleCreateDispute={handleCreateDispute}
-				handleChangePassword={handleChangePassword}
 				onSignOut={signout}
 				openChangePasswordForm={openChangePasswordForm}
 			/>
-			<PasswordChangeForm isOpen={isPasswordFormOpen} onClose={closeChangePasswordForm} statusMessage={changePasswordStatus} />
+			<PasswordChangeForm isOpen={isPasswordFormOpen} onClose={closeChangePasswordForm} statusMessage={changePasswordStatus} handleChangePassword={handleChangePassword}/>
 			<main className={`layout__container align-flex-center ${styleList}`}>
 
 				<Outlet />
@@ -58,10 +58,10 @@ export { Layout };
 
 Layout.propTypes = {
 	handleCreateDispute: PropTypes.func,
-	handleChangePassword: PropTypes.func,
+	
 };
 
 Layout.defaultProps = {
 	handleCreateDispute: undefined,
-	handleChangePassword: undefined,
+	
 };

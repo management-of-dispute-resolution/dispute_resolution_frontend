@@ -10,26 +10,20 @@ import { useAuth } from '../../../hook/useAuth';
 const PasswordChangeForm = ({
 	disabled,
 	statusMessage,
-	// eslint-disable-next-line no-unused-vars
-	handleUpdatePassword,
-
 	isOpen,
 	onClose,
+	handleChangePassword
 }) => {
 
 	const { values, handleChange, errors,isValid
-		//  , resetForm
 	 } = useFormWithValidation();
 
-	 // eslint-disable-next-line no-unused-vars
-	 const { handleChangePassword, isLoading, isPasswordServerError, setIsPasswordServerError } = useAuth();
+	 const {  isLoading, isPasswordServerError, setIsPasswordServerError } = useAuth();
 
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		handleChangePassword(values)
-	
-		
 	};
 
 	const handleChangeForPass = (e) => {
@@ -57,7 +51,7 @@ const PasswordChangeForm = ({
 						minLength= {8}
 						maxLength={32}
 						error={errors.password || isPasswordServerError}
-						value={values.password}
+						value={values.password || ''}
 						onChange={handleChangeForPass}
 					/>
 					<Input
@@ -72,7 +66,7 @@ const PasswordChangeForm = ({
 						minLength= {8}
 						maxLength={32}
 						error={errors.newPassword}
-						value={values.newPassword}
+						value={values.newPassword || ''}
 						onChange={handleChange}
 					/>
 					<Input
@@ -87,7 +81,7 @@ const PasswordChangeForm = ({
 						minLength= {8}
 						maxLength={32}
 						error={errors.newPasswordConfirm}
-						value={values.newPasswordConfirm}
+						value={values.newPasswordConfirm || ''}
 						onChange={handleChange}
 					/>
 				</div>
@@ -130,17 +124,17 @@ const PasswordChangeForm = ({
 PasswordChangeForm.propTypes = {
 	statusMessage: PropTypes.string,
 	disabled: PropTypes.bool,
-	handleUpdatePassword: PropTypes.func,
 	isOpen: PropTypes.bool,
 	onClose: PropTypes.func,
+	handleChangePassword: PropTypes.func,
 };
 
 PasswordChangeForm.defaultProps = {
 	isOpen:false,
 	statusMessage: '',
 	disabled: false,
-	handleUpdatePassword: undefined,
-	onClose:undefined
+	onClose:undefined,
+	handleChangePassword:undefined
 };
 
 export default PasswordChangeForm;

@@ -5,20 +5,17 @@ export const responceProcessing = (res) =>
 	// eslint-disable-next-line no-nested-ternary
 	!res.ok
 		? res.json()
-		
-		.then( (data) => 
-			
-		// eslint-disable-next-line prefer-promise-reject-errors
-		Promise.reject({res,data})
-			
-				)
 
-
+			.then((data) =>
+				//  тело запроса нужно для валидации текущего пароля
+				// eslint-disable-next-line prefer-promise-reject-errors
+				Promise.reject({ res, data })
+			)
 		: (res.status === 204)
-		
-		? Promise.resolve(res.status)
-		: res.json();
-		
+
+			? Promise.resolve(res.status)
+			: res.json();
+
 
 // Формирование модели запроса
 export const makeRequest = async (url, method, body, param) => {

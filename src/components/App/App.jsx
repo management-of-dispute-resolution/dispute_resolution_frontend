@@ -18,9 +18,6 @@ export default function App() {
 		navigate('/create-dispute');
 	};
 
-	const handleChangePassword = () => {
-		console.log('Тут будет форма изменения пароля');
-	};
 
 	return (
 		<Routes>
@@ -29,7 +26,6 @@ export default function App() {
 				element={
 					<Layout
 						handleCreateDispute={handleCreateDispute}
-						handleChangePassword={handleChangePassword}
 					/>
 				}
 			>
