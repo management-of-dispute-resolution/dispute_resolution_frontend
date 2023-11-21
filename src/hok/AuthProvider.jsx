@@ -35,23 +35,39 @@ export const AuthProvider = ({ children }) => {
 	const [loginServerError, setloginServerError] = useState('');
 	const [changePasswordStatus, setChangePasswordStatus] = useState('');
 
+
 	// роверка авторизации
+	
 	const checkAuth = useCallback(async () => {
+	
 		if (localStorage.getItem('token')) {
-			const userData = await getUserInfo();
-			if (userData) {
-				setUser(userData);
-				setIsLoggedIn(true);
-				setIsBooted(true);
-			} else {
-				console.log('Ошибка при получении данных пользователя');
-				localStorage.removeItem('token');
+
+			try{
+				const userData = await getUserInfo();
+				if (userData) {
+					setUser(userData);
+					setIsLoggedIn(true);
+					setIsBooted(true);
+				}
+			}
+			
+			catch(err) {
+				if(err.res.status === 401) {
+					console.log('Ошибка при получении данных пользователя');
+					localStorage.removeItem('token');
+					setIsLoggedIn(false);
+					setIsLoading(false);
+					setIsBooted(true);
+				}
+				
 			}
 		}
 		else {
 			setIsBooted(true);
 		}
 		setIsLoading(false);
+	
+		
 	}, []);
 	// LOGIN
 	const signin = async (newUser) => {

@@ -5,6 +5,7 @@ import { Layout } from '../Layout/Layout';
 import { LoginPage } from '../Pages/LoginPage/LoginPage';
 import PageNotFound from '../Pages/PageNotFound/PageNotFound';
 import { RequireAuth } from '../../hok/RequireAuth';
+import NoRequireAuth from '../../hok/NoRequireAuth';
 import { DisputesPage } from '../Pages/DisputesPage/DisputesPage';
 import CreateDisputePage from '../Pages/CreateDisputePage/CreateDisputePage';
 import CheckLogin from '../Pages/CheckLogin/CheckLogin';
@@ -30,7 +31,9 @@ export default function App() {
 				}
 			>
 				<Route index element={<CheckLogin />} />
-				<Route path="/login" element={<LoginPage />} />
+				<Route path="/login" element={<NoRequireAuth>
+					<LoginPage />
+				</NoRequireAuth>}/>
 				<Route
 					path="/disputes"
 					element={
