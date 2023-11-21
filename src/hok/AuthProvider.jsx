@@ -121,6 +121,7 @@ export const AuthProvider = ({ children }) => {
 	// ИЗМЕНЕНИЕ ПАРОЛЯ
 	const handleChangePassword = async (passwordData) => {
 		setChangePasswordStatus('')
+		setIsLoading(true);
 		try {
 
 
@@ -150,6 +151,7 @@ export const AuthProvider = ({ children }) => {
 
 
 		}
+		setIsLoading(false);
 
 
 

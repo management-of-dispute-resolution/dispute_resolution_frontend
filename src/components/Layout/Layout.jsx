@@ -8,7 +8,7 @@ import PasswordChangeForm from '../ui-kit/PasswordChangeForm/PasswordChangeForm'
 
 
 const Layout = ({ handleCreateDispute }) => {
-	const { isLoggedIn, currentUser, signout, changePasswordStatus, handleChangePassword, setChangePasswordStatus } = useAuth();
+	const { isLoggedIn, currentUser, signout, changePasswordStatus, handleChangePassword, setChangePasswordStatus, isLoading } = useAuth();
 
 	const [styleList, setStyleList] = useState('');
 
@@ -45,7 +45,11 @@ const Layout = ({ handleCreateDispute }) => {
 				onSignOut={signout}
 				openChangePasswordForm={openChangePasswordForm}
 			/>
-			<PasswordChangeForm isOpen={isPasswordFormOpen} onClose={closeChangePasswordForm} statusMessage={changePasswordStatus} handleChangePassword={handleChangePassword}/>
+			<PasswordChangeForm isOpen={isPasswordFormOpen} 
+			onClose={closeChangePasswordForm} 
+			statusMessage={changePasswordStatus} 
+			handleChangePassword={handleChangePassword}
+			isLoading={isLoading}/>
 			<main className={`layout__container align-flex-center ${styleList}`}>
 
 				<Outlet />

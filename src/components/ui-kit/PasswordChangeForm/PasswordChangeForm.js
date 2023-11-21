@@ -12,13 +12,14 @@ const PasswordChangeForm = ({
 	statusMessage,
 	isOpen,
 	onClose,
-	handleChangePassword
+	handleChangePassword,
+	isLoading
 }) => {
 
 	const { values, handleChange, errors,isValid
 	 } = useFormWithValidation();
 
-	 const {  isLoading, isPasswordServerError, setIsPasswordServerError } = useAuth();
+	 const { isPasswordServerError, setIsPasswordServerError } = useAuth();
 
 
 	const handleSubmit = (e) => {
@@ -125,6 +126,7 @@ PasswordChangeForm.propTypes = {
 	statusMessage: PropTypes.string,
 	disabled: PropTypes.bool,
 	isOpen: PropTypes.bool,
+	isLoading: PropTypes.bool,
 	onClose: PropTypes.func,
 	handleChangePassword: PropTypes.func,
 };
@@ -133,6 +135,7 @@ PasswordChangeForm.defaultProps = {
 	isOpen:false,
 	statusMessage: '',
 	disabled: false,
+	isLoading:false,
 	onClose:undefined,
 	handleChangePassword:undefined
 };
