@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/jsx-no-comment-textnodes */
 /* eslint-disable jsx-a11y/control-has-associated-label */
@@ -9,23 +10,44 @@ import Button from '../ui-kit/Button/Button';
 import Menu from '../ui-kit/Menu/Menu';
 import useOutsideClick from '../../hook/useOutsideClick'
 
-function Header({
+
+const Header = ({
 	isLogged,
 	user,
 	handleCreateDispute,
-	handleChangePassword,
+	// eslint-disable-next-line no-unused-vars
+	openChangePasswordForm,
 	onSignOut,
-}) {
+}) => {
 	const navigate = useNavigate();
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+	// eslint-disable-next-line no-unused-vars
+
+
 	const handleGoHome = () => navigate('/');
+	
 
 	const toggleMenu = () => {
+	
+		setIsMenuOpen(!isMenuOpen);
+	};
+
+	const handlePasswordForm = () => {
+
+		openChangePasswordForm()
+		setIsMenuOpen(false);
+
+	};
+	const handleExit = (e) => {
+		onSignOut(e)
 		setIsMenuOpen(!isMenuOpen);
 	};
 
 	const menuRef = useOutsideClick(isMenuOpen, toggleMenu);
+	const { role,last_name
+		//  , resetForm
+	 } = user;
 
 	return (
 		<>
@@ -38,16 +60,18 @@ function Header({
 						onClick={handleGoHome}
 					/>
 					<div className="header__container">
-						<Button
+					
+						{role !=='mediator' && 	<Button
 							size="medium"
 							label="Создать обращение"
 							color="downy"
 							type="button"
 							onClick={handleCreateDispute}
-						/>
+						/>}
+					
 
 						<button className="header__user-avatar" onClick={toggleMenu}>
-							<p className="header__user-name">{user.last_name[0] ?? ''}</p>
+							<p className="header__user-name">{last_name[0] ?? ''}</p>
 						
 						</button>
 
@@ -73,7 +97,7 @@ function Header({
 									color="transperent"
 									type="button"
 									before="changePassword"
-									onClick={handleChangePassword}
+									onClick={handlePasswordForm}
 								/>
 							}
 							secondButton={
@@ -83,7 +107,7 @@ function Header({
 									color="transperent"
 									type="button"
 									before="exit"
-									onClick={onSignOut}
+									onClick={handleExit}
 								/>
 							}
 						/>
@@ -106,7 +130,7 @@ Header.propTypes = {
 		last_name: PropTypes.string,
 	}),
 	handleCreateDispute: PropTypes.func,
-	handleChangePassword: PropTypes.func,
+	openChangePasswordForm: PropTypes.func,
 	onSignOut: PropTypes.func,
 };
 
@@ -117,6 +141,6 @@ Header.defaultProps = {
 		last_name: 'Тестовый',
 	},
 	handleCreateDispute: undefined,
-	handleChangePassword: undefined,
+	openChangePasswordForm: undefined,
 	onSignOut: undefined,
 };

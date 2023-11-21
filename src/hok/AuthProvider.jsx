@@ -10,6 +10,14 @@ import {
 	// getUserIdInfo,
 } from '../utils/api/user.api';
 
+
+
+import {
+	UNAUTHORIZED_ERROR_MESSAGE,
+	SERVER_ERROR_MESSAGE,
+	SUCCESS_MESSAGE
+} from '../config/constants/errors'
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -21,26 +29,49 @@ export const AuthProvider = ({ children }) => {
 	const [isError, setIsError] = useState(false);
 	const [isBooted, setIsBooted] = useState(false);
 
+	const [isPasswordServerError, setIsPasswordServerError] = useState('');
+
+	const [loginStatus, setLoginStatus] = useState('');
+	const [loginServerError, setloginServerError] = useState('');
+	const [changePasswordStatus, setChangePasswordStatus] = useState('');
+
+
 	// роверка авторизации
+	
 	const checkAuth = useCallback(async () => {
+	
 		if (localStorage.getItem('token')) {
-			const userData = await getUserInfo();
-			if (userData) {
-				setUser(userData);
-				setIsLoggedIn(true);
-				setIsBooted(true);
-			} else {
-				console.log('Ошибка при получении данных пользователя');
-				localStorage.removeItem('token');
+
+			try{
+				const userData = await getUserInfo();
+				if (userData) {
+					setUser(userData);
+					setIsLoggedIn(true);
+					setIsBooted(true);
+				}
+			}
+			
+			catch(err) {
+				if(err.res.status === 401) {
+					console.log('Ошибка при получении данных пользователя');
+					localStorage.removeItem('token');
+					setIsLoggedIn(false);
+					setIsLoading(false);
+					setIsBooted(true);
+				}
+				
 			}
 		}
 		else {
 			setIsBooted(true);
 		}
 		setIsLoading(false);
+	
+		
 	}, []);
 	// LOGIN
 	const signin = async (newUser) => {
+		setLoginStatus('')
 		setIsLoading(true);
 		try {
 			const reqData = await login({
@@ -55,7 +86,19 @@ export const AuthProvider = ({ children }) => {
 				navigate('disputes');
 			}
 		} catch (err) {
-			console.error('res Error ', err);
+
+// можно завязаться толькоо на статус ошибки как бэк поменяет
+
+			if (err.res.status === 401 || err.data.non_field_errors[0].includes('Unable to log in with provided credentials.')) {
+				setLoginStatus(UNAUTHORIZED_ERROR_MESSAGE)
+
+			} else{
+				setloginServerError(SERVER_ERROR_MESSAGE)
+			}
+			
+			
+			
+			
 		}
 		setIsLoading(false);
 	};
@@ -68,6 +111,7 @@ export const AuthProvider = ({ children }) => {
 				setUser({});
 				setIsLoggedIn(false);
 				localStorage.removeItem('token');
+				
 			}
 		} catch (err) {
 			console.error('res Error', err);
@@ -75,16 +119,42 @@ export const AuthProvider = ({ children }) => {
 		setIsLoading(false);
 	};
 	// ИЗМЕНЕНИЕ ПАРОЛЯ
-	const handleChangePassword = async ({ new_password, current_password }) => {
+	const handleChangePassword = async (passwordData) => {
+		setChangePasswordStatus('')
+		setIsLoading(true);
 		try {
+
+
 			const respChangePass = await changePassword({
-				new_password,
-				current_password,
+				new_password: passwordData.newPassword,
+				current_password: passwordData.password
 			});
-			console.log('respChangePass', respChangePass);
-		} catch (err) {
-			console.error('res Error ', err);
+
+
+			console.log(respChangePass);
+
+			setChangePasswordStatus(SUCCESS_MESSAGE)
 		}
+
+
+		catch (err) {
+
+			
+			if (err.data.current_password[0].includes('Invalid password')
+			) {
+				console.log("Неверный текущий пароль")
+				setIsPasswordServerError("Неправильный пароль")
+				setChangePasswordStatus('')
+			} else {
+				setChangePasswordStatus(SERVER_ERROR_MESSAGE)
+			}
+
+
+		}
+		setIsLoading(false);
+
+
+
 	};
 
 
@@ -100,7 +170,13 @@ export const AuthProvider = ({ children }) => {
 		setIsLoading,
 		isError,
 		setIsError,
-		isBooted
+		isBooted,
+		loginStatus,
+		setLoginStatus,
+		changePasswordStatus,setChangePasswordStatus,
+		setIsPasswordServerError, isPasswordServerError,
+		loginServerError, setloginServerError
+
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

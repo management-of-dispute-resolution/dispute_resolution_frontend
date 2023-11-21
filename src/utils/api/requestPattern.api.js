@@ -4,10 +4,18 @@ const BASE_URL_AUTH = 'https://ccdia.acceleratorpracticum.ru';
 export const responceProcessing = (res) =>
 	// eslint-disable-next-line no-nested-ternary
 	!res.ok
-		? res.json().then((err) => Promise.reject(err))
-		: res.status === 204
+		? res.json()
+
+			.then((data) =>
+				//  тело запроса нужно для валидации текущего пароля
+				// eslint-disable-next-line prefer-promise-reject-errors
+				Promise.reject({ res, data })
+			)
+		: (res.status === 204)
+
 			? Promise.resolve(res.status)
 			: res.json();
+
 
 // Формирование модели запроса
 export const makeRequest = async (url, method, body, param) => {
@@ -40,4 +48,5 @@ export const makeRequest = async (url, method, body, param) => {
 	const res = await fetch(fetchURL, config);
 
 	return responceProcessing(res);
+	// return res.json
 };

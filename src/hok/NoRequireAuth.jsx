@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useAuth } from '../hook/useAuth';
 import Preloader from '../components/Preloader/Preloader';
 
-const RequireAuth = ({ children }) => {
+const NoRequireAuth = ({ children }) => {
 	const { isLoggedIn, checkAuth, isBooted } = useAuth();
 	// eslint-disable-next-line no-unused-vars
 	
@@ -15,14 +15,14 @@ const RequireAuth = ({ children }) => {
 	}, []);
 
 	if (isBooted) {
-		return !isLoggedIn ? <Navigate to="/login" /> : children;
+		return isLoggedIn ? <Navigate to="/" /> : children;
 	}
 	return <Preloader />
 
 };
 
-export { RequireAuth };
+export default NoRequireAuth;
 
-RequireAuth.propTypes = {
+NoRequireAuth.propTypes = {
 	children: PropTypes.element.isRequired,
 };
