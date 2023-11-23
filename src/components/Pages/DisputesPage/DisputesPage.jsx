@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DisputeCardList from '../../DisputeCardList/DisputeCardList';
@@ -6,6 +5,9 @@ import DisputeCardList from '../../DisputeCardList/DisputeCardList';
 import { getDisputes, deleteDisputesId } from '../../../utils/api/disputes.api';
 import { useAuth } from '../../../hook/useAuth';
 import Preloader from '../../Preloader/Preloader';
+import Pagination from '../../ui-kit/Pagination/Pagination';
+import SelectLimit from '../../ui-kit/SelectLimit/SelectLimit';
+import './DisputesPage.css';
 
 const DisputesPage = () => {
 	const navigate = useNavigate();
@@ -13,12 +15,11 @@ const DisputesPage = () => {
 
 	const [allDisputes, setAllDisputes] = useState([]);
 
-	const [count, setCount] = useState();
-	// eslint-disable-next-line no-unused-vars
-	// eslint-disable-next-line no-unused-vars
-	const [currentPage, setCurrentPage] = useState(2); // Initial page is 1
-	const [pageSize, setPageSize] = useState(6); // Initial page size is 10
-	const [hasMore, setHasMore] = useState(true);
+	const [page, setPage] = useState(1);
+	const [limit, setLimit] = useState(5);
+	const [totalPages, setTotalPages] = useState(1);
+
+	const [count, setCount] = useState(0);
 
 	// Получить все диспуты
 	const getAllDisputes = useCallback(async () => {
@@ -28,19 +29,20 @@ const DisputesPage = () => {
 			const reqData = await getDisputes({
 				queryParam: 'pagination',
 				value: {
-					page: 1, // Pass the page number you want to fetch
-					size: 6, // Adjust the page size as needed
+					page, // Pass the page number you want to fetch
+					size: limit, // Adjust the page size as needed
 				},
 			});
 			if (reqData) {
 				setIsLoading(false);
 				setAllDisputes(reqData.results);
 				setCount(reqData.count);
+				setTotalPages(Math.ceil(reqData.count / limit));
 			}
 		} catch (err) {
 			setIsError(true);
 		}
-	}, [setIsError, setIsLoading]);
+	}, [setIsError, setIsLoading, page, limit]);
 
 	useEffect(() => {
 		getAllDisputes();
@@ -66,27 +68,35 @@ const DisputesPage = () => {
 			console.error('Delete disp Error ', err);
 		}
 	};
-	const More = async (event) => {
-		event.preventDefault();
 
-		try {
-			const reqData = await getDisputes({
-				queryParam: 'pagination',
-				value: {
-					page: currentPage, // Pass the page number you want to fetch
-					size: pageSize, // Adjust the page size as needed
-				},
-			});
-
-			setCurrentPage((prev) => prev + 1);
-			setAllDisputes((prev) => [...prev, ...reqData.results]);
-
-			if (allDisputes.length + reqData.results.length >= reqData.count) {
-				setHasMore(false);
+	const handlePageChange = (value) => {
+		if (value === '... ') {
+			setPage(1);
+		} else if (value === '&lsaquo') {
+			if (page === 1) {
+				console.log('это первая страница');
+			} else {
+				setPage(page - 1);
 			}
-		} catch (error) {
-			console.log(error);
+		} else if (value === '&rsaquo') {
+			if (page === totalPages) {
+				console.log('это последняя страница');
+			} else {
+				setPage(page + 1);
+			}
+		} else if (value === ' ...') {
+			setPage(totalPages);
+		} else {
+			setPage(value);
 		}
+	};
+
+	const HandleLimitChange = (value) => {
+		setLimit(value);
+		const newTotalPages = Math.ceil(count / value);
+		setPage(page > newTotalPages ? newTotalPages : page);
+
+		setTotalPages(newTotalPages);
 	};
 
 	return (
@@ -94,14 +104,28 @@ const DisputesPage = () => {
 			{isLoading && <Preloader />}
 			{!isLoading && isError && <h2>Ошибка сервера</h2>}
 			{!isLoading && !isError && (
-				<DisputeCardList
-					disputesList={allDisputes}
-					onClick={handleCardClick}
-					handleChangeDispute={handleChangeDispute}
-					handleDeleteDispute={handleDeleteDispute}
-					More={More}
-					hasMore={hasMore}
-				/>
+				<>
+					<DisputeCardList
+						disputesList={allDisputes}
+						onClick={handleCardClick}
+						handleChangeDispute={handleChangeDispute}
+						handleDeleteDispute={handleDeleteDispute}
+					/>
+					{totalPages === 1 ? (
+						''
+					) : (
+						<div className="pagination-container">
+							<SelectLimit onLimitChange={HandleLimitChange} limit={limit} />
+							<Pagination
+								totalPages={totalPages}
+								page={page}
+								limit={limit}
+								siblings={3}
+								onPageChange={handlePageChange}
+							/>
+						</div>
+					)}
+				</>
 			)}
 		</>
 	);
