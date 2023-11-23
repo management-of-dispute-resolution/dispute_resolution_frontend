@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DisputeCard from '../DisputeCard/DisputeCard';
-import Button from '../ui-kit/Button/Button';
 import './DisputeCardList.css';
 
 function DisputeCardList({
@@ -9,8 +8,6 @@ function DisputeCardList({
 	onClick,
 	handleChangeDispute,
 	handleDeleteDispute,
-	More,
-	hasMore,
 }) {
 	return (
 		<div className="dispute-cardlist">
@@ -32,15 +29,6 @@ function DisputeCardList({
 				))
 			) : (
 				<p>Обращений пока нет</p>
-			)}
-			{hasMore && (
-				<Button
-					size="large"
-					label="Ещё"
-					color="blueLagoon"
-					type="button"
-					onClick={More}
-				/>
 			)}
 		</div>
 	);
@@ -72,16 +60,9 @@ DisputeCardList.propTypes = {
 	onClick: PropTypes.func.isRequired,
 	handleChangeDispute: PropTypes.func.isRequired,
 	handleDeleteDispute: PropTypes.func.isRequired,
-	More: PropTypes.func,
-	hasMore: PropTypes.bool,
 };
 
 DisputeCardList.defaultProps = {
 	disputesList: [],
-	More: (evt) => {
-		evt.preventDefault();
-		alert('Нажали кнопку "Ещё"');
-	},
-	hasMore: true,
 };
 export default DisputeCardList;

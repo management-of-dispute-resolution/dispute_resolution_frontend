@@ -1,5 +1,6 @@
 .dispute-cardlist {
 	margin-top: 60px;
+	margin-bottom: 40px;
 	display: grid;
 	row-gap: 40px;
 	justify-content: center;
