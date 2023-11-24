@@ -4,8 +4,11 @@ import NewDisputeForm from '../../ui-kit/NewDisputeForm/NewDisputeForm';
 
 import { getDisputeId } from '../../../utils/api/disputes.api';
 import { handleFormDataRequest } from '../../../utils/api/reqFormDataPattern';
+import { useAuth } from '../../../hook/useAuth';
+import Preloader from '../../Preloader/Preloader';
 
 const EditDisputePage = () => {
+	const { isLoading, setIsLoading } = useAuth();
 	const navigate = useNavigate();
 
 	const { state } = useLocation();
@@ -34,22 +37,29 @@ const EditDisputePage = () => {
 
 	// Редактировать диспут
 	const handleEditDispute = async (data) => {
+		setIsLoading(true);
 		try {
-			await handleFormDataRequest(`/api/disputes/${disputeId}/`, 'PATCH', data);
-			// console.log('responce редактирования карточки', reqData);
+			const reqData = await handleFormDataRequest(`/api/disputes/${disputeId}/`, 'PATCH', data);
+			const { id } = reqData;
+			navigate(`/disputes/${id}`, { state: { createMessage: 'edit' } });
 		} catch (err) {
 			console.error('res Error ', err);
 		}
-		navigate('/disputes');
+		setIsLoading(false);
 	};
 
-	return (
-		<NewDisputeForm
-			handleRequestNewDispute={handleEditDispute}
-			initialSelectedOpponents={initialSelectedOpponents}
-			initialDisputeText={initialDisputeText}
-			isEditDispute
-		/>
+	return (<>
+		{isLoading && <Preloader />}
+		{!isLoading && (
+			<NewDisputeForm
+				handleRequestNewDispute={handleEditDispute}
+				initialSelectedOpponents={initialSelectedOpponents}
+				initialDisputeText={initialDisputeText}
+				isEditDispute
+			/>
+		)}
+	</>
+
 	);
 };
 

@@ -18,14 +18,13 @@ const NewDisputeForm = ({
 	isEditDispute,
 }) => {
 
-	// if (isEditDispute) { console.log('Редактирование') }
-
 	const navigate = useNavigate();
-	const goBack = () => navigate(-1);
+	const goBack = () => navigate('/');
 
 	const [selectedOpponents, setSelectedOpponents] = useState([]); // Массив выбранных оппонентов
 	const [disputeText, setDisputeText] = useState({}); // Суть конфликта
 	const [fileList, setFileList] = useState([]); // Массив файлов для загрузки
+	const [freeSize, setFreeSize] = useState(10); // Объем свободного места
 
 	const [isDisable, setIsDisable] = useState(true); // Стейт диза кнопки
 
@@ -66,8 +65,18 @@ const NewDisputeForm = ({
 		setFileList(updatedList);
 	};
 
+	// Для объекта File - перевод bytes в Мб(число)
+	const formatBytes = (bytes) => {
+		if (!+bytes) return 0;
+		const kb = 1024;
+		const mb = kb ** 2;
+		return parseFloat((bytes / mb).toFixed(2));
+	};
+
 	// Удаление файла из массива для загрузки
 	const handleDeleteFile = (item) => {
+		const updateFilesSize = freeSize + formatBytes(item.size);
+		setFreeSize(updateFilesSize)
 		const updatedList = [...fileList];
 		updatedList.splice(fileList.indexOf(item), 1);
 		setFileList(updatedList);
@@ -139,6 +148,8 @@ const NewDisputeForm = ({
 						<NewDisputeFileUpload
 							fileList={fileList}
 							updateFileList={updateFileList}
+							freeSize={freeSize}
+							setFreeSize={setFreeSize}
 						/>
 					</div>
 				)}

@@ -42,10 +42,11 @@
 	margin-bottom: 8px;
 }
 
+.new-dispute-file__drop-zone-error {
+	color: red;
+}
+
 .new-dispute-file__error {
-	font-style: 'Inter', sans-serif;
-	font-weight: 400;
-	font-size: 10px;
-	line-height: 12.1px;
-	color: #ff0000;
+	display: flex;
+	flex-direction: column;
 }
