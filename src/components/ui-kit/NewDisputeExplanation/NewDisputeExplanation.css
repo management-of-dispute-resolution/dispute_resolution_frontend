@@ -2,6 +2,16 @@
 	min-height: 280px;
 }
 
+.new-dispute-explanation__container {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+.new-dispute-explanation__error {
+	border: 1px solid red !important;
+}
+
 .new-dispute-explanation__text {
 	resize: none;
 	box-sizing: border-box;
@@ -11,6 +21,13 @@
 	border-radius: 10px;
 	scrollbar-color: var(--Desabled-input) rgba(228, 228, 228, 0);
 	scrollbar-width: thin;
+}
+
+.new-dispute-explanation__error_text {
+	color: red;
+	position: absolute;
+	left: 10px;
+	bottom: -20px;
 }
 
 .new-dispute-explanation__text:focus {

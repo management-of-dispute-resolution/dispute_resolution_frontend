@@ -38,7 +38,7 @@
 	font-weight: 400;
 	font-size: 12px;
 	line-height: 14.5px;
-	color: #809595;
+	color: var(--Stroke);
 	margin-bottom: 8px;
 }
 

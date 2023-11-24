@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import './NewDisputeForm.css';
@@ -9,29 +9,33 @@ import { FilePreview } from '../FilePreview/FilePreview';
 import { NewDisputeOpponents } from '../NewDisputeOpponents/NewDisputeOpponents';
 import { NewDisputeExplanation } from '../NewDisputeExplanation/NewDisputeExplanation';
 import { NewDisputeFileUpload } from '../NewDisputeFileUpload/NewDisputeFileUpload';
-import { MAX_QUANTITY_FILES } from '../../../config/constants/variable.constants';
+import { MAX_QUANTITY_FILES, REG_TEXT } from '../../../config/constants/variable.constants';
+import { useAuth } from '../../../hook/useAuth';
 
 const NewDisputeForm = ({
 	initialSelectedOpponents,
 	initialDisputeText,
+	initialFileList,
 	handleRequestNewDispute,
 	isEditDispute,
 }) => {
 
 	const navigate = useNavigate();
-	const goBack = () => navigate('/');
+	const { setNewCardDispute } = useAuth(); // для сохранения данных в случае закрытия формы и обнуления при сабмите
 
 	const [selectedOpponents, setSelectedOpponents] = useState([]); // Массив выбранных оппонентов
 	const [disputeText, setDisputeText] = useState({}); // Суть конфликта
 	const [fileList, setFileList] = useState([]); // Массив файлов для загрузки
 	const [freeSize, setFreeSize] = useState(10); // Объем свободного места
+	const [errorExplanation, setErrorExplanation] = useState(''); // Ошибка максимальная длина текста в описании конфликта
 
 	const [isDisable, setIsDisable] = useState(true); // Стейт диза кнопки
 
 	useEffect(() => {
 		if (
 			disputeText.newDisputeText === undefined ||
-			disputeText.newDisputeText.length === 0 ||
+			// disputeText.newDisputeText.length === 0 ||
+			disputeText.newDisputeText.length < 25 ||
 			selectedOpponents.length === 0
 		) {
 			setIsDisable(true);
@@ -47,7 +51,10 @@ const NewDisputeForm = ({
 		if (initialDisputeText) {
 			setDisputeText({ newDisputeText: initialDisputeText });
 		}
-	}, [initialDisputeText, initialSelectedOpponents]);
+		if (initialFileList && initialFileList.length > 0) {
+			setFileList(initialFileList);
+		}
+	}, [initialDisputeText, initialSelectedOpponents, initialFileList]);
 
 	// Установка стейта выбранных оппонентов
 	const handleSetSelectedOpponents = (updateOpponentsList) => {
@@ -55,10 +62,28 @@ const NewDisputeForm = ({
 	};
 
 	// Сохранение значения поля "Суть конфликта" в отдельный стейт
-	const handleNewDisputeTextChange = (evt) => {
+	const handleNewDisputeTextChange = useCallback((evt) => {
 		const { name, value } = evt.target;
-		setDisputeText((prev) => ({ ...prev, [name]: value }));
-	};
+		if (value.match(REG_TEXT) || value.length === 0) {
+
+			if (value.length >= 1000) {
+				setErrorExplanation('Превышено допустимое количество символов: 1000шт. ТЕКСТ СОКРАЩЕН.')
+			}
+			if (value.length <= 999) {
+				setErrorExplanation('')
+			}
+			setDisputeText((prev) => ({ ...prev, [name]: value }));
+		} else {
+			setErrorExplanation('Введите корректное опписание конфликта. Допустимые символы - кирилица, латиница и знаки препинания.');
+			setTimeout(() => setErrorExplanation(''), 4000)
+		}
+	}, []);
+
+	const handleValidNewDisputeText = () => {
+		if (disputeText.newDisputeText.length < 25) {
+			setErrorExplanation('Минимальное количество знаков поля: Описание конфликта - 25.');
+		}
+	}
 
 	// Установка стейта загружаемых файлов
 	const updateFileList = (updatedList) => {
@@ -82,8 +107,22 @@ const NewDisputeForm = ({
 		setFileList(updatedList);
 	};
 
+	const handleCloseNewDispute = () => {
+		setNewCardDispute({
+			'selectedOpponents': selectedOpponents,
+			'disputeText': disputeText.newDisputeText,
+			'fileList': fileList
+		})
+		navigate('/');
+	}
+
 	// Формирование данных для отправки на сервер
 	const handleSubmit = () => {
+		setNewCardDispute({
+			'selectedOpponents': [],
+			'disputeText': '',
+			'fileList': []
+		})
 		const newDisputeData = new FormData();
 		// Добавляем оппонентов
 		for (let i = 0; i < selectedOpponents.length; i += 1) {
@@ -107,7 +146,7 @@ const NewDisputeForm = ({
 					className="new-dispute-form__goBack"
 					type="button"
 					aria-label="Кнопка goBack"
-					onClick={goBack}
+					onClick={handleCloseNewDispute}
 				/>
 				{/* Блок выбора оппонентов */}
 				<div className="new-dispute-opponents new-dispute-form__item-wrapper">
@@ -133,6 +172,8 @@ const NewDisputeForm = ({
 					<NewDisputeExplanation
 						newDisputeText={disputeText.newDisputeText}
 						handleNewDisputeTextChange={handleNewDisputeTextChange}
+						handleValidNewDisputeText={handleValidNewDisputeText}
+						errorExplanation={errorExplanation}
 					/>
 				</div>
 
@@ -197,6 +238,7 @@ const NewDisputeForm = ({
 NewDisputeForm.defaultProps = {
 	initialSelectedOpponents: [],
 	initialDisputeText: '',
+	initialFileList: [],
 	isEditDispute: false,
 	handleRequestNewDispute: () => { },
 };
@@ -212,6 +254,8 @@ NewDisputeForm.propTypes = {
 		})
 	),
 	initialDisputeText: PropTypes.string,
+	// eslint-disable-next-line react/forbid-prop-types
+	initialFileList: PropTypes.arrayOf(PropTypes.object),
 	isEditDispute: PropTypes.bool,
 	handleRequestNewDispute: PropTypes.func,
 };
