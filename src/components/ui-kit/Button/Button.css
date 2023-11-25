@@ -77,6 +77,9 @@
 	background-repeat: no-repeat;
 	box-sizing: border-box;
 }
+.button_color_transperent:disabled {
+	opacity: 0.5;
+}
 /* Типы before */
 .button_before_type_edit::before {
 	background-image: url('../../../Images/edit-icon.svg');
