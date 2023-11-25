@@ -163,7 +163,7 @@ const DisputePage = () => {
 					<h2 className="createdDispute">Изменения сохранены</h2>
 				)}
 			</section>
-			<ListMessageComment comments={comments} />
+			<ListMessageComment comments={comments} isDisputePage={true} />
 			<CommentForm user={currentUser} onSend={handleSendComment} />
 
 			{currentUser.role === 'mediator' && (

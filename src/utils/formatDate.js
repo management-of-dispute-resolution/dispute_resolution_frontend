@@ -1,4 +1,4 @@
-	function formatDate(dateStr) {
+	function formatDate(dateStr, short = false) {
 		const months = [
 			'янв',
 			'фев',
@@ -20,7 +20,7 @@
 		const hours = d.getHours();
 		const minutes = `${d.getMinutes()}`.padStart(2, '0');
 
-		return `${day} ${month} в ${hours}:${minutes}`;
+		return short ? `${day} ${month}` : `${day} ${month} в ${hours}:${minutes}`;
 	}
 
     export default formatDate;

@@ -10,7 +10,8 @@ function ListMessageComments({ comments }) {
 				<MessageComments
 					{...comment}
 					key={comment.id}
-					name={comment.sender.last_name}
+					last_name={comment.sender.last_name}
+					first_name={comment.sender.first_name}
 					role={comment.sender.role}
 					date={comment.created_at}
 					text={comment.content}

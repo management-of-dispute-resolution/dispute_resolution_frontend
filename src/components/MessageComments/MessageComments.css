@@ -74,7 +74,19 @@
 	font-weight: 400;
 	line-height: 150.023%;
 
-	
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	line-clamp: 3; 
+	text-overflow: ellipsis;
+}
+
+.message__text_one-line {
+	-webkit-line-clamp: 1;
+}
+
+.message__text_two-line {
+	-webkit-line-clamp: 2;
 }
 
 .message__list-documents {
