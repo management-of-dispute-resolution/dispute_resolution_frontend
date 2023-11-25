@@ -10,8 +10,8 @@ import Menu from '../ui-kit/Menu/Menu';
 import Button from '../ui-kit/Button/Button';
 import useOutsideClick from '../../hook/useOutsideClick';
 import { useAuth } from '../../hook/useAuth';
-
 import MessageComments from '../MessageComments/MessageComments';
+import formatDate from '../../utils/formatDate';
 
 function DisputeCard({
 	handleDeleteDispute,
@@ -56,33 +56,6 @@ function DisputeCard({
 		return `Конфликт с ${creator?.first_name} ${creator?.last_name[0]}. `;
 	}
 
-	function formatDate(inputDate, short) {
-		const currentDate = new Date();
-		const inputDateTime = new Date(inputDate);
-
-		if (short) {
-			const options = {
-				day: 'numeric',
-				month: 'short',
-				hour: 'numeric',
-				minute: 'numeric',
-			};
-
-			return inputDateTime.toLocaleDateString('ru-RU', options);
-		}
-		const options = {
-			day: 'numeric',
-			month: 'long',
-			year: 'numeric',
-		};
-
-		if (currentDate.getFullYear() === inputDateTime.getFullYear()) {
-			// Если год совпадает, отображаем без года
-			options.year = undefined;
-		}
-
-		return inputDateTime.toLocaleDateString('ru-RU', options);
-	}
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const navigate = useNavigate();
@@ -141,6 +114,11 @@ function DisputeCard({
 		disputeTitleClasses,
 		closedTimeClasses,
 		disputeTextClasses,
+		'message',
+		'message__container',
+		'message__icon',
+		'message__heading',
+		'message__text',
 	];
 
 	function isElementExcluded(evt, classNames) {
@@ -202,11 +180,11 @@ function DisputeCard({
 						<div className="dispute-card__last-message">
 							<MessageComments
 								isDisputePage
-								first_name={last_comment.sender.first_name}
-								last_name={last_comment.sender.last_name}
-								role={last_comment.sender.role}
-								date={last_comment.created_at}
-								text={last_comment.content}
+								first_name={last_comment?.sender.first_name}
+								last_name={last_comment?.sender.last_name}
+								role={last_comment?.sender.role}
+								date={last_comment?.created_at}
+								text={last_comment?.content}
 								files={[]}
 							/>
 						</div>
