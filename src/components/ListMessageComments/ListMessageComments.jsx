@@ -12,7 +12,7 @@ function ListMessageComments({ comments }) {
 					key={comment.id}
 					name={comment.sender.last_name}
 					role={comment.sender.role}
-					date={comment.date}
+					date={comment.created_at}
 					text={comment.content}
 					files={comment.file}
 				/>

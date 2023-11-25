@@ -5,6 +5,7 @@ import pdf from '../../Images/FileType-PDF.svg';
 import jpg from '../../Images/FileType-JPG.svg';
 import png from '../../Images/FileType-PNG.svg';
 import zip from '../../Images/FileType-ZIP.svg';
+import formatDate from './index';
 
 function MessageComments({ name, role, date, text, files }) {
 	const iconFile = { pdf, jpg, png, zip };
@@ -16,7 +17,7 @@ function MessageComments({ name, role, date, text, files }) {
 			<div className="message__container">
 				<div className="message__heading">
 					<h2 className="message__heading message__heading_name">{name}</h2>
-					<p className="message__heading message__heading_date">{date}</p>
+					<p className="message__heading message__heading_date">{formatDate(date)}</p>
 				</div>
 				<p className="message__text">{text}</p>
 				<div className="message__list-documents">
