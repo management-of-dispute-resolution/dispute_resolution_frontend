@@ -50,17 +50,21 @@ const DisputePage = () => {
 		});
 
 		try {
-			await handleFormDataRequest(
+			const res = await handleFormDataRequest(
 				`/api/disputes/${id}/comments/`,
 				'POST',
 				newComment
 			);
+
+			if(res.content !== data.content) {
+				throw new Error(res.content)
+			}
 			window.location.reload();
 		} catch (err) {
 			console.error('res Error ', err);
 			setInfo({
 				...INFO_STATES.GENERAL_ERROR,
-				errorText: err.status,
+				errorText: err || err.status,
 			});
 		}
 	};
