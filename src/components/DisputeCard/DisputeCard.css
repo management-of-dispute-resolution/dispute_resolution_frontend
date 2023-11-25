@@ -65,6 +65,7 @@
 
 	/* переполнение */
 	/* height: 154px; */
+	word-wrap: break-word;
 	display: -webkit-box;
 	-webkit-line-clamp: 7;
 	-webkit-box-orient: vertical;
@@ -200,6 +201,9 @@
 	-webkit-box-orient: initial;
 	overflow: initial;
 }
+.dispute-card__text_type_disputesPage {
+	-webkit-line-clamp: 2;
+}
 .dispute-card__close {
 	position: absolute;
 	border: 0;
@@ -211,4 +215,7 @@
 	height: 46px;
 	top: 0;
 	right: 0;
+}
+.dispute-card__last-message {
+	margin-top: 24px;
 }
