@@ -154,10 +154,13 @@ const DisputePage = () => {
 					{...dispute}
 					files={dispute.file}
 					isDisputePage={true}
-					onClick={() => {}}
+					onClick={() => { }}
 				/>
 				{state?.createMessage && state.createMessage === 'new' && (
 					<h2 className="createdDispute">Обращение создано</h2>
+				)}
+				{state?.createMessage && state.createMessage === 'edit' && (
+					<h2 className="createdDispute">Изменения сохранены</h2>
 				)}
 			</section>
 			<ListMessageComment comments={comments} />
