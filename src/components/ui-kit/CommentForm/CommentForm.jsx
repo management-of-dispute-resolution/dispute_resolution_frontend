@@ -34,17 +34,40 @@ function CommentForm({ user, onSend }) {
 	};
 	const handleAddFile = () => {
 		setFileAdd(!fileAdd)
-	}
+	};
 
+	const checkValidSend = () => {
+		return !(
+			commentData.content.length > 25 && commentData.content.length <= 1000
+		);
+	};
 
 	return (
-		<div className='comment'>
+		<div className="comment">
 			<div className="comment-form">
-				<div className={`user-avatar ${user.role === 'mediator' && 'user-avatar_mediator'}`}>
+				<div
+					className={`user-avatar ${
+						user.role === 'mediator' && 'user-avatar_mediator'
+					}`}
+				>
 					<p className="user-name">{user.last_name[0] ?? ''}</p>
 				</div>
-				<TextArea rows={1} error="" value={commentData.content} handleChange = {handleCommentChange}>
-					<button label="" aria-label="attache file" type="button" onClick={handleAddFile} className='comment-pipe' />
+				<TextArea
+					maxLength={1000}
+					minLength={25}
+					placeholder={'Добавить комментарии не менее 25 символов и не более 1000'}
+					rows={1}
+					error=""
+					value={commentData.content}
+					handleChange={handleCommentChange}
+				>
+					<button
+						label=""
+						aria-label="attache file"
+						type="button"
+						onClick={handleAddFile}
+						className="comment-pipe"
+					/>
 				</TextArea>
 				<Button
 					size="micro"
@@ -53,11 +76,11 @@ function CommentForm({ user, onSend }) {
 					type="button"
 					before="send"
 					onClick={handleSend}
-					disabled = {!commentData.content}
+					disabled={checkValidSend()}
 				/>
 			</div>
 			{fileAdd ? (
-				<div className='file-conteiner'>
+				<div className="file-conteiner">
 					{/* Блок рабооты с файлами */}
 					<div className="new-dispute-file new-dispute-form__item-wrapper">
 						<div className="new-dispute-form__item-title-wrapper_large">
@@ -89,7 +112,8 @@ function CommentForm({ user, onSend }) {
 							</div>
 						</div>
 					</div>
-				</div>) : null}
+				</div>
+			) : null}
 		</div>
 	);
 }
