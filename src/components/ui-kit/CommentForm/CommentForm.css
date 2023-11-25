@@ -1,20 +1,15 @@
 .comment {
 	background: var(--Background);
 	width: inherit;
-	position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
 }
 .comment-form {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: inherit;
-	margin: 0;
+	margin: 0 auto;
 	gap: 24px;
-	padding: 36px 70px 24px;
-	/* min-height: 13vh; */
+	padding: 36px 0 24px;
 }
 
 .user-avatar {
