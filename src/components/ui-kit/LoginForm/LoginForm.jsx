@@ -5,6 +5,7 @@ import Input from '../Input/Input';
 import './LoginForm.css';
 import {useFormWithValidation} from '../../../hook/useForm'
 import { useAuth } from '../../../hook/useAuth';
+import {PASSWORD_TEMPLATE} from '../../../config/constants/variable.constants'
 
 const LoginForm = ({ onLogin, loginStatus,isLoading }) => {
 	// eslint-disable-next-line no-unused-vars
@@ -63,7 +64,7 @@ const LoginForm = ({ onLogin, loginStatus,isLoading }) => {
 						onChange={onChange}
 						placeholder="Пароль"
 						type="password"
-						pattern='[0-9a-zA-Z\!\@\#\$\%\.]{8,32}'
+						pattern={PASSWORD_TEMPLATE}
 						required
 						minLength= {8}
 						maxLength={32}
