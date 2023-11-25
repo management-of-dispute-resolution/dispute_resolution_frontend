@@ -6,6 +6,7 @@ import { PopupWrapper } from '../PopupWrapper/PopupWrapper';
 import Button from '../Button/Button';
 import {useFormWithValidation} from '../../../hook/useForm'
 import { useAuth } from '../../../hook/useAuth';
+import {PASSWORD_TEMPLATE} from '../../../config/constants/variable.constants'
 
 const PasswordChangeForm = ({
 	disabled,
@@ -47,7 +48,9 @@ const PasswordChangeForm = ({
 						placeholder="Текущий пароль"
 						type="password"
 						disabled={disabled}
-						pattern='[0-9a-zA-Z\!\@\#\$\%\.]{8,32}'
+						
+						
+						pattern={PASSWORD_TEMPLATE}
 						required
 						minLength= {8}
 						maxLength={32}
@@ -62,7 +65,7 @@ const PasswordChangeForm = ({
 						placeholder="Новый пароль"
 						type="password"
 						disabled={disabled}
-						pattern='[0-9a-zA-Z\!\@\#\$\%\.]{8,32}'
+						pattern={PASSWORD_TEMPLATE}
 						required
 						minLength= {8}
 						maxLength={32}
@@ -77,7 +80,7 @@ const PasswordChangeForm = ({
 						placeholder="Подтвердите новый пароль"
 						type="password"
 						disabled={disabled}
-						pattern='[0-9a-zA-Z\!\@\#\$\%\.]{8,32}'
+						pattern={PASSWORD_TEMPLATE}
 						required
 						minLength= {8}
 						maxLength={32}
