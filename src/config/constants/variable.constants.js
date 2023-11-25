@@ -5,3 +5,5 @@ export const PASSWORD_TEMPLATE = '[0-9a-zA-Z!@#$%:;*".,-<>?_+=&^~\\{\\}\\[\\]\\(
 
 
 
+// export const REG_TEXT = /[\p{L}\p{N}\p{P}]+/u
+export const REG_TEXT = /^[а-яА-Яa-zA-Z0-9\s.,!?;-@#$%^&*()"']+$/

@@ -1,37 +1,44 @@
 import React from 'react';
+import clsx from 'clsx';
 import './MessageComments.css';
 import PropTypes from 'prop-types';
-import pdf from '../../Images/FileType-PDF.svg';
-import jpg from '../../Images/FileType-JPG.svg';
-import png from '../../Images/FileType-PNG.svg';
-import zip from '../../Images/FileType-ZIP.svg';
+import FileList from '../ui-kit/FileList/FileList';
+import formatDate from '../../utils/formatDate';
 
-function MessageComments({ name, role, date, text, files }) {
-	const iconFile = { pdf, jpg, png, zip };
+function MessageComments({ first_name, last_name, role, date, text, files, isDisputePage}) {
+
+	const messageClasses = clsx('message__text', {
+		'message__text_one-line': isDisputePage && (role === 'mediator'),
+		'message__text_two-lines': isDisputePage && (role !== 'mediator'),
+	  });
+
+	const userTitle =
+		role === 'mediator'
+			? `Медиатор ${first_name}`
+			: `${last_name} ${first_name[0]}.`;
+	const formatedDate = formatDate(date);
+
 	return (
 		<div className="message">
-			<div className={`message__icon ${role === 'mediator' && 'message__icon_mediator'}`}>
-				<p className="message__icon message__icon_letter">{name[0]}</p>
+			<div
+				className={`message__icon ${
+					role === 'mediator' && 'message__icon_mediator'
+				}`}
+			>
+				<p className="message__icon message__icon_letter">{first_name[0]}</p>
 			</div>
 			<div className="message__container">
 				<div className="message__heading">
-					<h2 className="message__heading message__heading_name">{name}</h2>
-					<p className="message__heading message__heading_date">{date}</p>
+					<h2 className="message__heading message__heading_name">
+						{userTitle}
+					</h2>
+					<p className="message__heading message__heading_date">
+						{formatedDate}
+					</p>
 				</div>
-				<p className="message__text">{text}</p>
+				<p className={messageClasses}>{text}</p>
 				<div className="message__list-documents">
-					{files.map((file) => (
-						<a className="message__document" href={file.file}>
-							<img
-								className="message__document message__document_icon"
-								alt="icon"
-								src={iconFile[file?.file.split('.').pop()]}
-							/>
-							<p className="message__document message__document_title">
-								{file?.file.split('/').pop().split('.')[0]}
-							</p>
-						</a>
-					))}
+					<FileList files={files} />
 				</div>
 			</div>
 		</div>
@@ -39,7 +46,8 @@ function MessageComments({ name, role, date, text, files }) {
 }
 
 MessageComments.propTypes = {
-	name: PropTypes.string,
+	first_name: PropTypes.string,
+	last_name: PropTypes.string,
 	role: PropTypes.string,
 	date: PropTypes.string,
 	text: PropTypes.string,
@@ -49,13 +57,16 @@ MessageComments.propTypes = {
 			nameFile: PropTypes.string,
 		})
 	),
+	isDisputePage: PropTypes.bool,
 };
 
 MessageComments.defaultProps = {
-	name: '',
+	first_name: '',
+	last_name: '',
 	role: '',
 	date: '',
 	text: '',
 	files: [{ linkFile: '', nameFile: '' }],
+	isDisputePage: false,
 };
 export default MessageComments;

@@ -11,7 +11,8 @@ function TextArea({
 	error,
 	srartRows,
 	handleChange,
-	children
+	children,
+	...props
 }) {
 	
 	const textAreaRef = useRef(null);
@@ -41,6 +42,7 @@ function TextArea({
 					ref={textAreaRef}
 					value={value}
 					rows={srartRows}
+					{...props}
 				>
 					{value || ''}
 				</textarea>

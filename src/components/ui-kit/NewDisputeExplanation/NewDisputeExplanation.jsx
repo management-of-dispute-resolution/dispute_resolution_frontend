@@ -1,21 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import clsx from 'clsx';
 
 import './NewDisputeExplanation.css';
 
 export const NewDisputeExplanation = ({
 	newDisputeText,
 	handleNewDisputeTextChange,
+	handleValidNewDisputeText,
+	errorExplanation
 }) => (
-	<textarea
-		value={newDisputeText}
-		className="new-dispute-explanation__text"
-		name="newDisputeText"
-		minLength={25}
-		maxLength={1000}
-		onChange={handleNewDisputeTextChange}
-		required
-	/>
+	<div className='new-dispute-explanation__container'>
+		<textarea
+			value={newDisputeText}
+			// className="new-dispute-explanation__text"
+			className={clsx('new-dispute-explanation__text', {
+				'new-dispute-explanation__error': !!errorExplanation
+			})}
+			name="newDisputeText"
+			onBlur={handleValidNewDisputeText}
+			minLength={25}
+			maxLength={1000}
+			onChange={handleNewDisputeTextChange}
+			required
+		/>
+		<span className='new-dispute-explanation__error_text'>
+			{errorExplanation}
+		</span>
+	</div>
 );
 
 NewDisputeExplanation.defaultProps = {
@@ -24,4 +36,6 @@ NewDisputeExplanation.defaultProps = {
 NewDisputeExplanation.propTypes = {
 	newDisputeText: PropTypes.string,
 	handleNewDisputeTextChange: PropTypes.func.isRequired,
+	handleValidNewDisputeText: PropTypes.func.isRequired,
+	errorExplanation: PropTypes.string.isRequired,
 };

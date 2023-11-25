@@ -50,17 +50,21 @@ const DisputePage = () => {
 		});
 
 		try {
-			await handleFormDataRequest(
+			const res = await handleFormDataRequest(
 				`/api/disputes/${id}/comments/`,
 				'POST',
 				newComment
 			);
+
+			if(res.content !== data.content) {
+				throw new Error(res.content)
+			}
 			window.location.reload();
 		} catch (err) {
 			console.error('res Error ', err);
 			setInfo({
 				...INFO_STATES.GENERAL_ERROR,
-				errorText: err.status,
+				errorText: err || err.status,
 			});
 		}
 	};
@@ -150,13 +154,16 @@ const DisputePage = () => {
 					{...dispute}
 					files={dispute.file}
 					isDisputePage={true}
-					onClick={() => {}}
+					onClick={() => { }}
 				/>
 				{state?.createMessage && state.createMessage === 'new' && (
 					<h2 className="createdDispute">Обращение создано</h2>
 				)}
+				{state?.createMessage && state.createMessage === 'edit' && (
+					<h2 className="createdDispute">Изменения сохранены</h2>
+				)}
 			</section>
-			<ListMessageComment comments={comments} />
+			<ListMessageComment comments={comments} isDisputePage={true} />
 			<CommentForm user={currentUser} onSend={handleSendComment} />
 
 			{currentUser.role === 'mediator' && (

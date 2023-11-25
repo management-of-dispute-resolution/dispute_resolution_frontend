@@ -6,13 +6,14 @@ import MessageComments from '../MessageComments/MessageComments';
 function ListMessageComments({ comments }) {
 	return (
 		<section className="comments">
-			{comments.map((comment) => (
+			{[...comments].reverse().map((comment) => (
 				<MessageComments
 					{...comment}
 					key={comment.id}
-					name={comment.sender.last_name}
+					last_name={comment.sender.last_name}
+					first_name={comment.sender.first_name}
 					role={comment.sender.role}
-					date={comment.date}
+					date={comment.created_at}
 					text={comment.content}
 					files={comment.file}
 				/>

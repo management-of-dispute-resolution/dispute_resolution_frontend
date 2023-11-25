@@ -11,6 +11,7 @@ function CommentForm({ user, onSend }) {
 	const [commentData, setCommentData] = useState({content: '', file: []}); 
 	const [fileList, setFileList] = useState([]);
 	const [fileAdd, setFileAdd] = useState(false);
+	const [freeSize, setFreeSize] = useState(10); // Объем свободного места
 	
 	const handleCommentChange = (evt) => {
 		const {value} = evt.target;
@@ -25,26 +26,57 @@ function CommentForm({ user, onSend }) {
 		setFileList(updatedList);
 		setCommentData((prev) => ({ ...prev, 'file': updatedList }));
 	};
-	// Удаление файла из массива для загрузки
+	
+	const formatBytes = (bytes) => {
+		if (!+bytes) return 0;
+		const kb = 1024;
+		const mb = kb ** 2;
+		return parseFloat((bytes / mb).toFixed(2));
+	};
+	
 	const handleDeleteFile = (item) => {
+		const updateFilesSize = freeSize + formatBytes(item.size);
+		setFreeSize(updateFilesSize)
 		const updatedList = [...fileList];
 		updatedList.splice(fileList.indexOf(item), 1);
 		setFileList(updatedList);
-		setCommentData((prev) => ({ ...prev, 'file': updatedList }));
 	};
 	const handleAddFile = () => {
 		setFileAdd(!fileAdd)
-	}
+	};
 
+	const checkValidSend = () => {
+		return !(
+			commentData.content.length > 25 && commentData.content.length <= 1000
+		);
+	};
 
 	return (
-		<div className='comment'>
+		<div className="comment">
 			<div className="comment-form">
-				<div className={`user-avatar ${user.role === 'mediator' && 'user-avatar_mediator'}`}>
+				<div
+					className={`user-avatar ${
+						user.role === 'mediator' && 'user-avatar_mediator'
+					}`}
+				>
 					<p className="user-name">{user.last_name[0] ?? ''}</p>
 				</div>
-				<TextArea rows={1} error="" value={commentData.content} handleChange = {handleCommentChange}>
-					<button label="" aria-label="attache file" type="button" onClick={handleAddFile} className='comment-pipe' />
+				<TextArea
+					maxLength={1000}
+					minLength={25}
+					placeholder={'Добавить комментарии не менее 25 символов и не более 1000'}
+					rows={1}
+					error=""
+					value={commentData.content}
+					handleChange={handleCommentChange}
+				>
+					<button
+						label=""
+						aria-label="attache file"
+						type="button"
+						onClick={handleAddFile}
+						className="comment-pipe"
+					/>
 				</TextArea>
 				<Button
 					size="micro"
@@ -53,11 +85,11 @@ function CommentForm({ user, onSend }) {
 					type="button"
 					before="send"
 					onClick={handleSend}
-					disabled = {!commentData.content}
+					disabled={checkValidSend()}
 				/>
 			</div>
 			{fileAdd ? (
-				<div className='file-conteiner'>
+				<div className="file-conteiner">
 					{/* Блок рабооты с файлами */}
 					<div className="new-dispute-file new-dispute-form__item-wrapper">
 						<div className="new-dispute-form__item-title-wrapper_large">
@@ -69,6 +101,8 @@ function CommentForm({ user, onSend }) {
 						<NewDisputeFileUpload
 							fileList={fileList}
 							updateFileList={updateFileList}
+							freeSize={freeSize}
+							setFreeSize={setFreeSize}
 						/>
 					</div>
 
@@ -89,7 +123,8 @@ function CommentForm({ user, onSend }) {
 							</div>
 						</div>
 					</div>
-				</div>) : null}
+				</div>
+			) : null}
 		</div>
 	);
 }

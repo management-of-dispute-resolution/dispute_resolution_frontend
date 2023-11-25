@@ -11,6 +11,7 @@ import Menu from '../ui-kit/Menu/Menu';
 import Button from '../ui-kit/Button/Button';
 import useOutsideClick from '../../hook/useOutsideClick';
 import { useAuth } from '../../hook/useAuth';
+import formatDate from '../../utils/formatDate';
 
 function DisputeCard({
 	handleDeleteDispute,
@@ -19,7 +20,7 @@ function DisputeCard({
 	description,
 	status,
 	closed_at: closedAt,
-	created_at: CreatedAt,
+	created_at: createdAt,
 	files,
 	id,
 	onClick,
@@ -34,6 +35,9 @@ function DisputeCard({
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const navigate = useNavigate();
+
+	const formatedDateOpen = formatDate(createdAt, true);
+	const formatedDateClose = formatDate(closedAt, true);
 
 	const statusInterface = {
 		closed: 'Решено',
@@ -132,9 +136,9 @@ function DisputeCard({
 					<div className={disputeHeaderClasses}>
 						<h2
 							className={disputeTitleClasses}
-						>{`${creator?.first_name} ${creator?.last_name} ${CreatedAt}`}</h2>
+						>{`${creator?.first_name} ${creator?.last_name} ${formatedDateOpen}`}</h2>
 						{status === 'closed' ? (
-							<p className={closedTimeClasses}>{`Решено: ${closedAt}`}</p>
+							<p className={closedTimeClasses}>{`Решено: ${formatedDateClose}`}</p>
 						) : (
 							''
 						)}
