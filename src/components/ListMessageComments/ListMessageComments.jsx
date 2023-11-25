@@ -6,7 +6,7 @@ import MessageComments from '../MessageComments/MessageComments';
 function ListMessageComments({ comments }) {
 	return (
 		<section className="comments">
-			{comments.map((comment) => (
+			{[...comments].reverse().map((comment) => (
 				<MessageComments
 					{...comment}
 					key={comment.id}
