@@ -35,14 +35,15 @@ export const AuthProvider = ({ children }) => {
 	const [loginServerError, setloginServerError] = useState('');
 	const [changePasswordStatus, setChangePasswordStatus] = useState('');
 
+	const [newCardDispute, setNewCardDispute] = useState({})
 
 	// роверка авторизации
-	
+
 	const checkAuth = useCallback(async () => {
-	
+
 		if (localStorage.getItem('token')) {
 
-			try{
+			try {
 				const userData = await getUserInfo();
 				if (userData) {
 					setUser(userData);
@@ -50,25 +51,23 @@ export const AuthProvider = ({ children }) => {
 					setIsBooted(true);
 				}
 			}
-			
-			catch(err) {
-				if(err.res.status === 401) {
+
+			catch (err) {
+				if (err.res.status === 401) {
 					console.log('Ошибка при получении данных пользователя');
 					localStorage.removeItem('token');
 					setIsLoggedIn(false);
 					setIsLoading(false);
 					setIsBooted(true);
 				}
-				
 			}
 		}
 		else {
 			setIsBooted(true);
 		}
 		setIsLoading(false);
-	
-		
 	}, []);
+
 	// LOGIN
 	const signin = async (newUser) => {
 		setLoginStatus('')
@@ -86,22 +85,17 @@ export const AuthProvider = ({ children }) => {
 				navigate('disputes');
 			}
 		} catch (err) {
-
-// можно завязаться толькоо на статус ошибки как бэк поменяет
-
+			// можно завязаться толькоо на статус ошибки как бэк поменяет
 			if (err.res.status === 401 || err.data.non_field_errors[0].includes('Unable to log in with provided credentials.')) {
 				setLoginStatus(UNAUTHORIZED_ERROR_MESSAGE)
 
-			} else{
+			} else {
 				setloginServerError(SERVER_ERROR_MESSAGE)
 			}
-			
-			
-			
-			
 		}
 		setIsLoading(false);
 	};
+
 	// LOGOUT
 	const signout = async () => {
 		setIsLoading(true);
@@ -111,7 +105,6 @@ export const AuthProvider = ({ children }) => {
 				setUser({});
 				setIsLoggedIn(false);
 				localStorage.removeItem('token');
-				
 			}
 		} catch (err) {
 			console.error('res Error', err);
@@ -123,23 +116,14 @@ export const AuthProvider = ({ children }) => {
 		setChangePasswordStatus('')
 		setIsLoading(true);
 		try {
-
-
 			const respChangePass = await changePassword({
 				new_password: passwordData.newPassword,
 				current_password: passwordData.password
 			});
-
-
 			console.log(respChangePass);
-
 			setChangePasswordStatus(SUCCESS_MESSAGE)
 		}
-
-
 		catch (err) {
-
-			
 			if (err.data.current_password[0].includes('Invalid password')
 			) {
 				console.log("Неверный текущий пароль")
@@ -148,15 +132,9 @@ export const AuthProvider = ({ children }) => {
 			} else {
 				setChangePasswordStatus(SERVER_ERROR_MESSAGE)
 			}
-
-
 		}
 		setIsLoading(false);
-
-
-
 	};
-
 
 	// eslint-disable-next-line react/jsx-no-constructed-context-values
 	const value = {
@@ -173,10 +151,10 @@ export const AuthProvider = ({ children }) => {
 		isBooted,
 		loginStatus,
 		setLoginStatus,
-		changePasswordStatus,setChangePasswordStatus,
+		changePasswordStatus, setChangePasswordStatus,
 		setIsPasswordServerError, isPasswordServerError,
-		loginServerError, setloginServerError
-
+		loginServerError, setloginServerError,
+		newCardDispute, setNewCardDispute
 	};
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

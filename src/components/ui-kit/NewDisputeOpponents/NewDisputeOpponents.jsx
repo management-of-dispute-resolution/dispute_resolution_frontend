@@ -4,11 +4,15 @@ import PropTypes from 'prop-types';
 import './NewDisputeOpponents.css';
 import { NewDisputeOpponentsModal } from './NewDisputeOpponentsModal/NewDisputeOpponentsModal';
 import { getUsers } from '../../../utils/api/user.api';
+import { useAuth } from '../../../hook/useAuth';
 
 export const NewDisputeOpponents = ({
 	selectedOpponents, // Стейт уже выбранных
 	handleSetSelectedOpponents, // Возвращаем новый стейт выбранных
 }) => {
+
+	const { currentUser } = useAuth()
+
 	// Модалка выбора оппонента
 	const [chooseOpponentModal, setChooseOpponentModal] = useState(false);
 	// Промежуточный стейт показа оппонентов
@@ -37,8 +41,10 @@ export const NewDisputeOpponents = ({
 		setChooseOpponentModal(true);
 		const findUserApi = await getUsers({ queryParam: 'search', value })
 		const findUser = findUserApi.reduce((acc, cur) => {
-			if (!selectedOpponents.find(item => item.id === cur.id)) {
-				acc.push(cur);
+			if (currentUser.id !== cur.id) {
+				if (!selectedOpponents.find(item => item.id === cur.id)) {
+					acc.push(cur);
+				}
 			}
 			return acc;
 		}, [])

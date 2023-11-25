@@ -7,7 +7,7 @@ import { useAuth } from '../../../hook/useAuth';
 import Preloader from '../../Preloader/Preloader';
 
 const CreateDisputePage = () => {
-	const { isLoading, setIsLoading } = useAuth();
+	const { isLoading, setIsLoading, newCardDispute } = useAuth();
 
 	const navigate = useNavigate();
 
@@ -29,6 +29,9 @@ const CreateDisputePage = () => {
 			{isLoading && <Preloader />}
 			{!isLoading && (
 				<NewDisputeForm
+					initialSelectedOpponents={newCardDispute.selectedOpponents}
+					initialDisputeText={newCardDispute.disputeText}
+					initialFileList={newCardDispute.fileList}
 					handleRequestNewDispute={handleCreateDispute}
 					isEditDispute={false}
 				/>

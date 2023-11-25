@@ -1,4 +1,4 @@
-.comment{
+.comment {
 	background: var(--Background);
 	width: inherit;
 }
@@ -27,8 +27,7 @@
 	cursor: pointer;
 }
 
-.user-avatar_mediator
-{
+.user-avatar_mediator {
 	background: var(--Accent);
 }
 
@@ -43,12 +42,12 @@
 	font-weight: 500;
 	line-height: normal;
 }
-.file-conteiner{
+.file-conteiner {
 	margin: 0 auto;
 	max-width: 1194px;
 }
 
-.comment-pipe{
+.comment-pipe {
 	background: url(../../../Images/paperClip.svg);
 	margin-right: 24px;
 	width: 30px;
@@ -70,7 +69,7 @@
 	display: flex;
 	flex-direction: column;
 	gap: 30px;
-	width: 1080px;
+	width: 1200px;
 	min-height: 633px;
 }
 
