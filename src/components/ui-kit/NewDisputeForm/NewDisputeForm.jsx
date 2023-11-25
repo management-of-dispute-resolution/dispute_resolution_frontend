@@ -80,7 +80,7 @@ const NewDisputeForm = ({
 	}, []);
 
 	const handleValidNewDisputeText = () => {
-		if (disputeText.newDisputeText.length < 25) {
+		if (disputeText.newDisputeText?.length < 25 ) {
 			setErrorExplanation('Минимальное количество знаков поля: Описание конфликта - 25.');
 		}
 	}
