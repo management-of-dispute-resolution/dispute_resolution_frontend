@@ -11,6 +11,7 @@ function CommentForm({ user, onSend }) {
 	const [commentData, setCommentData] = useState({content: '', file: []}); 
 	const [fileList, setFileList] = useState([]);
 	const [fileAdd, setFileAdd] = useState(false);
+	const [freeSize, setFreeSize] = useState(10); // Объем свободного места
 	
 	const handleCommentChange = (evt) => {
 		const {value} = evt.target;
@@ -25,12 +26,20 @@ function CommentForm({ user, onSend }) {
 		setFileList(updatedList);
 		setCommentData((prev) => ({ ...prev, 'file': updatedList }));
 	};
-	// Удаление файла из массива для загрузки
+	
+	const formatBytes = (bytes) => {
+		if (!+bytes) return 0;
+		const kb = 1024;
+		const mb = kb ** 2;
+		return parseFloat((bytes / mb).toFixed(2));
+	};
+	
 	const handleDeleteFile = (item) => {
+		const updateFilesSize = freeSize + formatBytes(item.size);
+		setFreeSize(updateFilesSize)
 		const updatedList = [...fileList];
 		updatedList.splice(fileList.indexOf(item), 1);
 		setFileList(updatedList);
-		setCommentData((prev) => ({ ...prev, 'file': updatedList }));
 	};
 	const handleAddFile = () => {
 		setFileAdd(!fileAdd)
@@ -92,6 +101,8 @@ function CommentForm({ user, onSend }) {
 						<NewDisputeFileUpload
 							fileList={fileList}
 							updateFileList={updateFileList}
+							freeSize={freeSize}
+							setFreeSize={setFreeSize}
 						/>
 					</div>
 

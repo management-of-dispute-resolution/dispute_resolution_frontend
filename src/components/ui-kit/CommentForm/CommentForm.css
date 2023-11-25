@@ -1,6 +1,10 @@
 .comment {
 	background: var(--Background);
 	width: inherit;
+	position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 .comment-form {
 	display: flex;
@@ -10,7 +14,7 @@
 	margin: 0;
 	gap: 24px;
 	padding: 36px 70px 24px;
-	min-height: 13vh;
+	/* min-height: 13vh; */
 }
 
 .user-avatar {

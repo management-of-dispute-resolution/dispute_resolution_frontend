@@ -2,8 +2,8 @@
 	display: flex;
 	flex-direction: column;
 	align-self: start;
-	margin: auto;
-    padding: 40px 110px 71px 350px;
+	margin: auto 0; 
+    padding: 40px 110px 150px 350px;
 	row-gap: 40px;
     box-sizing: border-box;
 }
