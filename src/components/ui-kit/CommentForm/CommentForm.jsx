@@ -64,7 +64,7 @@ function CommentForm({ user, onSend }) {
 				<TextArea
 					maxLength={1000}
 					minLength={25}
-					placeholder={'Добавить комментарии не менее 25 символов и не более 1000'}
+					placeholder='Добавить комментарии не менее 25 символов и не более 1000'
 					rows={1}
 					error=""
 					value={commentData.content}
@@ -130,14 +130,16 @@ function CommentForm({ user, onSend }) {
 }
 
 CommentForm.propTypes = {
-	user: PropTypes.objectOf(CommentForm),
-	onSend: PropTypes.func,
+	user: PropTypes.shape({
+		last_name: PropTypes.string,
+		role: PropTypes.string,
+	}),
+	onSend: PropTypes.func.isRequired,
 };
 
 CommentForm.defaultProps = {
 	user: {},
-	onSend: () => { },
-	onSend: () => { },
+	onSend: () => {},
 };
 
 export default CommentForm;

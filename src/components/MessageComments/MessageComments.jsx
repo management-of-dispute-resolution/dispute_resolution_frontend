@@ -25,6 +25,8 @@ function MessageComments({
 			: `${last_name} ${first_name[0]}.`;
 	const formatedDate = formatDate(date, true);
 
+	const fileListType = isDisputePage ? 'dispute' : 'message';
+
 	return (
 		<div className="message">
 			<div
@@ -45,7 +47,7 @@ function MessageComments({
 				</div>
 				<p className={messageClasses}>{text}</p>
 				<div className="message__list-documents">
-					<FileList files={files} />
+					<FileList files={files} type={fileListType}/>
 				</div>
 			</div>
 		</div>
@@ -60,8 +62,9 @@ MessageComments.propTypes = {
 	text: PropTypes.string,
 	files: PropTypes.arrayOf(
 		PropTypes.shape({
-			linkFile: PropTypes.string,
-			nameFile: PropTypes.string,
+			id: PropTypes.number.isRequired,
+			filename: PropTypes.string.isRequired,
+			file: PropTypes.string.isRequired,
 		})
 	),
 	isDisputePage: PropTypes.bool,
@@ -73,7 +76,7 @@ MessageComments.defaultProps = {
 	role: '',
 	date: '',
 	text: '',
-	files: [{ linkFile: '', nameFile: '' }],
+	files: [],
 	isDisputePage: false,
 };
 export default MessageComments;

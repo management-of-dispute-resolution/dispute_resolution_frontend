@@ -1,6 +1,6 @@
 .message {
 	display: flex;
-	max-width: 910px;
+	width: 910px;
 }
 
 .message__icon {
