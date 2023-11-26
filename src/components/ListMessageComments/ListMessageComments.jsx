@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import './ListMessageComments.css';
 import MessageComments from '../MessageComments/MessageComments';
 
-function ListMessageComments({ comments }) {
+function ListMessageComments({ comments, ...props}) {
 	return (
 		<section className="comments">
 			{[...comments].reverse().map((comment) => (
 				<MessageComments
 					{...comment}
+					{...props} 
 					key={comment.id}
 					last_name={comment.sender.last_name}
 					first_name={comment.sender.first_name}
