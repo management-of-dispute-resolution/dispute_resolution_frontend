@@ -2,7 +2,7 @@ function formatDate(inputDate, short) {
 	const currentDate = new Date();
 	const inputDateTime = new Date(inputDate);
 
-	if (!short) {
+	if (short) {
 		const options = {
 			day: 'numeric',
 			month: 'short',
