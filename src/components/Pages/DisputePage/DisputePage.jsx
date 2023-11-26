@@ -24,7 +24,6 @@ const DisputePage = () => {
 	const navigate = useNavigate();
 	const [dispute, setDispute] = useState();
 	const [comments, setComments] = useState();
-	const [users, setUsers] = useState([]);
 
 	const { isLoading, setIsLoading, currentUser } = useAuth();
 	const { state } = useLocation();
@@ -77,7 +76,7 @@ const DisputePage = () => {
 			console.error('res Error ', err);
 			setInfo({
 				...INFO_STATES.GENERAL_ERROR,
-				errorText: err.status,
+				errorText: err.data.detail || err.status,
 			});
 		}
 	};
@@ -120,8 +119,6 @@ const DisputePage = () => {
 			? true
 			: false;
 	};
-
-	const goDisputes = () => navigate('/disputes');
 
 	useEffect(() => {
 		(async () => {
