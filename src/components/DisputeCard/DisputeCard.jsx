@@ -12,6 +12,7 @@ import useOutsideClick from '../../hook/useOutsideClick';
 import { useAuth } from '../../hook/useAuth';
 import MessageComments from '../MessageComments/MessageComments';
 import formatDate from '../../utils/formatDate';
+import OpponentListTooltip from '../ui-kit/OpponentListTooltip/OpponentListTooltip';
 
 function DisputeCard({
 	handleDeleteDispute,
@@ -30,6 +31,8 @@ function DisputeCard({
 }) {
 	const { currentUser } = useAuth();
 
+	const isDisabled = status !== 'not_started';
+
 	function isCreator() {
 		return currentUser && currentUser.id === creator.id;
 	}
@@ -37,23 +40,40 @@ function DisputeCard({
 		return currentUser.role === 'mediator';
 	}
 
-	function isOpponentOrGroup() {
+	function getOpponentText() {
 		if (opponent && opponent.length > 1) {
-			return 'с группой';
+			return (
+				<>
+					{`с `}
+					<OpponentListTooltip opponents={opponent} />
+				</>
+			);
 		}
 		return `с ${opponent[0].first_name} ${opponent[0].last_name[0]}. `;
 	}
 
 	function disputeTitle() {
+		const creatorName = `${creator?.first_name} ${creator?.last_name[0]}.`;
+
 		if (isCreator()) {
-			return `Конфликт ${isOpponentOrGroup()}`;
+			return (
+				<>
+					{`Конфликт `}
+					{getOpponentText()}
+				</>
+			);
 		}
-		if (currentUser && isMediator()) {
-			return `${creator?.first_name} ${
-				creator?.last_name[0]
-			}.:конфликт ${isOpponentOrGroup()}`;
+
+		if (isMediator()) {
+			return (
+				<>
+					{`${creatorName}: конфликт `}
+					{getOpponentText()}
+				</>
+			);
 		}
-		return `Конфликт с ${creator?.first_name} ${creator?.last_name[0]}. `;
+
+		return `Конфликт с ${creatorName}`;
 	}
 
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -145,8 +165,6 @@ function DisputeCard({
 		}
 	}
 
-	const isDisabled = status !== 'not_started';
-
 	return (
 		<div className={disputeCardClasses}>
 			<div
@@ -163,9 +181,10 @@ function DisputeCard({
 				<div className={disputeStatusClasses}>{statusInterface[status]}</div>
 				<div className={disputeContentClasses}>
 					<div className={disputeHeaderClasses}>
-						<h2
-							className={disputeTitleClasses}
-						>{`${disputeTitle()} ${formatDate(createdAt)}`}</h2>
+						<h2 className={disputeTitleClasses}>
+							{disputeTitle()}
+							{` ${formatDate(createdAt)}`}
+						</h2>
 						{status === 'closed' ? (
 							<p className={closedTimeClasses}>{`Решено: ${formatDate(
 								closedAt
