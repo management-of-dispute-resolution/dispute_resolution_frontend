@@ -11,16 +11,22 @@ const MessageFunction = (args) => <MessageComments {...args} />;
 export const Default = MessageFunction.bind({});
 
 Default.args = {
-	first_name: 'Виктор',
-	last_name: 'Петров',
-	date: '8 окт в 18:13',
-	text: 'Здесь отображается какой-нибудь последний комментарий, совсем чуть-чуточку, ограничение, наверно, буквально в какие-нибудь пару строчичек, возможно, написано...Здесь отображается какой-нибудь последний комментарий, совсем чуть-чуточку, ограничение, какое-нибудь завершение обращения',
+	first_name: 'Иван',
+	last_name: 'Иванов',
+	role: 'user',
+	date: '2021-10-08T18:13:00Z',
+	text: 'Это пример текста комментария, который отображается в компоненте MessageComments.',
 	files: [
-		{
-			linkFile: '/',
-			nameFile: 'Название документа111111111111111111111111111111.pdf',
-		},
-		{ linkFile: '/', nameFile: 'Название документа.jpg' },
+	  {
+		id: 1,
+		filename: 'документ.pdf',
+		file: '/path/to/document.pdf',
+	  },
+	  {
+		id: 2,
+		filename: 'изображение.jpg',
+		file: '/path/to/image.jpg',
+	  },
 	],
-	isDisputePage: true,
+	isDisputePage: false,
 };
