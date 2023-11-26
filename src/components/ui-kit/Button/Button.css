@@ -59,7 +59,7 @@
 	border-radius: 6px;
 	font-weight: 400;
 }
-.button_color_transperent:hover {
+.button_color_transperent:hover:not([disabled]) {
 	background-color: var(--Select-hover);
 }
 /* Типы before */
