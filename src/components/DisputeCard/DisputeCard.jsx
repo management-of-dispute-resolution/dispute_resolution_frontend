@@ -49,11 +49,11 @@ function DisputeCard({
 				</>
 			);
 		}
-		return `с ${opponent[0].first_name} ${opponent[0].last_name[0]}. `;
+		return `с ${opponent[0].last_name} ${opponent[0].first_name[0]}. `;
 	}
 
 	function disputeTitle() {
-		const creatorName = `${creator?.first_name} ${creator?.last_name[0]}.`;
+		const creatorName = `${creator?.last_name} ${creator?.first_name[0]}.`;
 
 		if (isCreator()) {
 			return (
