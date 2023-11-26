@@ -160,6 +160,10 @@
 	background-color: transparent;
 	cursor: pointer;
 }
+.dispute-card__option:hover {
+	background-color: var(--Select-hover);
+	border-radius: 6px; /*ЭТО САМОДЕЛКА, НЕ ОТ ДИЗАЙНЕРА*/
+}
 .dispute-card__option-container {
 	margin: 0;
 	padding: 0;
