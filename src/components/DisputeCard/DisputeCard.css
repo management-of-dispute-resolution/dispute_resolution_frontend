@@ -156,14 +156,19 @@
 	width: 90px;
 	height: 40px;
 	background-image: url(./../../Images/Menu_Icon.svg);
-
 	background-color: transparent;
 	cursor: pointer;
+	border-radius: 50%;
+	background-position: center;
 }
+
 .dispute-card__option:hover {
-	background-color: var(--Select-hover);
-	border-radius: 6px; /*ЭТО САМОДЕЛКА, НЕ ОТ ДИЗАЙНЕРА*/
+	width: 40px;
+	margin-left: 45px;
+	background-color: var(--Background);
+	border-radius: 20%;
 }
+
 .dispute-card__option-container {
 	margin: 0;
 	padding: 0;
