@@ -16,10 +16,12 @@ function DisputeCardList({
 					<DisputeCard
 						key={card.id} // Обязательно указывайте уникальный ключ при отображении списков компонентов
 						creator={card.creator}
+						opponent={card.opponent}
 						description={card.description}
 						status={card.status}
 						closed_at={card.closed_at}
 						created_at={card.created_at}
+						last_comment={card.last_comment}
 						files={card.file}
 						id={card.id}
 						onClick={onClick}
@@ -28,7 +30,7 @@ function DisputeCardList({
 					/>
 				))
 			) : (
-				<p>Обращений пока нет</p>
+				<p className="dispute-cardlist__empty">Обращений пока нет</p>
 			)}
 		</div>
 	);

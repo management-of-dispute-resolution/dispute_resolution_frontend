@@ -5,18 +5,25 @@ import PropTypes from 'prop-types';
 import FileList from '../ui-kit/FileList/FileList';
 import formatDate from '../../utils/formatDate';
 
-function MessageComments({ first_name, last_name, role, date, text, files, isDisputePage}) {
-
+function MessageComments({
+	first_name,
+	last_name,
+	role,
+	date,
+	text,
+	files,
+	isDisputePage,
+}) {
 	const messageClasses = clsx('message__text', {
-		'message__text_one-line': isDisputePage && (role === 'mediator'),
-		'message__text_two-lines': isDisputePage && (role !== 'mediator'),
-	  });
+		'message__text_one-line': isDisputePage && role === 'mediator',
+		'message__text_two-lines': isDisputePage && role !== 'mediator',
+	});
 
 	const userTitle =
 		role === 'mediator'
 			? `Медиатор ${first_name}`
 			: `${last_name} ${first_name[0]}.`;
-	const formatedDate = formatDate(date);
+	const formatedDate = formatDate(date, true);
 
 	return (
 		<div className="message">

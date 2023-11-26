@@ -65,6 +65,7 @@
 
 	/* переполнение */
 	/* height: 154px; */
+	word-wrap: break-word;
 	display: -webkit-box;
 	-webkit-line-clamp: 7;
 	-webkit-box-orient: vertical;
@@ -159,6 +160,10 @@
 	background-color: transparent;
 	cursor: pointer;
 }
+.dispute-card__option:hover {
+	background-color: var(--Select-hover);
+	border-radius: 6px; /*ЭТО САМОДЕЛКА, НЕ ОТ ДИЗАЙНЕРА*/
+}
 .dispute-card__option-container {
 	margin: 0;
 	padding: 0;
@@ -200,6 +205,9 @@
 	-webkit-box-orient: initial;
 	overflow: initial;
 }
+.dispute-card__text_type_disputesPage {
+	-webkit-line-clamp: 2;
+}
 .dispute-card__close {
 	position: absolute;
 	border: 0;
@@ -211,4 +219,7 @@
 	height: 46px;
 	top: 0;
 	right: 0;
+}
+.dispute-card__last-message {
+	margin-top: 24px;
 }

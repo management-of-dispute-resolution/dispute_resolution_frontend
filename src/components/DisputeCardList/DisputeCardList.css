@@ -5,3 +5,11 @@
 	row-gap: 40px;
 	justify-content: center;
 }
+.dispute-cardlist__empty {
+	font-family: Inter;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 24px;
+	letter-spacing: 0px;
+	text-align: left;
+}
