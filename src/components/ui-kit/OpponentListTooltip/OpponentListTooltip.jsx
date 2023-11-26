@@ -10,7 +10,7 @@ const OpponentListTooltip = ({ opponents }) => {
 	};
 
 	const handleMouseLeave = () => {
-		setIsHovered(false);
+		setIsHovered(true);
 	};
 
 	return (
@@ -30,7 +30,7 @@ const OpponentListTooltip = ({ opponents }) => {
 							<li
 								className="opponents__item"
 								key={opponent.id}
-							>{`${opponent.first_name} ${opponent.last_name[0]}.`}</li>
+							>{` ${opponent.last_name} ${opponent.first_name[0]}.`}</li>
 						))}
 					</ul>
 				</div>
