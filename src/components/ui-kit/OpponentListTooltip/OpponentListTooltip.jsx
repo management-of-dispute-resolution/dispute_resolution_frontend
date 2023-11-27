@@ -10,7 +10,7 @@ const OpponentListTooltip = ({ opponents }) => {
 	};
 
 	const handleMouseLeave = () => {
-		setIsHovered(true);
+		setIsHovered(false);
 	};
 
 	return (
