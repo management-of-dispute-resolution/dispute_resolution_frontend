@@ -20,6 +20,10 @@
 	max-width: 200px;
 	text-decoration: none;
 }
+.file:hover {
+	transition: opacity 0.3s ease;
+	opacity: 0.3;
+}
 .file__name {
 	/* display: flex;
 	align-items: center; */
