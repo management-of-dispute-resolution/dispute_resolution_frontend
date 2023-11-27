@@ -15,8 +15,8 @@ function MessageComments({
 	isDisputePage,
 }) {
 	const messageClasses = clsx('message__text', {
-		'message__text_one-line': isDisputePage && role === 'mediator',
-		'message__text_two-lines': isDisputePage && role !== 'mediator',
+		'message__text_one-line': !isDisputePage && role === 'mediator',
+		'message__text_two-lines': !isDisputePage && role !== 'mediator',
 	});
 
 	const userTitle =
