@@ -14,18 +14,18 @@ const Layout = ({ handleCreateDispute }) => {
 
 	const location = useLocation();
 	const { pathname } = location;
-	
+
 	const [isPasswordFormOpen, setPasswordFormOpen] = useState(false);
-	
+
 	const openChangePasswordForm = () => {
 		setPasswordFormOpen(true)
 		setChangePasswordStatus('')
-	
+
 	};
 
 	const closeChangePasswordForm = () => {
 		setPasswordFormOpen(false)
-	
+
 	};
 
 
@@ -45,11 +45,11 @@ const Layout = ({ handleCreateDispute }) => {
 				onSignOut={signout}
 				openChangePasswordForm={openChangePasswordForm}
 			/>
-			<PasswordChangeForm isOpen={isPasswordFormOpen} 
-			onClose={closeChangePasswordForm} 
-			statusMessage={changePasswordStatus} 
-			handleChangePassword={handleChangePassword}
-			isLoading={isLoading}/>
+			<PasswordChangeForm isOpen={isPasswordFormOpen}
+				onClose={closeChangePasswordForm}
+				statusMessage={changePasswordStatus}
+				handleChangePassword={handleChangePassword}
+				isLoading={isLoading} />
 			<main className={`layout__container align-flex-center ${styleList}`}>
 
 				<Outlet />
@@ -62,10 +62,10 @@ export { Layout };
 
 Layout.propTypes = {
 	handleCreateDispute: PropTypes.func,
-	
+
 };
 
 Layout.defaultProps = {
 	handleCreateDispute: undefined,
-	
+
 };

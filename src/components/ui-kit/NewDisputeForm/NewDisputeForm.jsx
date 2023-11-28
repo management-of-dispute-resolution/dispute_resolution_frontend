@@ -80,7 +80,7 @@ const NewDisputeForm = ({
 	}, []);
 
 	const handleValidNewDisputeText = () => {
-		if (disputeText.newDisputeText.length < 25) {
+		if (disputeText.newDisputeText && disputeText.newDisputeText.length < 25) {
 			setErrorExplanation('Минимальное количество знаков поля: Описание конфликта - 25.');
 		}
 	}
@@ -216,7 +216,6 @@ const NewDisputeForm = ({
 						)}
 
 						{/* Отображение загруженных файлов */}
-						{/* {!isEditDispute && fileList.length > 0 ? ( */}
 						<div className="file-preview">
 							{fileList.map((item) => (
 								<FilePreview
