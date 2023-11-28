@@ -111,9 +111,7 @@ const DisputesPage = () => {
 						handleChangeDispute={handleChangeDispute}
 						handleDeleteDispute={handleDeleteDispute}
 					/>
-					{totalPages === 1 ? (
-						''
-					) : (
+					{totalPages > 1 && (
 						<div className="pagination-container">
 							<SelectLimit onLimitChange={HandleLimitChange} limit={limit} />
 							<Pagination
