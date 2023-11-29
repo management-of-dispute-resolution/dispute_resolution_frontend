@@ -74,13 +74,13 @@ const NewDisputeForm = ({
 			}
 			setDisputeText((prev) => ({ ...prev, [name]: value }));
 		} else {
-			setErrorExplanation('Введите корректное опписание конфликта. Допустимые символы - кирилица, латиница и знаки препинания.');
+			setErrorExplanation('Введите корректное описание конфликта. Допустимые символы - кирилица, латиница и знаки препинания.');
 			setTimeout(() => setErrorExplanation(''), 4000)
 		}
 	}, []);
 
 	const handleValidNewDisputeText = () => {
-		if (disputeText.newDisputeText?.length < 25 ) {
+		if (disputeText.newDisputeText && disputeText.newDisputeText.length < 25) {
 			setErrorExplanation('Минимальное количество знаков поля: Описание конфликта - 25.');
 		}
 	}
@@ -216,7 +216,6 @@ const NewDisputeForm = ({
 						)}
 
 						{/* Отображение загруженных файлов */}
-						{/* {!isEditDispute && fileList.length > 0 ? ( */}
 						<div className="file-preview">
 							{fileList.map((item) => (
 								<FilePreview

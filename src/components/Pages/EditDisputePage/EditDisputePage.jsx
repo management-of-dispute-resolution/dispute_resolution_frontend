@@ -40,6 +40,7 @@ const EditDisputePage = () => {
 		setIsLoading(true);
 		try {
 			const reqData = await handleFormDataRequest(`/api/disputes/${disputeId}/`, 'PATCH', data);
+
 			const { id } = reqData;
 			navigate(`/disputes/${id}`, { state: { createMessage: 'edit' } });
 		} catch (err) {
