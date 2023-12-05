@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './FilePreview.css';
-import { ImageConfig } from './config';
+import { ImageConfig } from '../../../config/FileIconConfig';
 
 export const FilePreview = ({ item, onDeleteFile, isEditDispute }) => {
 	const { name, type } = item;
@@ -13,12 +13,14 @@ export const FilePreview = ({ item, onDeleteFile, isEditDispute }) => {
 	return (
 		<div className="drop-file-preview__item">
 			<div className="drop-file-preview__img-wrapper">
-				{!isEditDispute && <button
-					className="drop-file-preview__delete"
-					type="button"
-					aria-label="Кнопка удаления вложенного файла"
-					onClick={() => onDeleteFile(item)}
-				/>}
+				{!isEditDispute && (
+					<button
+						className="drop-file-preview__delete"
+						type="button"
+						aria-label="Кнопка удаления вложенного файла"
+						onClick={() => onDeleteFile(item)}
+					/>
+				)}
 				<img
 					className="drop-file-preview__img"
 					src={ImageConfig[fileType]}

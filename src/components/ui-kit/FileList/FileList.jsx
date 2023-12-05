@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ImageConfig } from './config'; // Импортируйте конфигурацию изображений
+import { ImageConfig } from '../../../config/FileIconConfig';
+
 import './FileList.css';
 
 function FileList({ files, type }) {
