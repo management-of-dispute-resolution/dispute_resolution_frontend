@@ -2,7 +2,7 @@ import FileList from './FileList';
 import './FileList.css';
 
 export default {
-	title: 'Dispute_Resolution/FileList',
+	title: 'Dispute_Resolution/ui-kit/FileList',
 	component: FileList,
 	tags: ['autodocs'],
 };

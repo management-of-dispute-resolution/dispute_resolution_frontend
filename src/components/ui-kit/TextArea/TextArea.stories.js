@@ -1,7 +1,7 @@
 import TextArea from './TextArea';
 
 export default {
-	title: 'Dispute_Resolution/TextArea',
+	title: 'Dispute_Resolution/ui-kit/TextArea',
 	component: TextArea,
 	tags: ['autodocs'],
 	argTypes: {

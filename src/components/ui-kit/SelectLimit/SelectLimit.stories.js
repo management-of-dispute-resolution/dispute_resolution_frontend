@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import SelectLimit from './SelectLimit';
 
 export default {
-    title: 'Dispute_Resolution/SelectLimit',
+    title: 'Dispute_Resolution/ui-kit/SelectLimit',
     component: SelectLimit,
 };
 

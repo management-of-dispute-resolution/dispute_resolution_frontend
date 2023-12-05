@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Pagination from './Pagination';
 
 export default {
-    title: 'Dispute_Resolution/Pagination',
+    title: 'Dispute_Resolution/ui-kit/Pagination',
     component: Pagination,
 };
 

@@ -1,4 +1,3 @@
-import { AuthProvider } from '../../hok/AuthProvider';
 import DisputeCard from './DisputeCard';
 import './DisputeCard.css';
 
@@ -8,12 +7,6 @@ export default {
 	tags: ['autodocs'],
 };
 
-const fakeUseAuth = () => ({
-	currentUser: {
-		id: 0,
-		// Другие поля currentUser
-	},
-});
 
 export const Default = {
 	args: {
@@ -62,9 +55,7 @@ export const Default = {
 
 Default.decorators = [
 	(Story) => (
-		<AuthProvider useAuth={fakeUseAuth}>
-			<Story />
-		</AuthProvider>
+		<Story />
 	),
 ];
 

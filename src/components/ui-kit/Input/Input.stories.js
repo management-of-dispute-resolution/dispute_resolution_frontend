@@ -2,7 +2,7 @@ import Input from './Input';
 import '../../../index.css';
 
 export default {
-	title: 'Dispute_Resolution/Input',
+	title: 'Dispute_Resolution/ui-kit/Input',
 	component: Input,
 	tags: ['autodocs'],
 	argTypes: {
