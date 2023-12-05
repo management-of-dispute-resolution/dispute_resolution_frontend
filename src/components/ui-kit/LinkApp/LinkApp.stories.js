@@ -1,4 +1,3 @@
-import { BrowserRouter } from 'react-router-dom';
 import LinkApp from './LinkApp';
 
 export default {
@@ -8,9 +7,8 @@ export default {
 };
 
 const LinkFunction = (args) => (
-	<BrowserRouter>
-		<LinkApp {...args} />
-	</BrowserRouter>
+	<LinkApp {...args} />
+
 );
 
 export const Default = LinkFunction.bind({});
