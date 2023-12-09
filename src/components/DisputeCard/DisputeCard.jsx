@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 import clsx from 'clsx';
 import './DisputeCard.css';
 import PropTypes from 'prop-types';
@@ -9,7 +8,11 @@ import PropTypes from 'prop-types';
 import FileList from '../ui-kit/FileList/FileList';
 import Menu from '../ui-kit/Menu/Menu';
 import Button from '../ui-kit/Button/Button';
-import useOutsideClick from '../../hook/useOutsideClick'
+import useOutsideClick from '../../hook/useOutsideClick';
+import { useAuth } from '../../hook/useAuth';
+import MessageComments from '../MessageComments/MessageComments';
+import formatDate from '../../utils/formatDate';
+import OpponentListTooltip from '../ui-kit/OpponentListTooltip/OpponentListTooltip';
 
 function DisputeCard({
 	handleDeleteDispute,
@@ -18,12 +21,61 @@ function DisputeCard({
 	description,
 	status,
 	closed_at: closedAt,
-	created_at: CreatedAt,
+	created_at: createdAt,
 	files,
 	id,
 	onClick,
 	isDisputePage,
+	opponent,
+	last_comment,
 }) {
+	const { currentUser } = useAuth();
+
+	const isDisabled = status !== 'not_started';
+
+	function isCreator() {
+		return currentUser && currentUser.id === creator.id;
+	}
+	function isMediator() {
+		return currentUser.role === 'mediator';
+	}
+
+	function getOpponentText() {
+		if (opponent && opponent.length > 1) {
+			return (
+				<>
+					{`с `}
+					<OpponentListTooltip opponents={opponent} />
+				</>
+			);
+		}
+		return `с ${opponent[0].last_name} ${opponent[0].first_name[0]}. `;
+	}
+
+	function disputeTitle() {
+		const creatorName = `${creator?.last_name} ${creator?.first_name[0]}.`;
+
+		if (isCreator()) {
+			return (
+				<>
+					{`Конфликт `}
+					{getOpponentText()}
+				</>
+			);
+		}
+
+		if (isMediator()) {
+			return (
+				<>
+					{`${creatorName}: конфликт `}
+					{getOpponentText()}
+				</>
+			);
+		}
+
+		return `Конфликт с ${creatorName}`;
+	}
+
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const navigate = useNavigate();
@@ -38,25 +90,6 @@ function DisputeCard({
 		setIsMenuOpen(!isMenuOpen);
 	};
 	const menuRef = useOutsideClick(isMenuOpen, toggleMenu);
-
-	function handleClick(evt) {
-		if (!isDisputePage) {
-			if (evt.target === evt.currentTarget) {
-				// alert(id);
-				onClick(id);
-			}
-		} else {
-			console.log('isDisputePage');
-			// просто  navigate
-			navigate(-1);
-		}
-	}
-
-	function handleKeyDown(evt) {
-		if (evt.key === 'Enter') {
-			handleClick(evt);
-		}
-	}
 
 	const disputeCardClasses = clsx('dispute-card', {
 		'dispute-card_type_disputePage': isDisputePage,
@@ -89,7 +122,48 @@ function DisputeCard({
 
 	const disputeTextClasses = clsx('dispute-card__text', {
 		'dispute-card__text_type_disputePage': isDisputePage,
+		'dispute-card__text_type_disputesPage': !isDisputePage && isMediator(),
 	});
+
+	const excludedClasses = [
+		disputeCardClasses,
+		disputeContainerClasses,
+		disputeHeaderClasses,
+		disputeStatusClasses,
+		disputeContentClasses,
+		disputeTitleClasses,
+		closedTimeClasses,
+		disputeTextClasses,
+		'message',
+		'message__container',
+		'message__icon',
+		'message__heading',
+		'message__text',
+	];
+
+	function isElementExcluded(evt, classNames) {
+		return classNames.some((className) =>
+			className
+				.split(' ') // Split classes if there are multiple in one string
+				.some((singleClass) => evt.target.classList.contains(singleClass))
+		);
+	}
+
+	function handleClick(evt) {
+		if (!isDisputePage) {
+			if (isElementExcluded(evt, excludedClasses)) {
+				onClick(id);
+			}
+		} else {
+			navigate('/disputes');
+		}
+	}
+
+	function handleKeyDown(evt) {
+		if (evt.key === 'Enter') {
+			handleClick(evt);
+		}
+	}
 
 	return (
 		<div className={disputeCardClasses}>
@@ -107,15 +181,33 @@ function DisputeCard({
 				<div className={disputeStatusClasses}>{statusInterface[status]}</div>
 				<div className={disputeContentClasses}>
 					<div className={disputeHeaderClasses}>
-						<h2 className={disputeTitleClasses}>{`${creator} ${CreatedAt}`}</h2>
+						<h2 className={disputeTitleClasses}>
+							{disputeTitle()}
+							{` ${formatDate(createdAt)}`}
+						</h2>
 						{status === 'closed' ? (
-							<p className={closedTimeClasses}>{`Решено: ${closedAt}`}</p>
+							<p className={closedTimeClasses}>{`Решено: ${formatDate(
+								closedAt
+							)}`}</p>
 						) : (
 							''
 						)}
 					</div>
 					<p className={disputeTextClasses}>{description}</p>
 					<FileList files={files} />
+					{!isDisputePage && last_comment && (
+						<div className="dispute-card__last-message">
+							<MessageComments
+								isDisputePage
+								first_name={last_comment?.sender.first_name}
+								last_name={last_comment?.sender.last_name}
+								role={last_comment?.sender.role}
+								date={last_comment?.created_at}
+								text={last_comment?.content}
+								files={[]}
+							/>
+						</div>
+					)}
 				</div>
 				{isDisputePage ? (
 					<button onClick={handleClick} className="dispute-card__close">
@@ -123,9 +215,12 @@ function DisputeCard({
 					</button>
 				) : (
 					<>
-						<button onClick={toggleMenu} className="dispute-card__option">
-							{}
-						</button>
+						{isCreator() && status !== 'closed' && (
+							<button onClick={toggleMenu} className="dispute-card__option">
+								{}
+							</button>
+						)}
+
 						<div ref={menuRef} className="dispute-card__option-container">
 							<Menu
 								isOpen={isMenuOpen}
@@ -136,7 +231,8 @@ function DisputeCard({
 										color="transperent"
 										type="button"
 										before="edit"
-										onClick={handleChangeDispute}
+										onClick={() => handleChangeDispute(id)}
+										disabled={isDisabled}
 									/>
 								}
 								secondButton={
@@ -146,7 +242,7 @@ function DisputeCard({
 										color="transperent"
 										type="button"
 										before="cancel"
-										onClick={handleDeleteDispute}
+										onClick={() => handleDeleteDispute(id)}
 									/>
 								}
 							/>
@@ -169,14 +265,40 @@ DisputeCard.propTypes = {
 		phone_number: PropTypes.string,
 		role: PropTypes.string,
 	}).isRequired,
+	opponent: PropTypes.arrayOf(
+		PropTypes.shape({
+			email: PropTypes.string.isRequired,
+			id: PropTypes.number.isRequired,
+			first_name: PropTypes.string.isRequired,
+			last_name: PropTypes.string.isRequired,
+			phone_number: PropTypes.string.isRequired,
+			role: PropTypes.string.isRequired,
+		})
+	).isRequired,
 	description: PropTypes.string.isRequired,
 	created_at: PropTypes.string.isRequired,
 	handleDeleteDispute: PropTypes.func,
 	handleChangeDispute: PropTypes.func,
 	closed_at: PropTypes.string,
-	files: PropTypes.arrayOf(PropTypes.string),
+	files: PropTypes.arrayOf(
+		PropTypes.shape({
+			id: PropTypes.number.isRequired,
+			filename: PropTypes.string.isRequired,
+			file: PropTypes.string.isRequired,
+		})
+	),
 	onClick: PropTypes.func.isRequired,
 	isDisputePage: PropTypes.bool,
+	last_comment: PropTypes.shape({
+		id: PropTypes.number.isRequired,
+		sender: PropTypes.shape({
+			first_name: PropTypes.string.isRequired,
+			last_name: PropTypes.string.isRequired,
+			role: PropTypes.string.isRequired,
+		}),
+		created_at: PropTypes.string.isRequired,
+		content: PropTypes.string.isRequired,
+	}),
 };
 DisputeCard.defaultProps = {
 	closed_at: '',
@@ -184,6 +306,7 @@ DisputeCard.defaultProps = {
 	files: [],
 	handleDeleteDispute: undefined,
 	handleChangeDispute: undefined,
+	last_comment: null,
 };
 
 export default DisputeCard;

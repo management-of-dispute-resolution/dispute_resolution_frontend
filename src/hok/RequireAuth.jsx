@@ -1,21 +1,23 @@
 import React, { useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useAuth } from '../hook/useAuth';
 import Preloader from '../components/Preloader/Preloader';
 
 const RequireAuth = ({ children }) => {
 	const { isLoggedIn, checkAuth, isBooted } = useAuth();
-	const navigate = useNavigate();
+	// eslint-disable-next-line no-unused-vars
+	
 
 	useEffect(() => {
 		checkAuth();
-	}, [checkAuth, isLoggedIn, navigate]);
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-	if(isBooted) {
+	if (isBooted) {
 		return !isLoggedIn ? <Navigate to="/login" /> : children;
 	}
-	 return <Preloader />
+	return <Preloader />
 
 };
 

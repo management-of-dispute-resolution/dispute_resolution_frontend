@@ -6,4 +6,4 @@ export default {
 	component: NewDisputeFileUpload,
 };
 
-export const Default = () => <NewDisputeFileUpload />;
+export const Default = () => <NewDisputeFileUpload fileList={[]} />;

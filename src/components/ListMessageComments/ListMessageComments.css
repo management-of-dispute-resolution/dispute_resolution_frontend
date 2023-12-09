@@ -1,5 +1,9 @@
 .comments {
-	padding: 3px 110px 71px 350px;
-	margin: 0;
-	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	margin: auto 0; 
+    padding: 40px 110px 150px 350px;
+	row-gap: 40px;
+    box-sizing: border-box;
+	min-height: calc(100vh - 485px);
 }

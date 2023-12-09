@@ -1,16 +1,14 @@
-import { BrowserRouter } from 'react-router-dom';
 import LinkApp from './LinkApp';
 
 export default {
-	title: 'Dispute_Resolution/LinkApp',
+	title: 'Dispute_Resolution/ui-kit/LinkApp',
 	component: LinkApp,
 	tags: ['autodocs'],
 };
 
 const LinkFunction = (args) => (
-	<BrowserRouter>
-		<LinkApp {...args} />
-	</BrowserRouter>
+	<LinkApp {...args} />
+
 );
 
 export const Default = LinkFunction.bind({});

@@ -1,7 +1,6 @@
 .message {
-	margin-top: 40px;
 	display: flex;
-	max-width: 910px;
+	width: 910px;
 }
 
 .message__icon {
@@ -12,6 +11,11 @@
 	justify-content: center;
 	align-items: center;
 	border-radius: 39px;
+}
+
+.message__icon_mediator
+{
+	background: var(--Accent);
 }
 
 .message__icon_letter {
@@ -26,6 +30,11 @@
 
 .message__container {
 	margin-left: 20px;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
+	white-space: pre-wrap;
+	hyphens: auto;
+	max-width: 100%;
 }
 
 .message__heading {
@@ -64,6 +73,20 @@
 	font-style: normal;
 	font-weight: 400;
 	line-height: 150.023%;
+
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	line-clamp: 3; 
+	text-overflow: ellipsis;
+}
+
+.message__text_one-line {
+	-webkit-line-clamp: 1;
+}
+
+.message__text_two-line {
+	-webkit-line-clamp: 2;
 }
 
 .message__list-documents {

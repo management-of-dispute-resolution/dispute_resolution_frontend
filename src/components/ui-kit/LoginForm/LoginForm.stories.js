@@ -6,4 +6,6 @@ export default {
 	component: LoginForm,
 };
 
-export const Default = () => <LoginForm />;
+
+export const Default = () =>
+	<LoginForm />

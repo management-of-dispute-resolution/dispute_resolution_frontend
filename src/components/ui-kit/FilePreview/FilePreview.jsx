@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './FilePreview.css';
-import { ImageConfig } from './config';
+import { ImageConfig } from '../../../config/FileIconConfig';
 
-export const FilePreview = ({ item, onDeleteFile }) => {
+export const FilePreview = ({ item, onDeleteFile, isEditDispute }) => {
 	const { name, type } = item;
 	// Название без расширения
 	const pureName = name.split('.').slice(0, -1).join('.');
@@ -13,12 +13,14 @@ export const FilePreview = ({ item, onDeleteFile }) => {
 	return (
 		<div className="drop-file-preview__item">
 			<div className="drop-file-preview__img-wrapper">
-				<button
-					className="drop-file-preview__delete"
-					type="button"
-					aria-label="Кнопка удаления вложенного файла"
-					onClick={() => onDeleteFile(item)}
-				/>
+				{!isEditDispute && (
+					<button
+						className="drop-file-preview__delete"
+						type="button"
+						aria-label="Кнопка удаления вложенного файла"
+						onClick={() => onDeleteFile(item)}
+					/>
+				)}
 				<img
 					className="drop-file-preview__img"
 					src={ImageConfig[fileType]}
@@ -35,4 +37,5 @@ FilePreview.propTypes = {
 	// eslint-disable-next-line react/forbid-prop-types
 	item: PropTypes.object.isRequired,
 	onDeleteFile: PropTypes.func.isRequired,
+	isEditDispute: PropTypes.bool.isRequired,
 };

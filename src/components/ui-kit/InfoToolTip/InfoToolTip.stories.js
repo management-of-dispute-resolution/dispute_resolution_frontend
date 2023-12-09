@@ -1,7 +1,7 @@
 import { InfoToolTip } from './InfoToolTip';
 
 export default {
-	title: 'Dispute_Resolution/InfoToolTip',
+	title: 'Dispute_Resolution/ui-kit/InfoToolTip',
 	component: InfoToolTip,
 };
 

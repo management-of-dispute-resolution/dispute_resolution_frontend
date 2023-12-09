@@ -1,7 +1,7 @@
 import Button from './Button';
 
 export default {
-	title: 'Dispute_Resolution/Button',
+	title: 'Dispute_Resolution/ui-kit/Button',
 	component: Button,
 	tags: ['autodocs'],
 	argTypes: {

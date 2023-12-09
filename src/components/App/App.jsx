@@ -5,6 +5,7 @@ import { Layout } from '../Layout/Layout';
 import { LoginPage } from '../Pages/LoginPage/LoginPage';
 import PageNotFound from '../Pages/PageNotFound/PageNotFound';
 import { RequireAuth } from '../../hok/RequireAuth';
+import NoRequireAuth from '../../hok/NoRequireAuth';
 import { DisputesPage } from '../Pages/DisputesPage/DisputesPage';
 import CreateDisputePage from '../Pages/CreateDisputePage/CreateDisputePage';
 import CheckLogin from '../Pages/CheckLogin/CheckLogin';
@@ -18,9 +19,6 @@ export default function App() {
 		navigate('/create-dispute');
 	};
 
-	const handleChangePassword = () => {
-		console.log('Тут будет форма изменения пароля');
-	};
 
 	return (
 		<Routes>
@@ -29,12 +27,13 @@ export default function App() {
 				element={
 					<Layout
 						handleCreateDispute={handleCreateDispute}
-						handleChangePassword={handleChangePassword}
 					/>
 				}
 			>
 				<Route index element={<CheckLogin />} />
-				<Route path="/login" element={<LoginPage />} />
+				<Route path="/login" element={<NoRequireAuth>
+					<LoginPage />
+				</NoRequireAuth>}/>
 				<Route
 					path="/disputes"
 					element={

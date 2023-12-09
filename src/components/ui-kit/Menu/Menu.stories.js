@@ -2,7 +2,7 @@ import Menu from './Menu';
 import Button from '../Button/Button';
 
 export default {
-	title: 'Dispute_Resolution/Menu',
+	title: 'Dispute_Resolution/ui-kit/Menu',
 	component: Menu,
 	tags: ['autodocs'],
 	argTypes: {

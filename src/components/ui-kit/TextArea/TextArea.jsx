@@ -1,6 +1,6 @@
 import './TextArea.css';
 import PropTypes from 'prop-types';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 function TextArea({
 	name,
@@ -10,10 +10,11 @@ function TextArea({
 	disabled,
 	error,
 	srartRows,
-
-	// expand
+	handleChange,
+	children,
+	...props
 }) {
-	const [val, setVal] = useState('');
+	
 	const textAreaRef = useRef(null);
 
 	const resizeTextArea = () => {
@@ -21,11 +22,7 @@ function TextArea({
 		textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
 	};
 
-	useEffect(resizeTextArea, [val]);
-
-	const handleChange = (e) => {
-		setVal(e.target.value);
-	};
+	useEffect(resizeTextArea, [value]);
 
 	return (
 		<div className="textarea">
@@ -43,11 +40,13 @@ function TextArea({
 					onChange={handleChange}
 					disabled={disabled}
 					ref={textAreaRef}
-					value={val}
+					value={value}
 					rows={srartRows}
+					{...props}
 				>
-					{value}
+					{value || ''}
 				</textarea>
+				{children}
 				{error && <span className="textarea__error">{error}</span>}
 			</div>
 		</div>
@@ -63,6 +62,8 @@ TextArea.propTypes = {
 	disabled: PropTypes.bool,
 	error: PropTypes.string,
 	srartRows: PropTypes.number,
+	handleChange: PropTypes.func,
+	children: PropTypes.node
 	// expand: PropTypes.bool,
 };
 
@@ -74,5 +75,7 @@ TextArea.defaultProps = {
 	disabled: false,
 	error: 'zzzzzzzz',
 	srartRows: 2,
+	handleChange: () => {},
+	children: undefined
 	// expand: true,
 };
