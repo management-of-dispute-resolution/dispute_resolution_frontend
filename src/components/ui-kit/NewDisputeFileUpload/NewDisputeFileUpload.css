@@ -1,0 +1,52 @@
+.new-dispute-file {
+	min-height: 104px;
+}
+
+.drop-file-preview {
+	display: flex;
+}
+
+.new-dispute-file__drop-zone {
+	box-sizing: border-box;
+	max-height: 109px;
+	padding: 16px 0;
+	border: 1px dashed #000;
+	border-radius: 10px;
+	position: relative;
+	text-align: center;
+}
+
+.new-dispute-file__drop-zone-input {
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+}
+
+.new-dispute-file__drop-zone-logo {
+	width: 23px;
+	height: 23px;
+	margin-bottom: 16px;
+}
+
+.new-dispute-file__drop-zone-text {
+	margin: 0;
+	font-style: 'Inter', sans-serif;
+	font-weight: 400;
+	font-size: 12px;
+	line-height: 14.5px;
+	color: var(--Stroke);
+	margin-bottom: 8px;
+}
+
+.new-dispute-file__drop-zone-error {
+	color: red;
+}
+
+.new-dispute-file__error {
+	display: flex;
+	flex-direction: column;
+}
